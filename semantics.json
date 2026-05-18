@@ -54,25 +54,52 @@
             "description": "Optional. Select an image to use as background for your drag and drop task."
           },
           {
+            "name": "taskSizeScale",
+            "type": "select",
+            "label": "Task size scale",
+            "importance": "low",
+            "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0 (2:1 ratio).",
+            "default": "1",
+            "options": [
+              {
+                "value": "1",
+                "label": "×1.0 (620 × 310 px)"
+              },
+              {
+                "value": "1.25",
+                "label": "×1.25 (775 × 388 px)"
+              },
+              {
+                "value": "1.5",
+                "label": "×1.5 (930 × 465 px)"
+              },
+              {
+                "value": "1.75",
+                "label": "×1.75 (1085 × 543 px)"
+              },
+              {
+                "value": "2",
+                "label": "×2.0 (1240 × 620 px)"
+              }
+            ]
+          },
+          {
             "name": "size",
             "type": "group",
-            "widget": "dimensions",
-            "label": "Task size",
+            "widget": "none",
             "importance": "low",
-            "description": "Specify how large (in px) the play area should be.",
-            "default": {
-              "width": 620,
-              "height": 310,
-              "field": "background"
-            },
             "fields": [
               {
                 "name": "width",
-                "type": "number"
+                "type": "number",
+                "widget": "none",
+                "default": 620
               },
               {
                 "name": "height",
-                "type": "number"
+                "type": "number",
+                "widget": "none",
+                "default": 310
               }
             ]
           }

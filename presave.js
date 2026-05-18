@@ -1,6 +1,68 @@
 var H5PEditor = H5PEditor || {};
 var H5PPresave = H5PPresave || {};
 
+var TASK_SIZE_BASE_WIDTH = 620;
+var TASK_SIZE_BASE_HEIGHT = 310;
+var TASK_SIZE_SCALE_STEPS = [1, 1.25, 1.5, 1.75, 2];
+
+/**
+ * @param {number|string} value
+ * @returns {number}
+ */
+function normalizeTaskSizeScale(value) {
+  var scale = parseFloat(value);
+  var closest;
+  var minDiff;
+  var i;
+  var diff;
+
+  if (isNaN(scale)) {
+    return 1;
+  }
+
+  closest = TASK_SIZE_SCALE_STEPS[0];
+  minDiff = Math.abs(scale - closest);
+
+  for (i = 1; i < TASK_SIZE_SCALE_STEPS.length; i++) {
+    diff = Math.abs(scale - TASK_SIZE_SCALE_STEPS[i]);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = TASK_SIZE_SCALE_STEPS[i];
+    }
+  }
+
+  return closest;
+}
+
+/**
+ * @param {Object} settings
+ */
+function applyTaskSizeScaleToSettings(settings) {
+  var scale;
+
+  if (!settings) {
+    return;
+  }
+
+  if (!settings.size) {
+    settings.size = {};
+  }
+
+  if (settings.taskSizeScale !== undefined && settings.taskSizeScale !== null && settings.taskSizeScale !== '') {
+    scale = normalizeTaskSizeScale(settings.taskSizeScale);
+  }
+  else if (settings.size.width) {
+    scale = normalizeTaskSizeScale(settings.size.width / TASK_SIZE_BASE_WIDTH);
+  }
+  else {
+    scale = 1;
+  }
+
+  settings.taskSizeScale = scale;
+  settings.size.width = Math.round(TASK_SIZE_BASE_WIDTH * scale);
+  settings.size.height = Math.round(TASK_SIZE_BASE_HEIGHT * scale);
+}
+
 /**
  * Resolve the presave logic for the content type Drag Question
  *
@@ -12,6 +74,10 @@ H5PPresave['H5P.DragQuestionCFRD'] = function (content, finished) {
   var presave = H5PEditor.Presave;
   var score = 0;
   var correctDropZones = [];
+
+  if (content.question && content.question.settings) {
+    applyTaskSizeScaleToSettings(content.question.settings);
+  }
 
   if (isContentInvalid()) {
     throw new presave.exceptions.InvalidContentSemanticsException('Invalid Drag and Drop Error');

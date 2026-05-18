@@ -26,9 +26,10 @@
               "description": "Opcional. Selecciona una imagen para usar como fondo para tu tarea de arrastrar y soltar."
             },
             {
-              "label": "Tamaño de la tarea",
-              "description": "Especifica las dimensiones (en px) del área de juego."
-            }
+              "label": "Escala del tamaño de la tarea",
+              "description": "Escala el lienzo de forma proporcional. El tamaño base es 620×310 px en ×1.0 (relación 2:1)."
+            },
+            {}
           ]
         },
         {

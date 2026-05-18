@@ -179,6 +179,56 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
           }
 
           finished(null, parameters);
+        },
+        4: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var scaleSteps = [1, 1.25, 1.5, 1.75, 2];
+          var baseWidth = 620;
+          var baseHeight = 310;
+          var scale;
+          var closest;
+          var minDiff;
+          var i;
+          var diff;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.size) {
+            settings.size = { width: baseWidth, height: baseHeight };
+          }
+
+          if (settings.taskSizeScale !== undefined && settings.taskSizeScale !== null && settings.taskSizeScale !== '') {
+            scale = parseFloat(settings.taskSizeScale);
+          }
+          else if (settings.size.width) {
+            scale = settings.size.width / baseWidth;
+          }
+          else {
+            scale = 1;
+          }
+
+          if (isNaN(scale)) {
+            scale = 1;
+          }
+
+          closest = scaleSteps[0];
+          minDiff = Math.abs(scale - closest);
+          for (i = 1; i < scaleSteps.length; i++) {
+            diff = Math.abs(scale - scaleSteps[i]);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closest = scaleSteps[i];
+            }
+          }
+
+          settings.taskSizeScale = closest;
+          settings.size.width = Math.round(baseWidth * closest);
+          settings.size.height = Math.round(baseHeight * closest);
+
+          finished(null, parameters);
         }
       }
     }

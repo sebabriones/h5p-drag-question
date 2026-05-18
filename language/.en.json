@@ -26,9 +26,10 @@
               "description": "Optional. Select an image to use as background for your drag and drop task."
             },
             {
-              "label": "Task size",
-              "description": "Specify how large (in px) the play area should be."
-            }
+              "label": "Task size scale",
+              "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0 (2:1 ratio)."
+            },
+            {}
           ]
         },
         {

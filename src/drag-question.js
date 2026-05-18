@@ -7,6 +7,7 @@ import Mouse from 'h5p-lib-controls/src/scripts/ui/mouse';
 import DragUtils from './drag-utils';
 import DropZone from './dropzone';
 import Draggable from './draggable';
+import { applyTaskSizeScaleToSettings } from './task-size-scale';
 
 const $ = H5P.jQuery;
 let numInstances = 0;
@@ -45,6 +46,7 @@ function C(options, contentId, contentData) {
     question: {
       settings: {
         questionTitle: (this.contentData && this.contentData.metadata && this.contentData.metadata.title) ? this.contentData.metadata.title : 'Drag and drop',
+        taskSizeScale: 1,
         size: {
           width: 620,
           height: 310
@@ -74,6 +76,10 @@ function C(options, contentId, contentData) {
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
     submit: 'Submit',
   }, options);
+
+  if (this.options.question && this.options.question.settings) {
+    applyTaskSizeScaleToSettings(this.options.question.settings);
+  }
 
   // If single point is enabled, it makes no sense displaying
   // the score explanation. Note: In the editor, the score explanation is hidden

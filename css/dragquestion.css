@@ -287,3 +287,14 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   top: -0.15em;
   right: -0.15em;
 }
+
+/* Editor wizard icons (H5P.DragQuestionCFRD uses h5p-dragquestioncfrd-editor class) */
+.h5p-dragquestioncfrd-editor .field.wizard .h5peditor-tab-settings:before {
+  font-family: 'H5PFontIcons';
+  content: '\e916';
+}
+
+.h5p-dragquestioncfrd-editor .field.wizard .h5peditor-tab-task:before {
+  font-family: 'H5PFontIcons';
+  content: '\e991';
+}

@@ -26,10 +26,17 @@
               "description": "Optional. Select an image to use as background for your drag and drop task."
             },
             {
-              "label": "Task size scale",
-              "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0 (2:1 ratio)."
+              "label": "Use proportional task size scale",
+              "description": "When enabled, width and height are set from the scale selector (2:1 ratio). When disabled, you can enter any width and height."
             },
-            {}
+            {
+              "label": "Task size scale",
+              "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0."
+            },
+            {
+              "label": "Task size",
+              "description": "Play area size in pixels (width × height)."
+            }
           ]
         },
         {

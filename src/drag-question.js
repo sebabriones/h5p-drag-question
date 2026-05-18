@@ -46,6 +46,7 @@ function C(options, contentId, contentData) {
     question: {
       settings: {
         questionTitle: (this.contentData && this.contentData.metadata && this.contentData.metadata.title) ? this.contentData.metadata.title : 'Drag and drop',
+        useScaledTaskSize: true,
         taskSizeScale: 1,
         size: {
           width: 620,

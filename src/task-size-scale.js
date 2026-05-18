@@ -50,13 +50,34 @@ export function deriveTaskSizeScaleFromWidth(width) {
  *
  * @param {Object} settings question.settings
  */
+/**
+ * @param {Object} settings question.settings
+ * @returns {boolean}
+ */
+export function usesScaledTaskSize(settings) {
+  return settings && settings.useScaledTaskSize !== false;
+}
+
 export function applyTaskSizeScaleToSettings(settings) {
   if (!settings) {
     return;
   }
 
   if (!settings.size) {
-    settings.size = {};
+    settings.size = {
+      width: TASK_SIZE_BASE_WIDTH,
+      height: TASK_SIZE_BASE_HEIGHT
+    };
+  }
+
+  if (!usesScaledTaskSize(settings)) {
+    if (!settings.size.width) {
+      settings.size.width = TASK_SIZE_BASE_WIDTH;
+    }
+    if (!settings.size.height) {
+      settings.size.height = TASK_SIZE_BASE_HEIGHT;
+    }
+    return;
   }
 
   var scale;

@@ -26,10 +26,17 @@
               "description": "Opcional. Selecciona una imagen para usar como fondo para tu tarea de arrastrar y soltar."
             },
             {
-              "label": "Escala del tamaño de la tarea",
-              "description": "Escala el lienzo de forma proporcional. El tamaño base es 620×310 px en ×1.0 (relación 2:1)."
+              "label": "Usar escala proporcional del tamaño",
+              "description": "Si está activo, el ancho y el alto se definen con el selector de escala (relación 2:1). Si no, puedes ingresar cualquier ancho y alto."
             },
-            {}
+            {
+              "label": "Escala del tamaño de la tarea",
+              "description": "Escala el lienzo de forma proporcional. El tamaño base es 620×310 px en ×1.0."
+            },
+            {
+              "label": "Tamaño de la tarea",
+              "description": "Tamaño del área de juego en píxeles (ancho × alto)."
+            }
           ]
         },
         {

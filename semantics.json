@@ -44,6 +44,14 @@
         "type": "group",
         "label": "Settings",
         "importance": "high",
+        "default": {
+          "useScaledTaskSize": true,
+          "taskSizeScale": "1",
+          "size": {
+            "width": 620,
+            "height": 310
+          }
+        },
         "fields": [
           {
             "name": "background",
@@ -54,11 +62,20 @@
             "description": "Optional. Select an image to use as background for your drag and drop task."
           },
           {
+            "name": "useScaledTaskSize",
+            "type": "boolean",
+            "label": "Use proportional task size scale",
+            "importance": "low",
+            "description": "When enabled, width and height are set from the scale selector (2:1 ratio). When disabled, you can enter any width and height.",
+            "default": true
+          },
+          {
             "name": "taskSizeScale",
             "type": "select",
+            "widget": "dragQuestionTaskSizeScale",
             "label": "Task size scale",
             "importance": "low",
-            "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0 (2:1 ratio).",
+            "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0.",
             "default": "1",
             "options": [
               {
@@ -86,20 +103,22 @@
           {
             "name": "size",
             "type": "group",
-            "widget": "none",
+            "widget": "dimensions",
+            "label": "Task size",
             "importance": "low",
+            "description": "Play area size in pixels (width × height).",
+            "default": {
+              "width": 620,
+              "height": 310
+            },
             "fields": [
               {
                 "name": "width",
-                "type": "number",
-                "widget": "none",
-                "default": 620
+                "type": "number"
               },
               {
                 "name": "height",
-                "type": "number",
-                "widget": "none",
-                "default": 310
+                "type": "number"
               }
             ]
           }

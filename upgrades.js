@@ -229,6 +229,15 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
           settings.size.height = Math.round(baseHeight * closest);
 
           finished(null, parameters);
+        },
+        5: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+
+          if (settings && settings.useScaledTaskSize === undefined) {
+            settings.useScaledTaskSize = true;
+          }
+
+          finished(null, parameters);
         }
       }
     }

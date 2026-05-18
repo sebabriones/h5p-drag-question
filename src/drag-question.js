@@ -66,7 +66,8 @@ function C(options, contentId, contentData) {
       dropZoneHighlighting: 'dragging',
       autoAlignSpacing: 2,
       showScorePoints: true,
-      showTitle: false
+      showTitle: false,
+      shuffleInitialPositions: false
     },
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
@@ -110,6 +111,31 @@ function C(options, contentId, contentData) {
   // Create map over correct drop zones for elements
   var task = this.options.question.task;
   this.correctDZs = [];
+
+  if (this.options.behaviour.shuffleInitialPositions) {
+    var hasPreviousState = contentData &&
+      contentData.previousState &&
+      contentData.previousState.answers &&
+      contentData.previousState.answers.length;
+
+    if (!hasPreviousState && task.elements && task.elements.length > 1) {
+      var indices = [];
+      for (var p = 0; p < task.elements.length; p++) {
+        indices.push(p);
+      }
+      fisherYatesShuffle(indices);
+
+      var positions = indices.map(function (idx) {
+        return { x: task.elements[idx].x, y: task.elements[idx].y };
+      });
+
+      for (var s = 0; s < task.elements.length; s++) {
+        task.elements[s].x = positions[s].x;
+        task.elements[s].y = positions[s].y;
+      }
+    }
+  }
+
   for (i = 0; i < task.dropZones.length; i++) {
     dropZonesWithoutElements.push(true); // All true by default
 
@@ -1203,4 +1229,20 @@ var getControls = function (draggables, dropZones, noDropzone) {
   return controls;
 };
 
-H5P.DragQuestion = C;
+H5P.DragQuestionCFRD = C;
+
+/**
+ * Fisher-Yates shuffle (in-place).
+ *
+ * @param {number[]} array
+ * @returns {number[]}
+ */
+function fisherYatesShuffle(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+  return array;
+}

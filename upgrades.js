@@ -1,6 +1,6 @@
 var H5PUpgrades = H5PUpgrades || {};
 
-H5PUpgrades['H5P.DragQuestion'] = (function () {
+H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
   return {
     1: {
       1: {

@@ -199,6 +199,10 @@
         {
           "label": "Show Title",
           "description": "Uncheck this option if you do not want this title to be displayed. The title will only be displayed in summaries, statistics etc."
+        },
+        {
+          "label": "Shuffle initial positions",
+          "description": "Randomize the starting positions of elements on the canvas. Correct answers and drop zones are not changed."
         }
       ]
     },

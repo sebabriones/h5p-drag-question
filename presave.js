@@ -8,7 +8,7 @@ var H5PPresave = H5PPresave || {};
  * @param finished
  * @constructor
  */
-H5PPresave['H5P.DragQuestion'] = function (content, finished) {
+H5PPresave['H5P.DragQuestionCFRD'] = function (content, finished) {
   var presave = H5PEditor.Presave;
   var score = 0;
   var correctDropZones = [];

@@ -1,25 +1,17 @@
 {
-  "name": "h5p-drag-question",
-  "version": "1.10.1",
-  "description": "Drag and drop the elements into the correct drop zones.",
-  "main": "h5p-drag-question.js",
+  "name": "h5p-drag-question-cfrd",
+  "version": "1.0.0",
+  "description": "Drag and drop with optional shuffle of initial positions (CFRD).",
+  "main": "h5p-drag-question-cfrd.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV='development' webpack",
     "build": "cross-env NODE_ENV='production' webpack",
     "watch": "webpack --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/h5p/h5p-drag-question.git"
-  },
   "keywords": [],
-  "author": "Joubel",
+  "author": "CFRD",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/h5p/h5p-drag-question/issues"
-  },
-  "homepage": "https://github.com/h5p/h5p-drag-question#readme",
   "devDependencies": {
     "@babel/cli": "^7.18.6",
     "@babel/core": "^7.18.6",

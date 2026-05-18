@@ -1,25 +1,25 @@
 {
-  "title": "Drag and Drop",
-  "description": "Drag and drop the elements into the correct drop zones.",
+  "title": "Drag and Drop (CFRD)",
+  "description": "Drag and drop the elements into the correct drop zones. Supports shuffling initial positions.",
   "contentType": "Question",
   "majorVersion": 1,
-  "minorVersion": 14,
-  "patchVersion": 23,
+  "minorVersion": 0,
+  "patchVersion": 0,
   "embedTypes": [
     "iframe"
   ],
   "runnable": 1,
   "fullscreen": 0,
-  "author": "Joubel",
+  "author": "CFRD",
   "coreApi": {
     "majorVersion": 1,
     "minorVersion": 23
   },
   "license": "MIT",
-  "machineName": "H5P.DragQuestion",
+  "machineName": "H5P.DragQuestionCFRD",
   "preloadedJs": [
     {
-      "path": "h5p-drag-question.js"
+      "path": "h5p-drag-question-cfrd.js"
     }
   ],
   "preloadedCss": [

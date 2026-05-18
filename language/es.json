@@ -199,6 +199,10 @@
         {
           "label": "Mostrar Título",
           "description": "Desactivar esta opción si no quieres que se muestre este título. El título solamente se mostrará en resúmenes, estadísticas, etc."
+        },
+        {
+          "label": "Mezclar posiciones iniciales",
+          "description": "Aleatoriza las posiciones de inicio de los elementos en el lienzo. No modifica las respuestas correctas ni las zonas de colocación."
         }
       ]
     },

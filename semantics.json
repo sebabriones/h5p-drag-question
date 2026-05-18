@@ -438,9 +438,18 @@
         ]
       },
       {
-        "name": "autoAlignSpacing",
+        "name": "autoAlignSpacingX",
         "type": "number",
-        "label": "Spacing for Auto-Align (in px)",
+        "label": "Spacing for Auto-Align, horizontal (in px)",
+        "importance": "low",
+        "min": 0,
+        "default": 2,
+        "optional": true
+      },
+      {
+        "name": "autoAlignSpacingY",
+        "type": "number",
+        "label": "Spacing for Auto-Align, vertical (in px)",
         "importance": "low",
         "min": 0,
         "default": 2,

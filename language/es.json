@@ -186,7 +186,10 @@
           ]
         },
         {
-          "label": "Espaciado para auto-alineado (en px)"
+          "label": "Espaciado horizontal para auto-alineado (en px)"
+        },
+        {
+          "label": "Espaciado vertical para auto-alineado (en px)"
         },
         {
           "label": "Habilitar Pantalla Completa",

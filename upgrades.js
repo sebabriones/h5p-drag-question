@@ -106,7 +106,9 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
         delete parameters.backgroundOpacity;
         if (parameters.question !== undefined && parameters.question.settings !== undefined) {
           parameters.behaviour.dropZoneHighlighting = parameters.question.settings.dropZoneHighlighting;
-          parameters.behaviour.autoAlignSpacing = parameters.question.settings.autoAlignSpacing;
+          var legacyAutoAlignSpacing = parameters.question.settings.autoAlignSpacing;
+          parameters.behaviour.autoAlignSpacingX = legacyAutoAlignSpacing;
+          parameters.behaviour.autoAlignSpacingY = legacyAutoAlignSpacing;
           parameters.behaviour.enableFullScreen = parameters.question.settings.enableFullScreen;
           delete parameters.question.settings.dropZoneHighlighting;
           delete parameters.question.settings.autoAlignSpacing;
@@ -158,6 +160,26 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
         }
 
         finished(null, parameters, extras);
+      },
+      /**
+       * Split legacy autoAlignSpacing into horizontal and vertical values.
+       */
+      0: {
+        2: function (parameters, finished) {
+          if (parameters.behaviour) {
+            var legacy = parameters.behaviour.autoAlignSpacing;
+
+            if (parameters.behaviour.autoAlignSpacingX === undefined) {
+              parameters.behaviour.autoAlignSpacingX = legacy !== undefined ? legacy : 2;
+            }
+            if (parameters.behaviour.autoAlignSpacingY === undefined) {
+              parameters.behaviour.autoAlignSpacingY = legacy !== undefined ? legacy : 2;
+            }
+            delete parameters.behaviour.autoAlignSpacing;
+          }
+
+          finished(null, parameters);
+        }
       }
     }
   };

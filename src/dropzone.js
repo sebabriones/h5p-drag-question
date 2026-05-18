@@ -244,8 +244,8 @@ export default class DropZone {
 
     // Calcuate borders and spacing values in percetage
     var spacing = {
-      x: (self.autoAlignable.spacing / self.autoAlignable.size.width) * 100,
-      y: (self.autoAlignable.spacing / self.autoAlignable.size.height) * 100
+      x: (self.autoAlignable.spacing.x / self.autoAlignable.size.width) * 100,
+      y: (self.autoAlignable.spacing.y / self.autoAlignable.size.height) * 100
     };
 
     // Determine coordinates for first 'spot'
@@ -288,12 +288,12 @@ export default class DropZone {
       self.trigger('elementaligned', $alignable);
 
       // Update horizontal space left + next position
-      var spaceDiffX = (alignableSize.width + self.autoAlignable.spacing);
+      var spaceDiffX = (alignableSize.width + self.autoAlignable.spacing.x);
       spaceLeft.x -= spaceDiffX;
       pos.x += (spaceDiffX / containerSize.width) * 100;
 
       // Keep track of the highest element in this row
-      var spaceDiffY = (alignableSize.height + self.autoAlignable.spacing);
+      var spaceDiffY = (alignableSize.height + self.autoAlignable.spacing.y);
       if (spaceDiffY > currentRowHeight) {
         currentRowHeight = spaceDiffY;
       }

@@ -64,7 +64,8 @@ function C(options, contentId, contentData) {
       applyPenalties: true,
       enableScoreExplanation: true,
       dropZoneHighlighting: 'dragging',
-      autoAlignSpacing: 2,
+      autoAlignSpacingX: 2,
+      autoAlignSpacingY: 2,
       showScorePoints: true,
       showTitle: false,
       shuffleInitialPositions: false
@@ -247,7 +248,7 @@ function C(options, contentId, contentData) {
 
     dropZone.autoAlign = {
       enabled: dropZone.autoAlign,
-      spacing: self.options.behaviour.autoAlignSpacing,
+      spacing: getAutoAlignSpacing(self.options.behaviour),
       size: self.options.question.settings.size
     };
 
@@ -1228,6 +1229,29 @@ var getControls = function (draggables, dropZones, noDropzone) {
 
   return controls;
 };
+
+/**
+ * Resolve auto-align spacing in pixels (supports legacy single value).
+ *
+ * @param {Object} behaviour
+ * @returns {{x: number, y: number}}
+ */
+function getAutoAlignSpacing(behaviour) {
+  var fallback = 2;
+
+  if (behaviour === undefined) {
+    return { x: fallback, y: fallback };
+  }
+
+  if (behaviour.autoAlignSpacing !== undefined) {
+    fallback = behaviour.autoAlignSpacing;
+  }
+
+  return {
+    x: behaviour.autoAlignSpacingX !== undefined ? behaviour.autoAlignSpacingX : fallback,
+    y: behaviour.autoAlignSpacingY !== undefined ? behaviour.autoAlignSpacingY : fallback
+  };
+}
 
 H5P.DragQuestionCFRD = C;
 

@@ -36,6 +36,62 @@
             {
               "label": "Tamaño de la tarea",
               "description": "Tamaño del área de juego en píxeles (ancho × alto)."
+            },
+            {
+              "label": "Apariencia",
+              "fields": [
+                {
+                  "label": "Color de fondo del lienzo"
+                },
+                {
+                  "label": "Color de fondo de la zona de colocación"
+                },
+                {
+                  "label": "Color del borde de la zona de colocación"
+                },
+                {
+                  "label": "Color de fondo de la zona al pasar el elemento"
+                },
+                {
+                  "label": "Color de fondo del elemento arrastrable"
+                },
+                {
+                  "label": "Color del borde del elemento arrastrable"
+                },
+                {
+                  "label": "Color de fondo del elemento al pasar el cursor"
+                },
+                {
+                  "label": "Color del borde del elemento al pasar el cursor"
+                },
+                {
+                  "label": "Color de fondo del elemento en la zona"
+                },
+                {
+                  "label": "Color del borde del elemento en la zona"
+                },
+                {
+                  "label": "Color del texto del elemento en la zona"
+                },
+                {
+                  "label": "Color de fondo del elemento correcto"
+                },
+                {
+                  "label": "Color del borde del elemento correcto"
+                },
+                {
+                  "label": "Color del texto del elemento correcto"
+                },
+                {
+                  "label": "Color de fondo del elemento incorrecto"
+                },
+                {
+                  "label": "Color del borde del elemento incorrecto"
+                },
+                {
+                  "label": "Color del texto del elemento incorrecto"
+                }
+              ]
             }
           ]
         },
@@ -82,6 +138,42 @@
                   },
                   {
                     "label": "Mostrar etiqueta"
+                  },
+                  {
+                    "label": "Posición de la etiqueta",
+                    "description": "Dónde aparece la etiqueta visible. Las posiciones internas se superponen a la zona sin cambiar su tamaño.",
+                    "options": [
+                      {
+                        "label": "Fuera arriba"
+                      },
+                      {
+                        "label": "Dentro arriba izquierda"
+                      },
+                      {
+                        "label": "Dentro arriba centro"
+                      },
+                      {
+                        "label": "Dentro arriba derecha"
+                      },
+                      {
+                        "label": "Dentro centro izquierda"
+                      },
+                      {
+                        "label": "Dentro centro"
+                      },
+                      {
+                        "label": "Dentro centro derecha"
+                      },
+                      {
+                        "label": "Dentro abajo izquierda"
+                      },
+                      {
+                        "label": "Dentro abajo centro"
+                      },
+                      {
+                        "label": "Dentro abajo derecha"
+                      }
+                    ]
                   },
                   {},
                   {},

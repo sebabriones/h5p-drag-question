@@ -238,6 +238,87 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
           }
 
           finished(null, parameters);
+        },
+        6: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var task = parameters.question && parameters.question.task;
+          var scale;
+
+          if (!parameters.question) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!task) {
+            parameters.question.task = {
+              elements: [],
+              dropZones: []
+            };
+          }
+          else {
+            if (!Array.isArray(task.elements)) {
+              task.elements = [];
+            }
+            if (!Array.isArray(task.dropZones)) {
+              task.dropZones = [];
+            }
+          }
+
+          if (settings && settings.taskSizeScale !== undefined && settings.taskSizeScale !== null && settings.taskSizeScale !== '') {
+            scale = parseFloat(settings.taskSizeScale);
+            if (!isNaN(scale)) {
+              settings.taskSizeScale = String(scale);
+            }
+          }
+
+          finished(null, parameters);
+        },
+        7: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.appearance) {
+            settings.appearance = {
+              canvasBackground: '#ffffff',
+              dropZoneBackground: '#f5f5f5',
+              dropZoneBorder: '#666666',
+              dropZoneHoverBackground: '#edd6e9',
+              draggableBackground: '#dddddd',
+              draggableBorder: '#c6c6c6',
+              draggableHoverBackground: '#edd6e9',
+              draggableHoverBorder: '#d4bed8',
+              draggableDroppedBackground: '#cee0f4',
+              draggableDroppedBorder: '#a9c3d0',
+              draggableDroppedColor: '#1a4473',
+              draggableCorrectBackground: '#9dd8bb',
+              draggableCorrectBorder: '#9dd8bb',
+              draggableCorrectColor: '#255c41',
+              draggableWrongBackground: '#f7d0d0',
+              draggableWrongBorder: '#f7d0d0',
+              draggableWrongColor: '#b71c1c'
+            };
+          }
+
+          finished(null, parameters);
+        },
+        8: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              if (!dropZone.labelPosition) {
+                dropZone.labelPosition = 'outside-top';
+              }
+            });
+          }
+
+          finished(null, parameters);
         }
       }
     }

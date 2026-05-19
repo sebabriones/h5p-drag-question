@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV='development' webpack",
     "build": "cross-env NODE_ENV='production' webpack",
+    "sync:lumi": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-lumi.ps1",
+    "deploy:lumi": "npm run build && npm run sync:lumi",
     "watch": "webpack --watch"
   },
   "keywords": [],

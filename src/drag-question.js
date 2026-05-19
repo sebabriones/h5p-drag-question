@@ -8,6 +8,12 @@ import DragUtils from './drag-utils';
 import DropZone from './dropzone';
 import Draggable from './draggable';
 import { applyTaskSizeScaleToSettings } from './task-size-scale';
+import {
+  applyAppearanceVars,
+  applyCanvasAppearance,
+  getAppearanceFromSettings,
+  scheduleCanvasAppearance
+} from './appearance';
 
 const $ = H5P.jQuery;
 let numInstances = 0;
@@ -311,6 +317,28 @@ C.prototype = Object.create(H5P.Question.prototype);
 C.prototype.constructor = C;
 
 /**
+ * Attach to DOM, then apply canvas appearance on the full question wrapper.
+ *
+ * @param {H5P.jQuery} $container
+ * @returns {H5P.DragQuestionCFRD}
+ */
+C.prototype.attach = function ($container) {
+  var self = this;
+  var appearance = getAppearanceFromSettings(self.options.question.settings);
+  var result = H5P.Question.prototype.attach.call(self, $container);
+
+  applyAppearanceVars($container, appearance);
+  applyCanvasAppearance($container, appearance);
+
+  if (self.$container && self.$container.length) {
+    applyAppearanceVars(self.$container, appearance);
+    scheduleCanvasAppearance(self.$container, appearance);
+  }
+
+  return result;
+};
+
+/**
  * Registers this question type's DOM elements before they are attached.
  * Called from H5P.Question.
  */
@@ -340,6 +368,11 @@ C.prototype.registerDomElements = function () {
   self.setContent(self.createQuestionContent(), {
     'class': classes
   });
+
+  scheduleCanvasAppearance(
+    self.$container,
+    getAppearanceFromSettings(self.options.question.settings)
+  );
 
   // First we check if full screen is supported
   if (H5P.canHasFullScreen !== false && this.options.behaviour.enableFullScreen) {
@@ -561,6 +594,8 @@ C.prototype.createQuestionContent = function () {
   // might have done so before.
 
   this.$container = $('<div class="h5p-inner" role="application" aria-labelledby="dq-intro-' + numInstances + '"></div>');
+  applyAppearanceVars(this.$container, getAppearanceFromSettings(this.options.question.settings));
+
   if (this.options.question.settings.background !== undefined) {
     this.$container.css('backgroundImage', 'url("' + H5P.getPath(this.options.question.settings.background.path, this.id) + '")');
   }

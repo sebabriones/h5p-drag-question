@@ -75,9 +75,35 @@ function applyTaskSizeScaleToSettings(settings) {
     scale = 1;
   }
 
-  settings.taskSizeScale = scale;
+  settings.taskSizeScale = String(scale);
   settings.size.width = Math.round(TASK_SIZE_BASE_WIDTH * scale);
   settings.size.height = Math.round(TASK_SIZE_BASE_HEIGHT * scale);
+}
+
+/**
+ * Ensure task group exists for draft saves and preview (Lumi).
+ *
+ * @param {Object} content
+ */
+function ensureQuestionTask(content) {
+  if (!content.question) {
+    content.question = {};
+  }
+
+  if (!content.question.task) {
+    content.question.task = {
+      elements: [],
+      dropZones: []
+    };
+  }
+
+  if (!Array.isArray(content.question.task.elements)) {
+    content.question.task.elements = [];
+  }
+
+  if (!Array.isArray(content.question.task.dropZones)) {
+    content.question.task.dropZones = [];
+  }
 }
 
 /**
@@ -91,6 +117,8 @@ H5PPresave['H5P.DragQuestionCFRD'] = function (content, finished) {
   var presave = H5PEditor.Presave;
   var score = 0;
   var correctDropZones = [];
+
+  ensureQuestionTask(content);
 
   if (content.question && content.question.settings) {
     applyTaskSizeScaleToSettings(content.question.settings);

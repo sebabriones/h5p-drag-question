@@ -83,6 +83,42 @@
                   {
                     "label": "Show label"
                   },
+                  {
+                    "label": "Label position",
+                    "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
+                    "options": [
+                      {
+                        "label": "Outside top"
+                      },
+                      {
+                        "label": "Inside top left"
+                      },
+                      {
+                        "label": "Inside top center"
+                      },
+                      {
+                        "label": "Inside top right"
+                      },
+                      {
+                        "label": "Inside center left"
+                      },
+                      {
+                        "label": "Inside center"
+                      },
+                      {
+                        "label": "Inside center right"
+                      },
+                      {
+                        "label": "Inside bottom left"
+                      },
+                      {
+                        "label": "Inside bottom center"
+                      },
+                      {
+                        "label": "Inside bottom right"
+                      }
+                    ]
+                  },
                   {},
                   {},
                   {},

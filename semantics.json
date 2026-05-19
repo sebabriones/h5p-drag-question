@@ -72,7 +72,6 @@
           {
             "name": "taskSizeScale",
             "type": "select",
-            "widget": "dragQuestionTaskSizeScale",
             "label": "Task size scale",
             "importance": "low",
             "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0.",
@@ -121,16 +120,216 @@
                 "type": "number"
               }
             ]
+          },
+          {
+            "name": "appearance",
+            "type": "group",
+            "label": "Appearance",
+            "importance": "low",
+            "optional": true,
+            "fields": [
+              {
+                "name": "canvasBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Canvas background color",
+                "default": "#ffffff",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "dropZoneBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Drop zone background color",
+                "default": "#f5f5f5",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "dropZoneBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Drop zone border color",
+                "default": "#666666",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "dropZoneHoverBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Drop zone hover background color",
+                "default": "#edd6e9",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable background color",
+                "default": "#dddddd",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable border color",
+                "default": "#c6c6c6",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableHoverBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable hover background color",
+                "default": "#edd6e9",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableHoverBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable hover border color",
+                "default": "#d4bed8",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableDroppedBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable background when dropped",
+                "default": "#cee0f4",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableDroppedBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable border when dropped",
+                "default": "#a9c3d0",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableDroppedColor",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable text color when dropped",
+                "default": "#1a4473",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableCorrectBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable background when correct",
+                "default": "#9dd8bb",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableCorrectBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable border when correct",
+                "default": "#9dd8bb",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableCorrectColor",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable text color when correct",
+                "default": "#255c41",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableWrongBackground",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable background when wrong",
+                "default": "#f7d0d0",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableWrongBorder",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable border when wrong",
+                "default": "#f7d0d0",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              },
+              {
+                "name": "draggableWrongColor",
+                "type": "text",
+                "widget": "colorSelector",
+                "label": "Draggable text color when wrong",
+                "default": "#b71c1c",
+                "optional": true,
+                "spectrum": {
+                  "showInput": true
+                }
+              }
+            ]
           }
         ]
       },
       {
         "name": "task",
         "type": "group",
-        "widget": "dragQuestion",
+        "widget": "dragQuestionCFRD",
         "label": "Task",
         "importance": "high",
         "description": "Start by placing your drop zones.<br/>Next, place your droppable elements and check off the appropriate drop zones.<br/>Last, edit your drop zone again and check off the correct answers.",
+        "default": {
+          "elements": [],
+          "dropZones": []
+        },
         "fields": [
           {
             "name": "elements",
@@ -235,6 +434,65 @@
                   "type": "boolean",
                   "label": "Show label",
                   "importance": "low"
+                },
+                {
+                  "name": "labelPosition",
+                  "type": "select",
+                  "label": "Label position",
+                  "importance": "low",
+                  "default": "outside-top",
+                  "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
+                  "widget": "showWhen",
+                  "showWhen": {
+                    "rules": [
+                      {
+                        "field": "showLabel",
+                        "equals": true
+                      }
+                    ]
+                  },
+                  "options": [
+                    {
+                      "value": "outside-top",
+                      "label": "Outside top"
+                    },
+                    {
+                      "value": "top-left",
+                      "label": "Inside top left"
+                    },
+                    {
+                      "value": "top-center",
+                      "label": "Inside top center"
+                    },
+                    {
+                      "value": "top-right",
+                      "label": "Inside top right"
+                    },
+                    {
+                      "value": "center-left",
+                      "label": "Inside center left"
+                    },
+                    {
+                      "value": "center-center",
+                      "label": "Inside center"
+                    },
+                    {
+                      "value": "center-right",
+                      "label": "Inside center right"
+                    },
+                    {
+                      "value": "bottom-left",
+                      "label": "Inside bottom left"
+                    },
+                    {
+                      "value": "bottom-center",
+                      "label": "Inside bottom center"
+                    },
+                    {
+                      "value": "bottom-right",
+                      "label": "Inside bottom right"
+                    }
+                  ]
                 },
                 {
                   "name": "x",

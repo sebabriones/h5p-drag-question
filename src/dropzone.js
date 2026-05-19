@@ -2,6 +2,32 @@ import DragUtils from './drag-utils';
 
 const $ = H5P.jQuery;
 
+const LABEL_POSITION_DEFAULT = 'outside-top';
+const LABEL_POSITIONS = [
+  'outside-top',
+  'top-left',
+  'top-center',
+  'top-right',
+  'center-left',
+  'center-center',
+  'center-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right'
+];
+
+/**
+ * @param {string} [position]
+ * @returns {string}
+ */
+function normalizeLabelPosition(position) {
+  if (LABEL_POSITIONS.indexOf(position) !== -1) {
+    return position;
+  }
+
+  return LABEL_POSITION_DEFAULT;
+}
+
 export default class DropZone {
 
   /**
@@ -20,6 +46,7 @@ export default class DropZone {
     self.id = id;
     self.showLabel = dropZone.showLabel;
     self.label = dropZone.label;
+    self.labelPosition = normalizeLabelPosition(dropZone.labelPosition);
     self.x = dropZone.x;
     self.y = dropZone.y;
     self.width = dropZone.width;
@@ -46,8 +73,15 @@ export default class DropZone {
     var html = '<div class="h5p-inner"></div>';
     var extraClass = '';
     if (self.showLabel) {
-      html = '<div class="h5p-label">' + self.label + '<span class="h5p-hidden-read"></span></div>' + html;
+      html = '<div class="h5p-label h5p-label-pos-' + self.labelPosition + '">' + self.label + '<span class="h5p-hidden-read"></span></div>' + html;
       extraClass = ' h5p-has-label';
+
+      if (self.labelPosition === 'outside-top') {
+        extraClass += ' h5p-has-label-outside';
+      }
+      else {
+        extraClass += ' h5p-has-label-inside';
+      }
     }
     html = '<span class="h5p-hidden-read">' + (self.l10n.prefix.replace('{num}', self.id + 1)) + (!self.showLabel ? self.label : '') + '</span>' + html;
 
@@ -163,7 +197,18 @@ export default class DropZone {
    * Update the background opacity
    */
   updateBackgroundOpacity() {
-    DragUtils.setOpacity(this.$dropZone.children('.h5p-label'), 'background', this.backgroundOpacity);
+    var $label = this.$dropZone.children('.h5p-label');
+
+    if (this.labelPosition === 'outside-top') {
+      DragUtils.setOpacity($label, 'background', this.backgroundOpacity);
+    }
+    else {
+      $label.css({
+        backgroundColor: '',
+        backgroundImage: ''
+      });
+    }
+
     DragUtils.setOpacity(this.$dropZone.children('.h5p-inner'), 'background', this.backgroundOpacity);
   }
 

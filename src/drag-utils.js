@@ -8,9 +8,53 @@ export default class DragUtils {
    * @param {Number} opacity
    */
   static setElementOpacity($element, opacity) {
-    DragUtils.setOpacity($element, 'borderColor', opacity);
+    if (DragUtils.draggableBordersEnabled($element)) {
+      DragUtils.setOpacity($element, 'borderColor', opacity);
+    }
     DragUtils.setOpacity($element, 'boxShadow', opacity);
-    DragUtils.setOpacity($element, 'background', opacity);
+
+    if (!DragUtils.hasGradientBackground($element)) {
+      DragUtils.setOpacity($element, 'background', opacity);
+    }
+  }
+
+  /**
+   * @param {jQuery} $element
+   * @returns {boolean}
+   */
+  static draggableBordersEnabled($element) {
+    var el;
+    var enabled;
+
+    if (!$element || !$element.length) {
+      return false;
+    }
+
+    el = $element[0];
+
+    if (!el || !window.getComputedStyle) {
+      return false;
+    }
+
+    enabled = window.getComputedStyle(el).getPropertyValue('--dq-draggable-borders-enabled').trim();
+
+    return enabled === '1';
+  }
+
+  /**
+   * @param {jQuery} $element
+   * @returns {boolean}
+   */
+  static hasGradientBackground($element) {
+    var bgImage;
+
+    if (!$element || !$element.length) {
+      return false;
+    }
+
+    bgImage = $element.css('backgroundImage');
+
+    return !!(bgImage && bgImage !== 'none' && bgImage.indexOf('gradient') !== -1);
   }
 
   /**
@@ -22,7 +66,10 @@ export default class DragUtils {
    */
   static setOpacity($element, property, opacity) {
     if (property === 'background') {
-      // Set both color and gradient.
+      if (DragUtils.hasGradientBackground($element)) {
+        return;
+      }
+
       DragUtils.setOpacity($element, 'backgroundColor', opacity);
       DragUtils.setOpacity($element, 'backgroundImage', opacity);
       return;

@@ -140,180 +140,513 @@
                 }
               },
               {
-                "name": "dropZoneBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Drop zone background color",
-                "default": "#f5f5f5",
+                "name": "dropZoneColors",
+                "type": "group",
+                "label": "Drop zone colors",
+                "importance": "low",
                 "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
+                "fields": [
+                  {
+                    "name": "dropZoneBackground",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone background color",
+                    "default": "#f5f5f5",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "dropZoneBorder",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone border color",
+                    "default": "#666666",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "dropZoneHoverBackground",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone hover background color",
+                    "default": "#edd6e9",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "dropZoneHoverBorder",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone hover border color",
+                    "default": "#666666",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "dropZoneLabelColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone label text color",
+                    "default": "#333333",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "zoneIconColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Drop zone icon color",
+                    "default": "#333333",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  }
+                ]
               },
               {
-                "name": "dropZoneBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Drop zone border color",
-                "default": "#666666",
+                "name": "draggableColors",
+                "type": "group",
+                "label": "Draggable element colors",
+                "importance": "low",
                 "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "dropZoneHoverBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Drop zone hover background color",
-                "default": "#edd6e9",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable background color",
-                "default": "#dddddd",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable border color",
-                "default": "#c6c6c6",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableHoverBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable hover background color",
-                "default": "#edd6e9",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableHoverBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable hover border color",
-                "default": "#d4bed8",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableDroppedBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable background when dropped",
-                "default": "#cee0f4",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableDroppedBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable border when dropped",
-                "default": "#a9c3d0",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableDroppedColor",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable text color when dropped",
-                "default": "#1a4473",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableCorrectBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable background when correct",
-                "default": "#9dd8bb",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableCorrectBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable border when correct",
-                "default": "#9dd8bb",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableCorrectColor",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable text color when correct",
-                "default": "#255c41",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableWrongBackground",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable background when wrong",
-                "default": "#f7d0d0",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableWrongBorder",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable border when wrong",
-                "default": "#f7d0d0",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
-              },
-              {
-                "name": "draggableWrongColor",
-                "type": "text",
-                "widget": "colorSelector",
-                "label": "Draggable text color when wrong",
-                "default": "#b71c1c",
-                "optional": true,
-                "spectrum": {
-                  "showInput": true
-                }
+                "fields": [
+                  {
+                    "name": "useGradientBackground",
+                    "type": "boolean",
+                    "label": "Use gradient backgrounds",
+                    "default": false
+                  },
+                  {
+                    "name": "solidBackgrounds",
+                    "type": "group",
+                    "label": "Solid background colors",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": false
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "draggableBackground",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Draggable background color",
+                        "default": "#dddddd",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "draggableHoverBackground",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Draggable hover background color",
+                        "default": "#edd6e9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "draggableDroppedBackground",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Draggable background when dropped",
+                        "default": "#cee0f4",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "draggableCorrectBackground",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Draggable background when correct",
+                        "default": "#9dd8bb",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "draggableWrongBackground",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Draggable background when wrong",
+                        "default": "#f7d0d0",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "gradientBackgrounds",
+                    "type": "group",
+                    "label": "Gradient background colors",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "gradientAngle",
+                        "type": "number",
+                        "label": "Gradient angle",
+                        "description": "Direction in degrees for all draggable background gradients (0 = upward, 180 = downward).",
+                        "default": 180,
+                        "min": 0,
+                        "max": 360,
+                        "unit": "deg"
+                      },
+                      {
+                        "name": "normal",
+                        "type": "group",
+                        "label": "Normal state gradient",
+                        "fields": [
+                          {
+                            "name": "colorStart",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient start color",
+                            "default": "#dddddd",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "colorEnd",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient end color",
+                            "default": "#bbbbbb",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "hover",
+                        "type": "group",
+                        "label": "Hover state gradient",
+                        "fields": [
+                          {
+                            "name": "colorStart",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient start color",
+                            "default": "#edd6e9",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "colorEnd",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient end color",
+                            "default": "#d4bed8",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "dropped",
+                        "type": "group",
+                        "label": "Dropped state gradient",
+                        "fields": [
+                          {
+                            "name": "colorStart",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient start color",
+                            "default": "#cee0f4",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "colorEnd",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient end color",
+                            "default": "#a9c3d0",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "correct",
+                        "type": "group",
+                        "label": "Correct state gradient",
+                        "fields": [
+                          {
+                            "name": "colorStart",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient start color",
+                            "default": "#9dd8bb",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "colorEnd",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient end color",
+                            "default": "#7bc9a8",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "wrong",
+                        "type": "group",
+                        "label": "Wrong state gradient",
+                        "fields": [
+                          {
+                            "name": "colorStart",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient start color",
+                            "default": "#f7d0d0",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "colorEnd",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Gradient end color",
+                            "default": "#e8a8a8",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "useDraggableBorder",
+                    "type": "boolean",
+                    "label": "Use draggable element borders",
+                    "default": false
+                  },
+                  {
+                    "name": "borderSettings",
+                    "type": "group",
+                    "label": "Border settings",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useDraggableBorder",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "borderStyle",
+                        "type": "select",
+                        "label": "Border style",
+                        "default": "solid",
+                        "options": [
+                          {
+                            "value": "solid",
+                            "label": "Solid"
+                          },
+                          {
+                            "value": "dashed",
+                            "label": "Dashed"
+                          },
+                          {
+                            "value": "dotted",
+                            "label": "Dotted"
+                          },
+                          {
+                            "value": "double",
+                            "label": "Double"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "borderWidth",
+                        "type": "number",
+                        "label": "Border width",
+                        "description": "Thickness in em units (scales with element size).",
+                        "default": 0.1,
+                        "min": 0,
+                        "max": 0.5,
+                        "decimals": 2,
+                        "unit": "em"
+                      },
+                      {
+                        "name": "borderColors",
+                        "type": "group",
+                        "label": "Border colors by state",
+                        "fields": [
+                          {
+                            "name": "draggableBorder",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Draggable border color",
+                            "default": "#c6c6c6",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "draggableHoverBorder",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Draggable hover border color",
+                            "default": "#d4bed8",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "draggableDroppedBorder",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Draggable border when dropped",
+                            "default": "#a9c3d0",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "draggableCorrectBorder",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Draggable border when correct",
+                            "default": "#9dd8bb",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          },
+                          {
+                            "name": "draggableWrongBorder",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Draggable border when wrong",
+                            "default": "#f7d0d0",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "draggableColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Draggable text color",
+                    "default": "#333333",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "draggableHoverColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Draggable hover text color",
+                    "default": "#663366",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "draggableDroppedColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Draggable text color when dropped",
+                    "default": "#1a4473",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "draggableCorrectColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Draggable text color when correct",
+                    "default": "#255c41",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "draggableWrongColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Draggable text color when wrong",
+                    "default": "#b71c1c",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -436,12 +769,10 @@
                   "importance": "low"
                 },
                 {
-                  "name": "labelPosition",
-                  "type": "select",
-                  "label": "Label position",
+                  "name": "labelVisual",
+                  "type": "group",
+                  "label": "Label display",
                   "importance": "low",
-                  "default": "outside-top",
-                  "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
                   "widget": "showWhen",
                   "showWhen": {
                     "rules": [
@@ -451,46 +782,174 @@
                       }
                     ]
                   },
-                  "options": [
+                  "fields": [
                     {
-                      "value": "outside-top",
-                      "label": "Outside top"
+                      "name": "labelDisplayMode",
+                      "type": "select",
+                      "label": "Label display mode",
+                      "importance": "low",
+                      "default": "label-only",
+                      "options": [
+                        {
+                          "value": "label-only",
+                          "label": "Label only"
+                        },
+                        {
+                          "value": "label-with-icon",
+                          "label": "Label with icon or image"
+                        }
+                      ]
                     },
                     {
-                      "value": "top-left",
-                      "label": "Inside top left"
+                      "name": "labelPosition",
+                      "type": "select",
+                      "label": "Label position",
+                      "importance": "low",
+                      "default": "outside-top",
+                      "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
+                      "widget": "showWhen",
+                      "showWhen": {
+                        "rules": [
+                          {
+                            "field": "labelDisplayMode",
+                            "equals": "label-only"
+                          }
+                        ]
+                      },
+                      "options": [
+                        {
+                          "value": "outside-top",
+                          "label": "Outside top"
+                        },
+                        {
+                          "value": "top-left",
+                          "label": "Inside top left"
+                        },
+                        {
+                          "value": "top-center",
+                          "label": "Inside top center"
+                        },
+                        {
+                          "value": "top-right",
+                          "label": "Inside top right"
+                        },
+                        {
+                          "value": "center-left",
+                          "label": "Inside center left"
+                        },
+                        {
+                          "value": "center-center",
+                          "label": "Inside center"
+                        },
+                        {
+                          "value": "center-right",
+                          "label": "Inside center right"
+                        },
+                        {
+                          "value": "bottom-left",
+                          "label": "Inside bottom left"
+                        },
+                        {
+                          "value": "bottom-center",
+                          "label": "Inside bottom center"
+                        },
+                        {
+                          "value": "bottom-right",
+                          "label": "Inside bottom right"
+                        }
+                      ]
                     },
                     {
-                      "value": "top-center",
-                      "label": "Inside top center"
-                    },
-                    {
-                      "value": "top-right",
-                      "label": "Inside top right"
-                    },
-                    {
-                      "value": "center-left",
-                      "label": "Inside center left"
-                    },
-                    {
-                      "value": "center-center",
-                      "label": "Inside center"
-                    },
-                    {
-                      "value": "center-right",
-                      "label": "Inside center right"
-                    },
-                    {
-                      "value": "bottom-left",
-                      "label": "Inside bottom left"
-                    },
-                    {
-                      "value": "bottom-center",
-                      "label": "Inside bottom center"
-                    },
-                    {
-                      "value": "bottom-right",
-                      "label": "Inside bottom right"
+                      "name": "labelWithIcon",
+                      "type": "group",
+                      "label": "Label with icon or image",
+                      "importance": "low",
+                      "widget": "showWhen",
+                      "showWhen": {
+                        "rules": [
+                          {
+                            "field": "labelDisplayMode",
+                            "equals": "label-with-icon"
+                          }
+                        ]
+                      },
+                      "fields": [
+                        {
+                          "name": "iconSource",
+                          "type": "select",
+                          "label": "Icon source",
+                          "importance": "low",
+                          "default": "image",
+                          "options": [
+                            {
+                              "value": "image",
+                              "label": "Uploaded image"
+                            },
+                            {
+                              "value": "fontawesome",
+                              "label": "Font Awesome icon"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "visualScale",
+                          "type": "number",
+                          "label": "Icon or image size",
+                          "importance": "low",
+                          "description": "100% is the default size. Lower values make it smaller; higher values make it larger.",
+                          "default": 100,
+                          "min": 50,
+                          "max": 150,
+                          "step": 5,
+                          "suffix": "%"
+                        },
+                        {
+                          "name": "zoneImage",
+                          "type": "image",
+                          "label": "Drop zone image",
+                          "importance": "medium",
+                          "optional": true,
+                          "description": "Image shown above the label.",
+                          "widget": "showWhen",
+                          "showWhen": {
+                            "rules": [
+                              {
+                                "field": "iconSource",
+                                "equals": "image"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "fontawesomeIcon",
+                          "type": "group",
+                          "label": "Font Awesome icon",
+                          "importance": "low",
+                          "widget": "showWhen",
+                          "showWhen": {
+                            "rules": [
+                              {
+                                "field": "iconSource",
+                                "equals": "fontawesome"
+                              }
+                            ]
+                          },
+                          "fields": [
+                            {
+                              "name": "zoneIcon",
+                              "type": "text",
+                              "label": "Drop zone icon",
+                              "importance": "medium",
+                              "optional": true,
+                              "description": "Font Awesome icon shown above the label.",
+                              "widget": "iconSelector",
+                              "fontIconPicker": {
+                                "emptyIcon": true
+                              }
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 },

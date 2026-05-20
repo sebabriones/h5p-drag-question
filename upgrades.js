@@ -299,7 +299,12 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
               draggableCorrectColor: '#255c41',
               draggableWrongBackground: '#f7d0d0',
               draggableWrongBorder: '#f7d0d0',
-              draggableWrongColor: '#b71c1c'
+              draggableWrongColor: '#b71c1c',
+              dropZoneHoverBorder: '#666666',
+              dropZoneLabelColor: '#333333',
+              zoneIconColor: '#333333',
+              draggableColor: '#333333',
+              draggableHoverColor: '#663366'
             };
           }
 
@@ -316,6 +321,457 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
                 dropZone.labelPosition = 'outside-top';
               }
             });
+          }
+
+          finished(null, parameters);
+        },
+        9: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              if (!dropZone.labelDisplayMode) {
+                dropZone.labelDisplayMode = 'label-only';
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        10: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              if (!dropZone.labelVisual) {
+                dropZone.labelVisual = {
+                  labelDisplayMode: dropZone.labelDisplayMode || 'label-only',
+                  labelPosition: dropZone.labelPosition || 'outside-top',
+                  iconSource: dropZone.iconSource || 'image',
+                  zoneImage: dropZone.zoneImage,
+                  zoneIcon: dropZone.zoneIcon
+                };
+
+                delete dropZone.iconSource;
+                delete dropZone.zoneIcon;
+
+                delete dropZone.labelDisplayMode;
+                delete dropZone.labelPosition;
+                delete dropZone.zoneImage;
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        11: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              var visual = dropZone.labelVisual;
+
+              if (visual && visual.labelDisplayMode === 'label-with-icon' && !visual.iconSource) {
+                visual.iconSource = 'image';
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        12: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              var visual = dropZone.labelVisual;
+
+              if (!visual) {
+                return;
+              }
+
+              if (!visual.labelWithIcon && (visual.iconSource || visual.zoneImage || visual.zoneIcon)) {
+                visual.labelWithIcon = {
+                  iconSource: visual.iconSource || 'image',
+                  zoneImage: visual.zoneImage
+                };
+
+                if (visual.zoneIcon) {
+                  visual.labelWithIcon.fontawesomeIcon = {
+                    zoneIcon: visual.zoneIcon
+                  };
+                }
+
+                delete visual.iconSource;
+                delete visual.zoneImage;
+                delete visual.zoneIcon;
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        13: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              var visual = dropZone.labelVisual;
+              var withIcon;
+
+              if (!visual || !visual.labelWithIcon) {
+                return;
+              }
+
+              withIcon = visual.labelWithIcon;
+
+              if (withIcon.zoneIcon !== undefined && !withIcon.fontawesomeIcon) {
+                withIcon.fontawesomeIcon = {
+                  zoneIcon: withIcon.zoneIcon
+                };
+                delete withIcon.zoneIcon;
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        14: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              var withIcon = dropZone.labelVisual && dropZone.labelVisual.labelWithIcon;
+              var fa;
+
+              if (!withIcon || !withIcon.fontawesomeIcon) {
+                return;
+              }
+
+              fa = withIcon.fontawesomeIcon;
+
+              if (typeof fa === 'string' && fa.trim()) {
+                withIcon.fontawesomeIcon = {
+                  zoneIcon: fa.trim()
+                };
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        15: function (parameters, finished) {
+          var dropZones = parameters.question &&
+            parameters.question.task &&
+            parameters.question.task.dropZones;
+
+          if (Array.isArray(dropZones)) {
+            dropZones.forEach(function (dropZone) {
+              var withIcon = dropZone.labelVisual && dropZone.labelVisual.labelWithIcon;
+
+              if (!withIcon) {
+                return;
+              }
+
+              if (withIcon.visualScale === undefined || withIcon.visualScale === null || withIcon.visualScale === '') {
+                withIcon.visualScale = 100;
+              }
+            });
+          }
+
+          finished(null, parameters);
+        },
+        16: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var appearance;
+          var defaults = {
+            dropZoneHoverBorder: '#666666',
+            dropZoneLabelColor: '#333333',
+            zoneIconColor: '#333333',
+            draggableColor: '#333333',
+            draggableHoverColor: '#663366'
+          };
+          var key;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.appearance) {
+            settings.appearance = {};
+          }
+
+          appearance = settings.appearance;
+
+          for (key in defaults) {
+            if (Object.prototype.hasOwnProperty.call(defaults, key) &&
+                (appearance[key] === undefined || appearance[key] === null || appearance[key] === '')) {
+              appearance[key] = defaults[key];
+            }
+          }
+
+          finished(null, parameters);
+        },
+        17: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var appearance;
+          var defaults = {
+            draggableBackgroundFill: {
+              useGradient: false,
+              gradientColors: { colorStart: '#dddddd', colorEnd: '#bbbbbb', angle: 180 }
+            },
+            draggableHoverBackgroundFill: {
+              useGradient: false,
+              gradientColors: { colorStart: '#edd6e9', colorEnd: '#d4bed8', angle: 180 }
+            },
+            draggableDroppedBackgroundFill: {
+              useGradient: false,
+              gradientColors: { colorStart: '#cee0f4', colorEnd: '#a9c3d0', angle: 180 }
+            },
+            draggableCorrectBackgroundFill: {
+              useGradient: false,
+              gradientColors: { colorStart: '#9dd8bb', colorEnd: '#7bc9a8', angle: 180 }
+            },
+            draggableWrongBackgroundFill: {
+              useGradient: false,
+              gradientColors: { colorStart: '#f7d0d0', colorEnd: '#e8a8a8', angle: 180 }
+            }
+          };
+          var key;
+          var fillKey;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.appearance) {
+            settings.appearance = {};
+          }
+
+          appearance = settings.appearance;
+
+          for (key in defaults) {
+            if (Object.prototype.hasOwnProperty.call(defaults, key) && !appearance[key]) {
+              appearance[key] = defaults[key];
+            }
+          }
+
+          for (fillKey in defaults) {
+            if (!Object.prototype.hasOwnProperty.call(defaults, fillKey)) {
+              continue;
+            }
+
+            if (!appearance[fillKey].gradientColors) {
+              appearance[fillKey].gradientColors = defaults[fillKey].gradientColors;
+            }
+
+            if (appearance[fillKey].useGradient === undefined) {
+              appearance[fillKey].useGradient = false;
+            }
+          }
+
+          finished(null, parameters);
+        },
+        18: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var appearance;
+          var dropZoneKeys = [
+            'dropZoneBackground',
+            'dropZoneBorder',
+            'dropZoneHoverBackground',
+            'dropZoneHoverBorder',
+            'dropZoneLabelColor',
+            'zoneIconColor'
+          ];
+          var draggableBgKeys = [
+            'draggableBackground',
+            'draggableHoverBackground',
+            'draggableDroppedBackground',
+            'draggableCorrectBackground',
+            'draggableWrongBackground'
+          ];
+          var draggableOtherKeys = [
+            'draggableBorder',
+            'draggableColor',
+            'draggableHoverBorder',
+            'draggableHoverColor',
+            'draggableDroppedBorder',
+            'draggableDroppedColor',
+            'draggableCorrectBorder',
+            'draggableCorrectColor',
+            'draggableWrongBorder',
+            'draggableWrongColor'
+          ];
+          var gradientStates = [
+            {
+              stateKey: 'normal',
+              solidKey: 'draggableBackground',
+              legacyFillKey: 'draggableBackgroundFill',
+              defaults: { colorStart: '#dddddd', colorEnd: '#bbbbbb' }
+            },
+            {
+              stateKey: 'hover',
+              solidKey: 'draggableHoverBackground',
+              legacyFillKey: 'draggableHoverBackgroundFill',
+              defaults: { colorStart: '#edd6e9', colorEnd: '#d4bed8' }
+            },
+            {
+              stateKey: 'dropped',
+              solidKey: 'draggableDroppedBackground',
+              legacyFillKey: 'draggableDroppedBackgroundFill',
+              defaults: { colorStart: '#cee0f4', colorEnd: '#a9c3d0' }
+            },
+            {
+              stateKey: 'correct',
+              solidKey: 'draggableCorrectBackground',
+              legacyFillKey: 'draggableCorrectBackgroundFill',
+              defaults: { colorStart: '#9dd8bb', colorEnd: '#7bc9a8' }
+            },
+            {
+              stateKey: 'wrong',
+              solidKey: 'draggableWrongBackground',
+              legacyFillKey: 'draggableWrongBackgroundFill',
+              defaults: { colorStart: '#f7d0d0', colorEnd: '#e8a8a8' }
+            }
+          ];
+          var legacyFillKeys = [
+            'draggableBackgroundFill',
+            'draggableHoverBackgroundFill',
+            'draggableDroppedBackgroundFill',
+            'draggableCorrectBackgroundFill',
+            'draggableWrongBackgroundFill'
+          ];
+          var useGradient = false;
+          var angle = 180;
+          var dropZoneColors = {};
+          var draggableColors;
+          var solidBackgrounds = {};
+          var gradientBackgrounds;
+          var i;
+          var key;
+          var spec;
+          var fill;
+          var gc;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.appearance) {
+            settings.appearance = {};
+          }
+
+          appearance = settings.appearance;
+
+          if (appearance.dropZoneColors && appearance.draggableColors) {
+            finished(null, parameters);
+            return;
+          }
+
+          for (i = 0; i < gradientStates.length; i++) {
+            spec = gradientStates[i];
+            fill = appearance[spec.legacyFillKey];
+
+            if (fill && fill.useGradient === true) {
+              useGradient = true;
+
+              if (fill.gradientColors && fill.gradientColors.angle !== undefined &&
+                  fill.gradientColors.angle !== null && fill.gradientColors.angle !== '') {
+                angle = parseInt(fill.gradientColors.angle, 10);
+
+                if (isNaN(angle)) {
+                  angle = 180;
+                }
+              }
+            }
+          }
+
+          for (i = 0; i < dropZoneKeys.length; i++) {
+            key = dropZoneKeys[i];
+
+            if (appearance[key] !== undefined) {
+              dropZoneColors[key] = appearance[key];
+            }
+          }
+
+          draggableColors = {
+            useGradientBackground: useGradient,
+            solidBackgrounds: {},
+            gradientBackgrounds: {
+              gradientAngle: angle,
+              normal: { colorStart: '#dddddd', colorEnd: '#bbbbbb' },
+              hover: { colorStart: '#edd6e9', colorEnd: '#d4bed8' },
+              dropped: { colorStart: '#cee0f4', colorEnd: '#a9c3d0' },
+              correct: { colorStart: '#9dd8bb', colorEnd: '#7bc9a8' },
+              wrong: { colorStart: '#f7d0d0', colorEnd: '#e8a8a8' }
+            }
+          };
+
+          for (i = 0; i < draggableBgKeys.length; i++) {
+            key = draggableBgKeys[i];
+
+            if (appearance[key] !== undefined) {
+              solidBackgrounds[key] = appearance[key];
+            }
+          }
+
+          for (i = 0; i < gradientStates.length; i++) {
+            spec = gradientStates[i];
+            fill = appearance[spec.legacyFillKey];
+            gc = (fill && fill.gradientColors) ? fill.gradientColors : spec.defaults;
+
+            draggableColors.gradientBackgrounds[spec.stateKey] = {
+              colorStart: gc.colorStart || spec.defaults.colorStart,
+              colorEnd: gc.colorEnd || spec.defaults.colorEnd
+            };
+
+            if (!solidBackgrounds[spec.solidKey] && appearance[spec.solidKey]) {
+              solidBackgrounds[spec.solidKey] = appearance[spec.solidKey];
+            }
+          }
+
+          draggableColors.solidBackgrounds = solidBackgrounds;
+
+          for (i = 0; i < draggableOtherKeys.length; i++) {
+            key = draggableOtherKeys[i];
+
+            if (appearance[key] !== undefined) {
+              draggableColors[key] = appearance[key];
+            }
+          }
+
+          appearance.dropZoneColors = dropZoneColors;
+          appearance.draggableColors = draggableColors;
+
+          for (i = 0; i < dropZoneKeys.length; i++) {
+            delete appearance[dropZoneKeys[i]];
+          }
+
+          for (i = 0; i < draggableBgKeys.length; i++) {
+            delete appearance[draggableBgKeys[i]];
+          }
+
+          for (i = 0; i < draggableOtherKeys.length; i++) {
+            delete appearance[draggableOtherKeys[i]];
+          }
+
+          for (i = 0; i < legacyFillKeys.length; i++) {
+            delete appearance[legacyFillKeys[i]];
           }
 
           finished(null, parameters);

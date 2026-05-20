@@ -44,52 +44,169 @@
                   "label": "Color de fondo del lienzo"
                 },
                 {
-                  "label": "Color de fondo de la zona de colocación"
+                  "label": "Colores de las zonas de colocación",
+                  "fields": [
+                    {
+                      "label": "Color de fondo de la zona de colocación"
+                    },
+                    {
+                      "label": "Color del borde de la zona de colocación"
+                    },
+                    {
+                      "label": "Color de fondo de la zona al pasar el elemento"
+                    },
+                    {
+                      "label": "Color del borde de la zona al pasar el elemento"
+                    },
+                    {
+                      "label": "Color del texto de la etiqueta de la zona"
+                    },
+                    {
+                      "label": "Color del icono de la zona"
+                    }
+                  ]
                 },
                 {
-                  "label": "Color del borde de la zona de colocación"
-                },
-                {
-                  "label": "Color de fondo de la zona al pasar el elemento"
-                },
-                {
-                  "label": "Color de fondo del elemento arrastrable"
-                },
-                {
-                  "label": "Color del borde del elemento arrastrable"
-                },
-                {
-                  "label": "Color de fondo del elemento al pasar el cursor"
-                },
-                {
-                  "label": "Color del borde del elemento al pasar el cursor"
-                },
-                {
-                  "label": "Color de fondo del elemento en la zona"
-                },
-                {
-                  "label": "Color del borde del elemento en la zona"
-                },
-                {
-                  "label": "Color del texto del elemento en la zona"
-                },
-                {
-                  "label": "Color de fondo del elemento correcto"
-                },
-                {
-                  "label": "Color del borde del elemento correcto"
-                },
-                {
-                  "label": "Color del texto del elemento correcto"
-                },
-                {
-                  "label": "Color de fondo del elemento incorrecto"
-                },
-                {
-                  "label": "Color del borde del elemento incorrecto"
-                },
-                {
-                  "label": "Color del texto del elemento incorrecto"
+                  "label": "Colores de los elementos arrastrables",
+                  "fields": [
+                    {
+                      "label": "Usar fondos en degradado"
+                    },
+                    {
+                      "label": "Colores de fondo sólidos",
+                      "fields": [
+                        {
+                          "label": "Color de fondo del elemento arrastrable"
+                        },
+                        {
+                          "label": "Color de fondo del elemento al pasar el cursor"
+                        },
+                        {
+                          "label": "Color de fondo del elemento en la zona"
+                        },
+                        {
+                          "label": "Color de fondo del elemento correcto"
+                        },
+                        {
+                          "label": "Color de fondo del elemento incorrecto"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Colores de fondo en degradado",
+                      "fields": [
+                        {
+                          "label": "Ángulo del degradado",
+                          "description": "Dirección en grados para todos los fondos en degradado (0 = hacia arriba, 180 = hacia abajo)."
+                        },
+                        {
+                          "label": "Degradado en estado normal",
+                          "fields": [
+                            {
+                              "label": "Color inicial del degradado"
+                            },
+                            {
+                              "label": "Color final del degradado"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Degradado al pasar el cursor",
+                          "fields": [
+                            {
+                              "label": "Color inicial del degradado"
+                            },
+                            {
+                              "label": "Color final del degradado"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Degradado en la zona",
+                          "fields": [
+                            {
+                              "label": "Color inicial del degradado"
+                            },
+                            {
+                              "label": "Color final del degradado"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Degradado cuando es correcto",
+                          "fields": [
+                            {
+                              "label": "Color inicial del degradado"
+                            },
+                            {
+                              "label": "Color final del degradado"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Degradado cuando es incorrecto",
+                          "fields": [
+                            {
+                              "label": "Color inicial del degradado"
+                            },
+                            {
+                              "label": "Color final del degradado"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Usar bordes en los elementos arrastrables"
+                    },
+                    {
+                      "label": "Ajustes del borde",
+                      "fields": [
+                        {
+                          "label": "Estilo del borde"
+                        },
+                        {
+                          "label": "Grosor del borde",
+                          "description": "Grosor en unidades em (escala con el tamaño del elemento)."
+                        },
+                        {
+                          "label": "Colores del borde por estado",
+                          "fields": [
+                            {
+                              "label": "Color del borde del elemento arrastrable"
+                            },
+                            {
+                              "label": "Color del borde del elemento al pasar el cursor"
+                            },
+                            {
+                              "label": "Color del borde del elemento en la zona"
+                            },
+                            {
+                              "label": "Color del borde del elemento correcto"
+                            },
+                            {
+                              "label": "Color del borde del elemento incorrecto"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Color del texto del elemento arrastrable"
+                    },
+                    {
+                      "label": "Color del texto del elemento al pasar el cursor"
+                    },
+                    {
+                      "label": "Color del texto del elemento en la zona"
+                    },
+                    {
+                      "label": "Color del texto del elemento correcto"
+                    },
+                    {
+                      "label": "Color del texto del elemento incorrecto"
+                    }
+                  ]
                 }
               ]
             }
@@ -140,38 +257,87 @@
                     "label": "Mostrar etiqueta"
                   },
                   {
-                    "label": "Posición de la etiqueta",
-                    "description": "Dónde aparece la etiqueta visible. Las posiciones internas se superponen a la zona sin cambiar su tamaño.",
-                    "options": [
+                    "label": "Visualización de la etiqueta",
+                    "fields": [
                       {
-                        "label": "Fuera arriba"
+                        "label": "Modalidad de etiqueta",
+                        "options": [
+                          {
+                            "label": "Solo etiqueta"
+                          },
+                          {
+                            "label": "Etiqueta con icono o imagen"
+                          }
+                        ]
                       },
                       {
-                        "label": "Dentro arriba izquierda"
+                        "label": "Posición de la etiqueta",
+                        "description": "Dónde aparece la etiqueta visible. Las posiciones internas se superponen a la zona sin cambiar su tamaño.",
+                        "options": [
+                          {
+                            "label": "Fuera arriba"
+                          },
+                          {
+                            "label": "Dentro arriba izquierda"
+                          },
+                          {
+                            "label": "Dentro arriba centro"
+                          },
+                          {
+                            "label": "Dentro arriba derecha"
+                          },
+                          {
+                            "label": "Dentro centro izquierda"
+                          },
+                          {
+                            "label": "Dentro centro"
+                          },
+                          {
+                            "label": "Dentro centro derecha"
+                          },
+                          {
+                            "label": "Dentro abajo izquierda"
+                          },
+                          {
+                            "label": "Dentro abajo centro"
+                          },
+                          {
+                            "label": "Dentro abajo derecha"
+                          }
+                        ]
                       },
                       {
-                        "label": "Dentro arriba centro"
-                      },
-                      {
-                        "label": "Dentro arriba derecha"
-                      },
-                      {
-                        "label": "Dentro centro izquierda"
-                      },
-                      {
-                        "label": "Dentro centro"
-                      },
-                      {
-                        "label": "Dentro centro derecha"
-                      },
-                      {
-                        "label": "Dentro abajo izquierda"
-                      },
-                      {
-                        "label": "Dentro abajo centro"
-                      },
-                      {
-                        "label": "Dentro abajo derecha"
+                        "label": "Etiqueta con icono o imagen",
+                        "fields": [
+                          {
+                            "label": "Origen del icono",
+                            "options": [
+                              {
+                                "label": "Imagen subida"
+                              },
+                              {
+                                "label": "Icono Font Awesome"
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Tamaño del icono o imagen",
+                            "description": "100 % es el tamaño predeterminado. Valores menores lo reducen; valores mayores lo aumentan."
+                          },
+                          {
+                            "label": "Imagen de la zona",
+                            "description": "Imagen que se muestra encima de la etiqueta."
+                          },
+                          {
+                            "label": "Icono Font Awesome",
+                            "fields": [
+                              {
+                                "label": "Icono de la zona",
+                                "description": "Icono Font Awesome que se muestra encima de la etiqueta."
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   },

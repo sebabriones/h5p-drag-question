@@ -628,7 +628,7 @@ C.prototype.createQuestionContent = function () {
 
   // Attach drop zones
   for (i = 0; i < this.dropZones.length; i++) {
-    this.dropZones[i].appendTo(this.$container, this.draggables);
+    this.dropZones[i].appendTo(this.$container, this.draggables, this.id);
   }
   return this.$container;
 };

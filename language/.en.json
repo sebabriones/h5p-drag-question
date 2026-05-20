@@ -84,38 +84,87 @@
                     "label": "Show label"
                   },
                   {
-                    "label": "Label position",
-                    "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
-                    "options": [
+                    "label": "Label display",
+                    "fields": [
                       {
-                        "label": "Outside top"
+                        "label": "Label display mode",
+                        "options": [
+                          {
+                            "label": "Label only"
+                          },
+                          {
+                            "label": "Label with icon or image"
+                          }
+                        ]
                       },
                       {
-                        "label": "Inside top left"
+                        "label": "Label position",
+                        "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
+                        "options": [
+                          {
+                            "label": "Outside top"
+                          },
+                          {
+                            "label": "Inside top left"
+                          },
+                          {
+                            "label": "Inside top center"
+                          },
+                          {
+                            "label": "Inside top right"
+                          },
+                          {
+                            "label": "Inside center left"
+                          },
+                          {
+                            "label": "Inside center"
+                          },
+                          {
+                            "label": "Inside center right"
+                          },
+                          {
+                            "label": "Inside bottom left"
+                          },
+                          {
+                            "label": "Inside bottom center"
+                          },
+                          {
+                            "label": "Inside bottom right"
+                          }
+                        ]
                       },
                       {
-                        "label": "Inside top center"
-                      },
-                      {
-                        "label": "Inside top right"
-                      },
-                      {
-                        "label": "Inside center left"
-                      },
-                      {
-                        "label": "Inside center"
-                      },
-                      {
-                        "label": "Inside center right"
-                      },
-                      {
-                        "label": "Inside bottom left"
-                      },
-                      {
-                        "label": "Inside bottom center"
-                      },
-                      {
-                        "label": "Inside bottom right"
+                        "label": "Label with icon or image",
+                        "fields": [
+                          {
+                            "label": "Icon source",
+                            "options": [
+                              {
+                                "label": "Uploaded image"
+                              },
+                              {
+                                "label": "Font Awesome icon"
+                              }
+                            ]
+                          },
+                          {
+                            "label": "Icon or image size",
+                            "description": "100% is the default size. Lower values make it smaller; higher values make it larger."
+                          },
+                          {
+                            "label": "Drop zone image",
+                            "description": "Image shown above the label."
+                          },
+                          {
+                            "label": "Font Awesome icon",
+                            "fields": [
+                              {
+                                "label": "Drop zone icon",
+                                "description": "Font Awesome icon shown above the label."
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ]
                   },

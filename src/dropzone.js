@@ -1,4 +1,11 @@
 import DragUtils from './drag-utils';
+import {
+  getFaIconClassAttr,
+  getLabelVisualFromDropZone,
+  getVisualStackScaleStyle,
+  normalizeVisualScale,
+  resolveIconSource
+} from './label-visual';
 
 const $ = H5P.jQuery;
 
@@ -28,6 +35,14 @@ function normalizeLabelPosition(position) {
   return LABEL_POSITION_DEFAULT;
 }
 
+/**
+ * @param {string} [mode]
+ * @returns {string}
+ */
+function normalizeLabelDisplayMode(mode) {
+  return mode === 'label-with-icon' ? 'label-with-icon' : 'label-only';
+}
+
 export default class DropZone {
 
   /**
@@ -44,9 +59,16 @@ export default class DropZone {
     H5P.EventDispatcher.call(self);
 
     self.id = id;
+    var labelVisual = getLabelVisualFromDropZone(dropZone);
+
     self.showLabel = dropZone.showLabel;
     self.label = dropZone.label;
-    self.labelPosition = normalizeLabelPosition(dropZone.labelPosition);
+    self.labelDisplayMode = normalizeLabelDisplayMode(labelVisual.labelDisplayMode);
+    self.labelPosition = normalizeLabelPosition(labelVisual.labelPosition);
+    self.iconSource = resolveIconSource(labelVisual.iconSource, labelVisual.zoneImage, labelVisual.zoneIcon);
+    self.zoneImage = labelVisual.zoneImage;
+    self.zoneIcon = labelVisual.zoneIcon;
+    self.visualScale = normalizeVisualScale(labelVisual.visualScale);
     self.x = dropZone.x;
     self.y = dropZone.y;
     self.width = dropZone.width;
@@ -60,23 +82,56 @@ export default class DropZone {
   }
 
   /**
+   * @param {number} contentId
+   * @returns {string}
+   */
+  getLabelVisualHtml(contentId) {
+    var self = this;
+    var iconHtml = '';
+    var faClasses;
+    var alt = DragUtils.strip(self.label);
+
+    if (self.labelDisplayMode !== 'label-with-icon') {
+      return '<div class="h5p-label h5p-label-pos-' + self.labelPosition + '">' + self.label + '<span class="h5p-hidden-read"></span></div>';
+    }
+
+    if (self.iconSource === 'fontawesome') {
+      faClasses = getFaIconClassAttr(self.zoneIcon);
+
+      if (faClasses) {
+        iconHtml = '<span class="h5p-dz-icon h5p-dz-fa ' + faClasses + '" aria-hidden="true"></span>';
+      }
+    }
+    else if (self.zoneImage && self.zoneImage.path) {
+      iconHtml = '<img class="h5p-dz-icon" src="' + H5P.getPath(self.zoneImage.path, contentId) + '" alt="' + alt + '"/>';
+    }
+
+    return '<div class="h5p-dz-visual-stack"' + getVisualStackScaleStyle(self.visualScale) + '>' + iconHtml + '<div class="h5p-label h5p-label-pos-stack-bottom">' + self.label + '<span class="h5p-hidden-read"></span></div></div>';
+  }
+
+  /**
    * Insert drop zone in the given container.
    *
    * @param {jQuery} $container
    * @param {Array} draggables
+   * @param {number} contentId
    * @returns {undefined}
    */
-  appendTo($container, draggables) {
+
+  appendTo($container, draggables, contentId) {
     var self = this;
 
     // Prepare inner html with prefix for good a11y
     var html = '<div class="h5p-inner"></div>';
     var extraClass = '';
     if (self.showLabel) {
-      html = '<div class="h5p-label h5p-label-pos-' + self.labelPosition + '">' + self.label + '<span class="h5p-hidden-read"></span></div>' + html;
+      html = self.getLabelVisualHtml(contentId) + html;
       extraClass = ' h5p-has-label';
 
-      if (self.labelPosition === 'outside-top') {
+      if (self.labelDisplayMode === 'label-with-icon') {
+        extraClass += ' h5p-has-visual-stack h5p-has-label-inside';
+      }
+      else if (self.labelPosition === 'outside-top') {
         extraClass += ' h5p-has-label-outside';
       }
       else {
@@ -197,13 +252,13 @@ export default class DropZone {
    * Update the background opacity
    */
   updateBackgroundOpacity() {
-    var $label = this.$dropZone.children('.h5p-label');
+    var $labels = this.$dropZone.find('.h5p-label');
 
-    if (this.labelPosition === 'outside-top') {
-      DragUtils.setOpacity($label, 'background', this.backgroundOpacity);
+    if (this.showLabel && this.labelDisplayMode === 'label-only' && this.labelPosition === 'outside-top') {
+      DragUtils.setOpacity($labels, 'background', this.backgroundOpacity);
     }
     else {
-      $label.css({
+      $labels.css({
         backgroundColor: '',
         backgroundImage: ''
       });

@@ -62,7 +62,9 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-draggable {
   border-radius: 0.25em;
-  border: 0.1em solid var(--dq-draggable-border, #c6c6c6);
+  border-width: var(--dq-draggable-border-width, 0);
+  border-style: var(--dq-draggable-border-style, none);
+  border-color: var(--dq-draggable-border, transparent);
   cursor: pointer;
   position: absolute;
   text-align: center;
@@ -74,6 +76,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
 
   background: var(--dq-draggable-bg, #ddd);
+  color: var(--dq-draggable-color, #333);
 
   z-index: 3;
   -webkit-user-select: none;
@@ -84,13 +87,14 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   flex-direction: column;
   justify-content: center;
 }
-.h5p-dragquestion .h5p-draggable:not(.ui-state-disabled).h5p-draggable-hover:not(.h5p-correct):not(.h5p-wrong) {
-   border: 0.1em solid var(--dq-draggable-hover-border, #d4bed8);
+.h5p-dragquestion .h5p-draggable:not(.ui-state-disabled).h5p-draggable-hover:not(.h5p-correct):not(.h5p-wrong):not(.h5p-dropped) {
+   border-color: var(--dq-draggable-hover-border, #d4bed8);
    background: var(--dq-draggable-hover-bg, #edd6e9);
+   color: var(--dq-draggable-hover-color, #663366);
  }
 .h5p-dragquestion .h5p-draggable.h5p-dropped {
   color: var(--dq-draggable-dropped-color, #1a4473);
-  border: 0.1em solid var(--dq-draggable-dropped-border, #a9c3d0);
+  border-color: var(--dq-draggable-dropped-border, #a9c3d0);
   background: var(--dq-draggable-dropped-bg, #cee0f4);
 }
 .h5p-dragquestion .h5p-draggable > img {
@@ -130,13 +134,13 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-dropped.h5p-correct, .h5p-dragquestion .h5p-dropzone.h5p-correct-answer {
   color: var(--dq-draggable-correct-color, #255c41);
-  border: 0.1em solid var(--dq-draggable-correct-border, #9dd8bb);
+  border-color: var(--dq-draggable-correct-border, #9dd8bb);
   box-shadow: none;
   background: var(--dq-draggable-correct-bg, #9dd8bb);
 }
 
 .h5p-dragquestion .h5p-dropped.h5p-wrong {
-  border: 0.1em solid var(--dq-draggable-wrong-border, #f7d0d0);
+  border-color: var(--dq-draggable-wrong-border, #f7d0d0);
   color: var(--dq-draggable-wrong-color, #b71c1c);
   background: var(--dq-draggable-wrong-bg, #f7d0d0);
 }
@@ -198,6 +202,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-over {
   background: var(--dq-dropzone-hover-bg, #edd6e9);
+  border-color: var(--dq-dropzone-hover-border, var(--dq-dropzone-border, #666));
 }
 
 .h5p-dragquestion .h5p-dropzone .h5p-label {
@@ -209,11 +214,64 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   max-width: calc(100% - 0.5em);
   border-radius: 0.25em;
   background: transparent;
+  color: var(--dq-dropzone-label-color, #333);
   pointer-events: none;
 }
 
 .h5p-dragquestion .h5p-dropzone.h5p-has-label-inside .h5p-label {
   z-index: 3;
+}
+
+.h5p-dragquestion .h5p-dropzone.h5p-has-visual-stack .h5p-dz-visual-stack {
+  --dq-visual-scale: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0.35em 0.5em;
+  pointer-events: none;
+}
+
+.h5p-dragquestion .h5p-dropzone.h5p-has-visual-stack .h5p-dz-icon {
+  flex: 1 1 auto;
+  max-width: calc(85% * var(--dq-visual-scale, 1));
+  max-height: calc(65% * var(--dq-visual-scale, 1));
+  width: auto;
+  height: auto;
+  margin-top: 0.15em;
+  object-fit: contain;
+}
+
+.h5p-dragquestion .h5p-dropzone.h5p-has-visual-stack .h5p-dz-icon.h5p-dz-fa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'H5PFontAwesome4', 'FontAwesome', sans-serif;
+  font-size: calc(2.5em * var(--dq-visual-scale, 1));
+  line-height: 1;
+  color: var(--dq-zone-icon-color, #333);
+  object-fit: unset;
+}
+
+.h5p-dragquestion .h5p-dropzone.h5p-has-visual-stack .h5p-label.h5p-label-pos-stack-bottom {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  flex: 0 0 auto;
+  max-width: 100%;
+  text-align: center;
+  white-space: normal;
+  transform: none;
+  background: transparent;
 }
 
 .h5p-dragquestion .h5p-dropzone .h5p-label > div {

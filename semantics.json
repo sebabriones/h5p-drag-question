@@ -1,5 +1,77 @@
 [
   {
+    "name": "instructions",
+    "type": "group",
+    "label": "Instructions",
+    "importance": "high",
+    "optional": true,
+    "fields": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "label": "Show instructions",
+        "default": false
+      },
+      {
+        "name": "text",
+        "type": "text",
+        "widget": "html",
+        "label": "Instructions text",
+        "importance": "high",
+        "optional": true,
+        "tags": [
+          "p",
+          "br",
+          "strong",
+          "em",
+          "ul",
+          "ol",
+          "li"
+        ]
+      },
+      {
+        "name": "displayMode",
+        "type": "select",
+        "label": "Display mode",
+        "default": "both",
+        "options": [
+          {
+            "value": "intro",
+            "label": "Intro only"
+          },
+          {
+            "value": "tab",
+            "label": "Tab only"
+          },
+          {
+            "value": "both",
+            "label": "Intro and tab"
+          }
+        ]
+      },
+      {
+        "name": "introButtonLabel",
+        "type": "text",
+        "label": "Intro button label",
+        "default": "Start",
+        "optional": true
+      },
+      {
+        "name": "tabButtonLabel",
+        "type": "text",
+        "label": "Tab button label",
+        "default": "Instructions",
+        "optional": true
+      },
+      {
+        "name": "startCollapsed",
+        "type": "boolean",
+        "label": "Collapse tab on load",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "scoreShow",
     "type": "text",
     "label": "Check answer button",

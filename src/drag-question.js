@@ -18,6 +18,79 @@ const $ = H5P.jQuery;
 let numInstances = 0;
 
 /**
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isTruthy(value) {
+  return value === true || value === 1 || value === '1' || value === 'true';
+}
+
+/**
+ * @param {H5P.DragQuestionCFRD} instance
+ * @returns {Object|null}
+ */
+function getInstructionsOptions(instance) {
+  var rootInstructions = instance && instance.options && instance.options.instructions;
+  var nestedInstructions = instance &&
+    instance.options &&
+    instance.options.question &&
+    instance.options.question.settings &&
+    instance.options.question.settings.instructions;
+  var instructions = $.extend({}, nestedInstructions || {}, rootInstructions || {});
+  var text;
+
+  if ((!rootInstructions && !nestedInstructions) || !isTruthy(instructions.enabled)) {
+    return null;
+  }
+
+  text = (instructions.text === undefined || instructions.text === null) ?
+    '' :
+    String(instructions.text).trim();
+
+  if (!text) {
+    return null;
+  }
+
+  return {
+    id: instance.contentId || instance.id || numInstances,
+    text: text,
+    displayMode: instructions.displayMode || 'both',
+    introButtonLabel: instructions.introButtonLabel || 'Start',
+    tabButtonLabel: instructions.tabButtonLabel || 'Instructions',
+    startCollapsed: instructions.startCollapsed === undefined ?
+      true :
+      isTruthy(instructions.startCollapsed)
+  };
+}
+
+/**
+ * Schedule instruction attaches after the question DOM settles.
+ *
+ * @param {H5P.DragQuestionCFRD} instance
+ * @param {H5P.jQuery} $fallbackContainer
+ */
+function scheduleInstructionsAttach(instance, $fallbackContainer) {
+  var delays = [0, 200, 500];
+
+  delays.forEach(function (delay) {
+    setTimeout(function () {
+      var instructions = getInstructionsOptions(instance);
+      var $target = (instance && instance.$container && instance.$container.length) ?
+        instance.$container :
+        $fallbackContainer;
+
+      if (!instructions || !$target || !$target.length) {
+        return;
+      }
+
+      if (H5P.Instructions && typeof H5P.Instructions.attach === 'function') {
+        H5P.Instructions.attach($target, instructions);
+      }
+    }, delay);
+  });
+}
+
+/**
  * Constructor
  *
  * @class
@@ -420,9 +493,11 @@ C.prototype.registerDomElements = function () {
 
   // ... and buttons
   self.registerButtons();
+  scheduleInstructionsAttach(self, self.$container);
 
   setTimeout(function () {
     self.trigger('resize');
+    scheduleInstructionsAttach(self, self.$container);
   }, 200);
 };
 

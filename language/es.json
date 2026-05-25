@@ -1,6 +1,42 @@
 {
   "semantics": [
     {
+      "label": "Instrucciones",
+      "fields": [
+        {
+          "label": "Mostrar instrucciones"
+        },
+        {
+          "label": "Texto de las instrucciones"
+        },
+        {
+          "label": "Modo de visualización",
+          "options": [
+            {
+              "label": "Solo introducción"
+            },
+            {
+              "label": "Solo pestaña"
+            },
+            {
+              "label": "Introducción y pestaña"
+            }
+          ]
+        },
+        {
+          "label": "Texto del botón de la introducción",
+          "default": "Comenzar"
+        },
+        {
+          "label": "Texto del botón de la pestaña",
+          "default": "Instrucciones"
+        },
+        {
+          "label": "Mostrar la pestaña contraída al cargar"
+        }
+      ]
+    },
+    {
       "label": "Botón comprobar respuesta",
       "default": "Comprobar"
     },

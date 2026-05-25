@@ -107,6 +107,35 @@ function ensureQuestionTask(content) {
 }
 
 /**
+ * Mirror top-level instructions into question.settings for preview/runtime
+ * compatibility. Keep the top-level field as the author-facing source of truth.
+ *
+ * @param {Object} content
+ */
+function syncInstructions(content) {
+  var rootInstructions;
+  var nestedInstructions;
+
+  if (!content || !content.question) {
+    return;
+  }
+
+  if (!content.question.settings) {
+    content.question.settings = {};
+  }
+
+  rootInstructions = content.instructions;
+  nestedInstructions = content.question.settings.instructions;
+
+  if (rootInstructions && typeof rootInstructions === 'object') {
+    content.question.settings.instructions = H5P.jQuery.extend(true, {}, nestedInstructions || {}, rootInstructions);
+  }
+  else if (nestedInstructions && typeof nestedInstructions === 'object' && !content.instructions) {
+    content.instructions = H5P.jQuery.extend(true, {}, nestedInstructions);
+  }
+}
+
+/**
  * Resolve the presave logic for the content type Drag Question
  *
  * @param {object} content
@@ -119,6 +148,7 @@ H5PPresave['H5P.DragQuestionCFRD'] = function (content, finished) {
   var correctDropZones = [];
 
   ensureQuestionTask(content);
+  syncInstructions(content);
 
   if (content.question && content.question.settings) {
     applyTaskSizeScaleToSettings(content.question.settings);

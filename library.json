@@ -4,7 +4,7 @@
   "contentType": "Question",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 40,
+  "patchVersion": 45,
   "embedTypes": [
     "iframe"
   ],
@@ -47,6 +47,11 @@
       "machineName": "H5P.Question",
       "majorVersion": 1,
       "minorVersion": 5
+    },
+    {
+      "machineName": "H5P.Instructions",
+      "majorVersion": 1,
+      "minorVersion": 0
     }
   ],
   "editorDependencies": [

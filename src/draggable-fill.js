@@ -2,14 +2,20 @@
  * Flatten nested appearance and build draggable background gradients.
  */
 
-export const DROP_ZONE_COLOR_KEYS = [
+export const DROP_ZONE_BASE_KEYS = [
   'dropZoneBackground',
-  'dropZoneBorder',
   'dropZoneHoverBackground',
-  'dropZoneHoverBorder',
   'dropZoneLabelColor',
   'zoneIconColor'
 ];
+
+export const DROP_ZONE_BORDER_COLOR_KEYS = [
+  'dropZoneBorder',
+  'dropZoneHoverBorder'
+];
+
+export const DROP_ZONE_COLOR_KEYS = DROP_ZONE_BASE_KEYS
+  .concat(DROP_ZONE_BORDER_COLOR_KEYS);
 
 export const DRAGGABLE_BORDER_COLOR_KEYS = [
   'draggableBorder',
@@ -34,6 +40,10 @@ export const BORDER_STYLE_DEFAULT = 'solid';
 export const BORDER_WIDTH_DEFAULT = 0.1;
 
 export const BORDER_WIDTH_MAX = 0.5;
+
+export const BORDER_RADIUS_DEFAULT = 0.25;
+
+export const BORDER_RADIUS_MAX = 2;
 
 export const DRAGGABLE_BACKGROUND_KEYS = [
   'draggableBackground',
@@ -229,6 +239,29 @@ export function formatBorderWidthEm(width, fallback) {
 }
 
 /**
+ * @param {number|string} radius
+ * @param {number} fallback
+ * @returns {string}
+ */
+export function formatBorderRadiusEm(radius, fallback) {
+  var n = parseFloat(radius);
+
+  if (isNaN(n)) {
+    n = fallback;
+  }
+
+  if (n < 0) {
+    n = 0;
+  }
+
+  if (n > BORDER_RADIUS_MAX) {
+    n = BORDER_RADIUS_MAX;
+  }
+
+  return n + 'em';
+}
+
+/**
  * @param {string} style
  * @returns {string}
  */
@@ -241,16 +274,92 @@ export function normalizeBorderStyle(style) {
 }
 
 /**
- * @param {Object} draggable
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isTruthy(value) {
+  return value === true || value === 1 || value === '1' || value === 'true';
+}
+
+/**
+ * @param {Object} dropZone
+ * @param {Object} appearance
  * @param {Object} flat
  */
-function applyDraggableBorderAppearance(draggable, flat) {
+function applyDropZoneBorderAppearance(dropZone, appearance, flat) {
+  var borderSettings;
+  var normal;
+  var hover;
+  var useBorder;
+  var radius;
+
+  dropZone = dropZone || {};
+  appearance = appearance || {};
+  radius = appearance.dropZoneBorderRadius;
+
+  if (radius === undefined || radius === null || radius === '') {
+    radius = dropZone.borderRadius;
+  }
+
+  flat.dropZoneBorderRadius = formatBorderRadiusEm(radius, BORDER_RADIUS_DEFAULT);
+  useBorder = dropZone.useDropZoneBorder === undefined ?
+    true :
+    isTruthy(dropZone.useDropZoneBorder);
+
+  flat.useDropZoneBorder = useBorder;
+  flat.dropZoneBordersEnabled = useBorder ? '1' : '0';
+
+  if (!useBorder) {
+    flat.dropZoneBorderWidth = '0';
+    flat.dropZoneBorderStyle = 'none';
+    flat.dropZoneHoverBorderStyle = 'none';
+    return;
+  }
+
+  borderSettings = dropZone.borderSettings || {};
+  normal = borderSettings.normal || {};
+  hover = borderSettings.hover || {};
+
+  flat.dropZoneBorderWidth = formatBorderWidthEm(borderSettings.borderWidth, BORDER_WIDTH_DEFAULT);
+  flat.dropZoneBorderStyle = normalizeBorderStyle(normal.borderStyle);
+  flat.dropZoneHoverBorderStyle = normalizeBorderStyle(hover.borderStyle || normal.borderStyle);
+
+  if (normal.borderColor !== undefined && normal.borderColor !== null && normal.borderColor !== '') {
+    flat.dropZoneBorder = normal.borderColor;
+  }
+  else if (dropZone.dropZoneBorder !== undefined && dropZone.dropZoneBorder !== null && dropZone.dropZoneBorder !== '') {
+    flat.dropZoneBorder = dropZone.dropZoneBorder;
+  }
+
+  if (hover.borderColor !== undefined && hover.borderColor !== null && hover.borderColor !== '') {
+    flat.dropZoneHoverBorder = hover.borderColor;
+  }
+  else if (dropZone.dropZoneHoverBorder !== undefined && dropZone.dropZoneHoverBorder !== null && dropZone.dropZoneHoverBorder !== '') {
+    flat.dropZoneHoverBorder = dropZone.dropZoneHoverBorder;
+  }
+}
+
+/**
+ * @param {Object} draggable
+ * @param {Object} appearance
+ * @param {Object} flat
+ */
+function applyDraggableBorderAppearance(draggable, appearance, flat) {
   var borderSettings;
   var borderColors;
   var useBorder;
+  var radius;
 
   draggable = draggable || {};
-  useBorder = draggable.useDraggableBorder === true;
+  appearance = appearance || {};
+  radius = appearance.draggableBorderRadius;
+
+  if (radius === undefined || radius === null || radius === '') {
+    radius = draggable.borderRadius;
+  }
+
+  flat.draggableBorderRadius = formatBorderRadiusEm(radius, BORDER_RADIUS_DEFAULT);
+  useBorder = isTruthy(draggable.useDraggableBorder);
   flat.useDraggableBorder = useBorder;
   flat.draggableBordersEnabled = useBorder ? '1' : '0';
 
@@ -318,13 +427,14 @@ export function flattenAppearance(appearance) {
   }
 
   dropZone = appearance.dropZoneColors || appearance;
-  copyDefinedKeys(flat, dropZone, DROP_ZONE_COLOR_KEYS);
+  copyDefinedKeys(flat, dropZone, DROP_ZONE_BASE_KEYS);
+  applyDropZoneBorderAppearance(dropZone, appearance, flat);
 
   draggable = appearance.draggableColors || appearance;
   copyDefinedKeys(flat, draggable, DRAGGABLE_TEXT_COLOR_KEYS);
-  applyDraggableBorderAppearance(draggable, flat);
+  applyDraggableBorderAppearance(draggable, appearance, flat);
 
-  useGradient = draggable.useGradientBackground === true || usesLegacyPerStateGradient(appearance);
+  useGradient = isTruthy(draggable.useGradientBackground) || usesLegacyPerStateGradient(appearance);
 
   if (useGradient) {
     gradientBackgrounds = draggable.gradientBackgrounds || {};
@@ -369,7 +479,22 @@ export function flattenAppearance(appearance) {
  */
 export function getDefaultNestedAppearanceExtras() {
   return {
-    dropZoneColors: {},
+    dropZoneBorderRadius: 0.25,
+    dropZoneColors: {
+      useDropZoneBorder: true,
+      borderSettings: {
+        borderWidth: 0.1,
+        normal: {
+          borderStyle: 'solid',
+          borderColor: '#666666'
+        },
+        hover: {
+          borderStyle: 'solid',
+          borderColor: '#666666'
+        }
+      }
+    },
+    draggableBorderRadius: 0.25,
     draggableColors: {
       useDraggableBorder: false,
       useGradientBackground: false,

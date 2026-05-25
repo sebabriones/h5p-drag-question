@@ -775,6 +775,110 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
           }
 
           finished(null, parameters);
+        },
+        19: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var appearance;
+          var dropZoneColors;
+          var borderSettings;
+          var normal;
+          var hover;
+
+          if (!settings) {
+            finished(null, parameters);
+            return;
+          }
+
+          if (!settings.appearance) {
+            settings.appearance = {};
+          }
+
+          appearance = settings.appearance;
+          if (!appearance.dropZoneColors) {
+            appearance.dropZoneColors = {};
+          }
+
+          dropZoneColors = appearance.dropZoneColors;
+          if (dropZoneColors.useDropZoneBorder === undefined) {
+            dropZoneColors.useDropZoneBorder = true;
+          }
+
+          if (!dropZoneColors.borderSettings) {
+            dropZoneColors.borderSettings = {};
+          }
+
+          borderSettings = dropZoneColors.borderSettings;
+          if (borderSettings.borderWidth === undefined || borderSettings.borderWidth === null || borderSettings.borderWidth === '') {
+            borderSettings.borderWidth = 0.1;
+          }
+
+          if (!borderSettings.normal) {
+            borderSettings.normal = {};
+          }
+          if (!borderSettings.hover) {
+            borderSettings.hover = {};
+          }
+
+          normal = borderSettings.normal;
+          hover = borderSettings.hover;
+
+          if (normal.borderStyle === undefined || normal.borderStyle === null || normal.borderStyle === '') {
+            normal.borderStyle = 'solid';
+          }
+          if (hover.borderStyle === undefined || hover.borderStyle === null || hover.borderStyle === '') {
+            hover.borderStyle = 'solid';
+          }
+
+          if ((normal.borderColor === undefined || normal.borderColor === null || normal.borderColor === '') &&
+              dropZoneColors.dropZoneBorder !== undefined && dropZoneColors.dropZoneBorder !== null && dropZoneColors.dropZoneBorder !== '') {
+            normal.borderColor = dropZoneColors.dropZoneBorder;
+          }
+          if (normal.borderColor === undefined || normal.borderColor === null || normal.borderColor === '') {
+            normal.borderColor = '#666666';
+          }
+
+          if ((hover.borderColor === undefined || hover.borderColor === null || hover.borderColor === '') &&
+              dropZoneColors.dropZoneHoverBorder !== undefined && dropZoneColors.dropZoneHoverBorder !== null && dropZoneColors.dropZoneHoverBorder !== '') {
+            hover.borderColor = dropZoneColors.dropZoneHoverBorder;
+          }
+          if (hover.borderColor === undefined || hover.borderColor === null || hover.borderColor === '') {
+            hover.borderColor = '#666666';
+          }
+
+          delete dropZoneColors.dropZoneBorder;
+          delete dropZoneColors.dropZoneHoverBorder;
+
+          finished(null, parameters);
+        },
+        20: function (parameters, finished) {
+          var settings = parameters.question && parameters.question.settings;
+          var appearance;
+          var dropZoneColors;
+          var draggableColors;
+
+          if (!settings || !settings.appearance) {
+            finished(null, parameters);
+            return;
+          }
+
+          appearance = settings.appearance;
+          dropZoneColors = appearance.dropZoneColors || {};
+          draggableColors = appearance.draggableColors || {};
+
+          if ((appearance.dropZoneBorderRadius === undefined || appearance.dropZoneBorderRadius === null || appearance.dropZoneBorderRadius === '') &&
+              dropZoneColors.borderRadius !== undefined && dropZoneColors.borderRadius !== null && dropZoneColors.borderRadius !== '') {
+            appearance.dropZoneBorderRadius = dropZoneColors.borderRadius;
+          }
+
+          if ((appearance.draggableBorderRadius === undefined || appearance.draggableBorderRadius === null || appearance.draggableBorderRadius === '') &&
+              draggableColors.borderRadius !== undefined && draggableColors.borderRadius !== null && draggableColors.borderRadius !== '') {
+            appearance.draggableBorderRadius = draggableColors.borderRadius;
+          }
+
+          delete dropZoneColors.borderRadius;
+          delete draggableColors.borderRadius;
+
+          finished(null, parameters);
         }
       }
     }

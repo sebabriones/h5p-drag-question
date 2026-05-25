@@ -50,13 +50,41 @@
                       "label": "Color de fondo de la zona de colocación"
                     },
                     {
-                      "label": "Color del borde de la zona de colocación"
-                    },
-                    {
                       "label": "Color de fondo de la zona al pasar el elemento"
                     },
                     {
-                      "label": "Color del borde de la zona al pasar el elemento"
+                      "label": "Usar bordes en las zonas de colocación"
+                    },
+                    {
+                      "label": "Ajustes del borde",
+                      "fields": [
+                        {
+                          "label": "Grosor del borde",
+                          "description": "Grosor en unidades em (escala con el tamaño del elemento)."
+                        },
+                        {
+                          "label": "Borde en estado normal",
+                          "fields": [
+                            {
+                              "label": "Estilo del borde"
+                            },
+                            {
+                              "label": "Color del borde"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "Borde al pasar el elemento",
+                          "fields": [
+                            {
+                              "label": "Estilo del borde"
+                            },
+                            {
+                              "label": "Color del borde"
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "label": "Color del texto de la etiqueta de la zona"
@@ -65,6 +93,10 @@
                       "label": "Color del icono de la zona"
                     }
                   ]
+                },
+                {
+                  "label": "Radio del borde de la zona de colocación",
+                  "description": "Redondeo de las esquinas en unidades em (escala con el tamaño del elemento)."
                 },
                 {
                   "label": "Colores de los elementos arrastrables",
@@ -207,6 +239,10 @@
                       "label": "Color del texto del elemento incorrecto"
                     }
                   ]
+                },
+                {
+                  "label": "Radio del borde del elemento arrastrable",
+                  "description": "Redondeo de las esquinas en unidades em (escala con el tamaño del elemento)."
                 }
               ]
             }

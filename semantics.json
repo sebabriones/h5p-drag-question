@@ -158,17 +158,6 @@
                     }
                   },
                   {
-                    "name": "dropZoneBorder",
-                    "type": "text",
-                    "widget": "colorSelector",
-                    "label": "Drop zone border color",
-                    "default": "#666666",
-                    "optional": true,
-                    "spectrum": {
-                      "showInput": true
-                    }
-                  },
-                  {
                     "name": "dropZoneHoverBackground",
                     "type": "text",
                     "widget": "colorSelector",
@@ -180,15 +169,122 @@
                     }
                   },
                   {
-                    "name": "dropZoneHoverBorder",
-                    "type": "text",
-                    "widget": "colorSelector",
-                    "label": "Drop zone hover border color",
-                    "default": "#666666",
-                    "optional": true,
-                    "spectrum": {
-                      "showInput": true
-                    }
+                    "name": "useDropZoneBorder",
+                    "type": "boolean",
+                    "label": "Use drop zone borders",
+                    "default": true
+                  },
+                  {
+                    "name": "borderSettings",
+                    "type": "group",
+                    "label": "Border settings",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useDropZoneBorder",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "borderWidth",
+                        "type": "number",
+                        "label": "Border width",
+                        "description": "Thickness in em units (scales with element size).",
+                        "default": 0.1,
+                        "min": 0,
+                        "max": 0.5,
+                        "decimals": 2,
+                        "unit": "em"
+                      },
+                      {
+                        "name": "normal",
+                        "type": "group",
+                        "label": "Normal state border",
+                        "fields": [
+                          {
+                            "name": "borderStyle",
+                            "type": "select",
+                            "label": "Border style",
+                            "default": "solid",
+                            "options": [
+                              {
+                                "value": "solid",
+                                "label": "Solid"
+                              },
+                              {
+                                "value": "dashed",
+                                "label": "Dashed"
+                              },
+                              {
+                                "value": "dotted",
+                                "label": "Dotted"
+                              },
+                              {
+                                "value": "double",
+                                "label": "Double"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "borderColor",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Border color",
+                            "default": "#666666",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "hover",
+                        "type": "group",
+                        "label": "Hover state border",
+                        "fields": [
+                          {
+                            "name": "borderStyle",
+                            "type": "select",
+                            "label": "Border style",
+                            "default": "solid",
+                            "options": [
+                              {
+                                "value": "solid",
+                                "label": "Solid"
+                              },
+                              {
+                                "value": "dashed",
+                                "label": "Dashed"
+                              },
+                              {
+                                "value": "dotted",
+                                "label": "Dotted"
+                              },
+                              {
+                                "value": "double",
+                                "label": "Double"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "borderColor",
+                            "type": "text",
+                            "widget": "colorSelector",
+                            "label": "Border color",
+                            "default": "#666666",
+                            "optional": true,
+                            "spectrum": {
+                              "showInput": true
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     "name": "dropZoneLabelColor",
@@ -213,6 +309,17 @@
                     }
                   }
                 ]
+              },
+              {
+                "name": "dropZoneBorderRadius",
+                "type": "number",
+                "label": "Drop zone border radius",
+                "description": "Corner roundness in em units (scales with element size).",
+                "default": 0.25,
+                "min": 0,
+                "max": 2,
+                "decimals": 2,
+                "unit": "em"
               },
               {
                 "name": "draggableColors",
@@ -647,9 +754,20 @@
                     }
                   }
                 ]
+                  }
+                ]
+              },
+              {
+                "name": "draggableBorderRadius",
+                "type": "number",
+                "label": "Draggable border radius",
+                "description": "Corner roundness in em units (scales with element size).",
+                "default": 0.25,
+                "min": 0,
+                "max": 2,
+                "decimals": 2,
+                "unit": "em"
               }
-            ]
-          }
         ]
       },
       {
@@ -1240,7 +1358,7 @@
         "label": "Show Title",
         "importance": "low",
         "description": "Uncheck this option if you do not want this title to be displayed. The title will only be displayed in summaries, statistics etc.",
-        "default": true
+        "default": false
       },
       {
         "name": "shuffleInitialPositions",

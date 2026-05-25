@@ -11,7 +11,6 @@ import { applyTaskSizeScaleToSettings } from './task-size-scale';
 import {
   applyAppearanceVars,
   applyCanvasAppearance,
-  getAppearanceFromSettings,
   scheduleCanvasAppearance
 } from './appearance';
 
@@ -324,7 +323,7 @@ C.prototype.constructor = C;
  */
 C.prototype.attach = function ($container) {
   var self = this;
-  var appearance = getAppearanceFromSettings(self.options.question.settings);
+  var appearance = self.options.question.settings && self.options.question.settings.appearance;
   var result = H5P.Question.prototype.attach.call(self, $container);
 
   applyAppearanceVars($container, appearance);
@@ -371,7 +370,7 @@ C.prototype.registerDomElements = function () {
 
   scheduleCanvasAppearance(
     self.$container,
-    getAppearanceFromSettings(self.options.question.settings)
+    self.options.question.settings && self.options.question.settings.appearance
   );
 
   // First we check if full screen is supported
@@ -594,7 +593,7 @@ C.prototype.createQuestionContent = function () {
   // might have done so before.
 
   this.$container = $('<div class="h5p-inner" role="application" aria-labelledby="dq-intro-' + numInstances + '"></div>');
-  applyAppearanceVars(this.$container, getAppearanceFromSettings(this.options.question.settings));
+  applyAppearanceVars(this.$container, this.options.question.settings && this.options.question.settings.appearance);
 
   if (this.options.question.settings.background !== undefined) {
     this.$container.css('backgroundImage', 'url("' + H5P.getPath(this.options.question.settings.background.path, this.id) + '")');

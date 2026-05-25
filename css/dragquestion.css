@@ -61,7 +61,7 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
 }
 
 .h5p-dragquestion .h5p-draggable {
-  border-radius: 0.25em;
+  border-radius: var(--dq-draggable-border-radius, 0.25em);
   border-width: var(--dq-draggable-border-width, 0);
   border-style: var(--dq-draggable-border-style, none);
   border-color: var(--dq-draggable-border, transparent);
@@ -187,21 +187,24 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   background: var(--dq-dropzone-bg, #f5f5f5);
-  border: 0.1em solid var(--dq-dropzone-border, transparent);
+  border-radius: var(--dq-dropzone-border-radius, 0.25em);
+  border-width: var(--dq-dropzone-border-width, 0.1em);
+  border-style: var(--dq-dropzone-border-style, solid);
+  border-color: var(--dq-dropzone-border, transparent);
 }
 
 .h5p-dragquestion .h5p-dropzone.h5p-has-label-outside > .h5p-inner {
-  border-radius: 0 0em 0.25em 0.25em;
+  border-radius: 0 0 var(--dq-dropzone-border-radius, 0.25em) var(--dq-dropzone-border-radius, 0.25em);
 }
 
 .h5p-dragquestion .h5p-dq-highlight-dz .h5p-dropzone > .h5p-inner.h5p-active,
 .h5p-dragquestion .h5p-dq-highlight-dz-always .h5p-dropzone > .h5p-inner {
   padding: 0;
-  border: 2px dashed var(--dq-dropzone-border, #666);
 }
 
 .h5p-dragquestion .h5p-dropzone > .h5p-inner.h5p-over {
   background: var(--dq-dropzone-hover-bg, #edd6e9);
+  border-style: var(--dq-dropzone-hover-border-style, var(--dq-dropzone-border-style, solid));
   border-color: var(--dq-dropzone-hover-border, var(--dq-dropzone-border, #666));
 }
 

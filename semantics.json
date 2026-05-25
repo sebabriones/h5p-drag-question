@@ -754,8 +754,6 @@
                     }
                   }
                 ]
-                  }
-                ]
               },
               {
                 "name": "draggableBorderRadius",
@@ -768,6 +766,8 @@
                 "decimals": 2,
                 "unit": "em"
               }
+            ]
+          }
         ]
       },
       {

@@ -36,7 +36,7 @@ function getInstructionsOptions(instance) {
     instance.options.question &&
     instance.options.question.settings &&
     instance.options.question.settings.instructions;
-  var instructions = $.extend({}, nestedInstructions || {}, rootInstructions || {});
+  var instructions = $.extend(true, {}, nestedInstructions || {}, rootInstructions || {});
   var text;
 
   if ((!rootInstructions && !nestedInstructions) || !isTruthy(instructions.enabled)) {
@@ -57,6 +57,8 @@ function getInstructionsOptions(instance) {
     displayMode: instructions.displayMode || 'both',
     introButtonLabel: instructions.introButtonLabel || 'Start',
     tabButtonLabel: instructions.tabButtonLabel || 'Instructions',
+    appearance: $.extend(true, {}, instructions.appearance || {}),
+    animation: $.extend(true, {}, instructions.animation || {}),
     startCollapsed: instructions.startCollapsed === undefined ?
       true :
       isTruthy(instructions.startCollapsed)

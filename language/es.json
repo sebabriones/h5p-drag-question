@@ -33,6 +33,133 @@
         },
         {
           "label": "Mostrar la pestaña contraída al cargar"
+        },
+        {
+          "label": "Apariencia de las instrucciones",
+          "fields": [
+            {
+              "label": "Ventana de introducción",
+              "fields": [
+                {
+                  "label": "Color de fondo de la introducción"
+                },
+                {
+                  "label": "Color del texto de la introducción"
+                },
+                {
+                  "label": "Botón comenzar",
+                  "fields": [
+                    {
+                      "label": "Color de fondo del botón"
+                    },
+                    {
+                      "label": "Color del texto del botón"
+                    },
+                    {
+                      "label": "Color de fondo del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Color del texto del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Usar borde en el botón"
+                    },
+                    {
+                      "label": "Ajustes del borde",
+                      "fields": [
+                        {
+                          "label": "Color del borde del botón"
+                        },
+                        {
+                          "label": "Color del borde del botón al pasar el cursor"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Radio del borde del botón",
+                      "description": "Redondeo de las esquinas en unidades rem."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Pestaña de instrucciones",
+              "fields": [
+                {
+                  "label": "Color de fondo de la pestaña"
+                },
+                {
+                  "label": "Color del texto de la pestaña"
+                },
+                {
+                  "label": "Color del borde del contenido de la pestaña"
+                },
+                {
+                  "label": "Posición del botón de la pestaña",
+                  "options": [
+                    {
+                      "label": "Izquierda"
+                    },
+                    {
+                      "label": "Centro"
+                    },
+                    {
+                      "label": "Derecha"
+                    }
+                  ]
+                },
+                {
+                  "label": "Botón de la pestaña",
+                  "fields": [
+                    {
+                      "label": "Color de fondo del botón"
+                    },
+                    {
+                      "label": "Color del texto del botón"
+                    },
+                    {
+                      "label": "Color de fondo del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Color del texto del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Usar borde en el botón"
+                    },
+                    {
+                      "label": "Ajustes del borde",
+                      "fields": [
+                        {
+                          "label": "Color del borde del botón"
+                        },
+                        {
+                          "label": "Color del borde del botón al pasar el cursor"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Radio del borde del botón",
+                      "description": "Redondeo de las esquinas en unidades rem."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Animación",
+              "fields": [
+                {
+                  "label": "Duración de la cortina de introducción",
+                  "description": "Velocidad de apertura/cierre de la cortina de introducción en milisegundos."
+                },
+                {
+                  "label": "Duración de apertura/cierre de la pestaña",
+                  "description": "Velocidad de apertura/cierre de la pestaña de instrucciones en milisegundos."
+                }
+              ]
+            }
+          ]
         }
       ]
     },

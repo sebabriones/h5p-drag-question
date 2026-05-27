@@ -44,6 +44,10 @@
             {
               "label": "Duración de apertura/cierre de la pestaña",
               "description": "Velocidad de apertura/cierre de la pestaña de instrucciones en milisegundos."
+            },
+            {
+              "label": "Desplazamiento extra al cerrar la pestaña",
+              "description": "Margen adicional (en px) cuando la pestaña está cerrada. 0 la deja al ras; valores más altos la ocultan más."
             }
           ]
         },

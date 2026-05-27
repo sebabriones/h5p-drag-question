@@ -115,6 +115,7 @@ function C(options, contentId, contentData) {
   H5P.Question.call(self, 'dragquestion');
   this.options = $.extend(true, {}, {
     scoreShow: 'Check',
+    showSolution: 'Show solution',
     tryAgain: 'Retry',
     grabbablePrefix: 'Grabbable {num} of {total}.',
     grabbableSuffix: 'Placed in dropzone {num}.',
@@ -146,6 +147,16 @@ function C(options, contentId, contentData) {
     behaviour: {
       enableRetry: true,
       enableCheckButton: true,
+      enableShowSolutionButton: false,
+      showSolutionAfterAttempts: 0,
+      offerSolutionAfterAttempts: true,
+      offerSolutionOnlyOnce: true,
+      solutionOfferDialog: {
+        title: 'Show solution?',
+        message: 'You have used @attempts attempts. Do you want to see the solution?',
+        confirmLabel: 'Show solution',
+        cancelLabel: 'Keep trying'
+      },
       preventResize: false,
       singlePoint: false,
       applyPenalties: true,
@@ -158,6 +169,7 @@ function C(options, contentId, contentData) {
       shuffleInitialPositions: false
     },
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
+    a11yShowSolution: 'Show the solution. The correct responses will be displayed and input will be disabled.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
     submit: 'Submit',
   }, options);
@@ -177,6 +189,11 @@ function C(options, contentId, contentData) {
   this.dropZones = [];
   this.answered = (contentData && contentData.previousState !== undefined && contentData.previousState.answers !== undefined && contentData.previousState.answers.length);
   this.blankIsCorrect = true;
+
+  // Attempts and solution access state
+  this.attempts = 0;
+  this.solutionOfferShown = false;
+  this.solutionOfferDismissed = false;
 
   this.backgroundOpacity = (this.options.behaviour.backgroundOpacity === undefined || this.options.behaviour.backgroundOpacity.trim() === '') ? undefined : this.options.behaviour.backgroundOpacity;
 
@@ -719,7 +736,113 @@ C.prototype.registerButtons = function () {
     this.addSolutionButton();
   }
 
+  this.addShowSolutionButton();
   this.addRetryButton();
+};
+
+/**
+ * Open a solution offer dialog. Uses a native confirm as fallback.
+ *
+ * @param {number} attempts
+ * @param {function(boolean):void} callback
+ */
+C.prototype.openSolutionOfferDialog = function (attempts, callback) {
+  var dialog = (this.options && this.options.behaviour && this.options.behaviour.solutionOfferDialog) || {};
+  var title = dialog.title || 'Show solution?';
+  var message = dialog.message || 'You have used @attempts attempts. Do you want to see the solution?';
+  var confirmLabel = dialog.confirmLabel || 'Show solution';
+  var cancelLabel = dialog.cancelLabel || 'Keep trying';
+
+  message = String(message).replace(/@attempts/g, String(attempts));
+
+  // Prefer custom dialogs if available, fallback to native confirm.
+  if (H5P && H5P.JoubelUI && typeof H5P.JoubelUI.createConfirmDialog === 'function') {
+    H5P.JoubelUI.createConfirmDialog({
+      headerText: title,
+      dialogText: message,
+      cancelText: cancelLabel,
+      confirmText: confirmLabel
+    }, function (confirmed) {
+      callback(!!confirmed);
+    });
+    return;
+  }
+
+  // Native confirm fallback
+  callback(window.confirm(title + '\n\n' + message));
+};
+
+/**
+ * Update visibility of the "show solution" button based on behaviour settings.
+ */
+C.prototype.updateShowSolutionButtonVisibility = function () {
+  var behaviour = this.options && this.options.behaviour ? this.options.behaviour : {};
+  var threshold = parseInt(behaviour.showSolutionAfterAttempts, 10) || 0;
+  var alwaysEnabled = behaviour.enableShowSolutionButton === true;
+  var unlocked = alwaysEnabled || (threshold > 0 && this.attempts >= threshold);
+
+  if (!this.hasButton('show-solution')) {
+    return;
+  }
+
+  if (unlocked) {
+    this.showButton('show-solution');
+  }
+  else {
+    this.hideButton('show-solution');
+  }
+};
+
+/**
+ * Offer to show solutions once the attempt threshold is reached.
+ */
+C.prototype.maybeOfferSolutions = function () {
+  var behaviour = this.options && this.options.behaviour ? this.options.behaviour : {};
+  var threshold = parseInt(behaviour.showSolutionAfterAttempts, 10) || 0;
+
+  if (threshold <= 0) {
+    return;
+  }
+
+  if (this.attempts < threshold) {
+    return;
+  }
+
+  if (behaviour.offerSolutionAfterAttempts === false) {
+    return;
+  }
+
+  if (behaviour.offerSolutionOnlyOnce !== false && (this.solutionOfferShown || this.solutionOfferDismissed)) {
+    return;
+  }
+
+  this.solutionOfferShown = true;
+
+  this.openSolutionOfferDialog(this.attempts, function (confirmed) {
+    if (confirmed) {
+      this.showSolutions();
+      return;
+    }
+
+    if (behaviour.offerSolutionOnlyOnce !== false) {
+      this.solutionOfferDismissed = true;
+    }
+  }.bind(this));
+};
+
+/**
+ * Add "show solution" button to our container.
+ */
+C.prototype.addShowSolutionButton = function () {
+  var that = this;
+
+  this.addButton('show-solution', this.options.showSolution, function () {
+    that.showSolutions();
+  }, false, {
+    'aria-label': this.options.a11yShowSolution
+  });
+
+  this.updateShowSolutionButtonVisibility();
 };
 
 /**
@@ -729,6 +852,7 @@ C.prototype.addSolutionButton = function () {
   var that = this;
 
   this.addButton('check-answer', this.options.scoreShow, function () {
+    that.attempts = (that.attempts || 0) + 1;
     that.answered = true;
     that.showAllSolutions();
     that.showScore();
@@ -741,6 +865,9 @@ C.prototype.addSolutionButton = function () {
     // Focus top of task for better focus and read-speaker flow
     var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
     $nextFocus.focus();
+
+    that.updateShowSolutionButtonVisibility();
+    that.maybeOfferSolutions();
   }, true, {
     'aria-label': this.options.a11yCheck,
   }, {
@@ -1049,6 +1176,7 @@ C.prototype.resetTask = function () {
   //Show solution button
   this.showButton('check-answer');
   this.hideButton('try-again');
+  this.updateShowSolutionButtonVisibility();
   this.removeFeedback();
   this.setExplanation();
 };

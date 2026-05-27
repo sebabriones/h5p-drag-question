@@ -1682,6 +1682,104 @@
         "optional": true
       },
       {
+        "name": "enableShowSolutionButton",
+        "type": "boolean",
+        "label": "Enable \"Show solution\" button",
+        "importance": "low",
+        "default": false,
+        "optional": true
+      },
+      {
+        "name": "showSolutionAfterAttempts",
+        "type": "number",
+        "label": "Offer \"Show solution\" after attempts",
+        "description": "0 disables this. If set to N > 0, the user can be offered to see the solution after N checks.",
+        "importance": "low",
+        "default": 0,
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "optional": true
+      },
+      {
+        "name": "offerSolutionAfterAttempts",
+        "type": "boolean",
+        "label": "Ask before showing solution",
+        "description": "When enabled and the attempt limit is reached, the user will be asked before showing solutions.",
+        "importance": "low",
+        "default": true,
+        "optional": true,
+        "widget": "showWhen",
+        "showWhen": {
+          "rules": [
+            {
+              "field": "showSolutionAfterAttempts",
+              "greaterThan": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "offerSolutionOnlyOnce",
+        "type": "boolean",
+        "label": "Ask only once",
+        "description": "Only show the offer dialog once when the attempt limit is reached.",
+        "importance": "low",
+        "default": true,
+        "optional": true,
+        "widget": "showWhen",
+        "showWhen": {
+          "rules": [
+            {
+              "field": "showSolutionAfterAttempts",
+              "greaterThan": 0
+            }
+          ]
+        }
+      },
+      {
+        "name": "solutionOfferDialog",
+        "type": "group",
+        "label": "Show solution dialog",
+        "importance": "low",
+        "optional": true,
+        "widget": "showWhen",
+        "showWhen": {
+          "rules": [
+            {
+              "field": "showSolutionAfterAttempts",
+              "greaterThan": 0
+            }
+          ]
+        },
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Dialog title",
+            "default": "Show solution?"
+          },
+          {
+            "name": "message",
+            "type": "text",
+            "label": "Dialog message",
+            "default": "You have used @attempts attempts. Do you want to see the solution?"
+          },
+          {
+            "name": "confirmLabel",
+            "type": "text",
+            "label": "Confirm button label",
+            "default": "Show solution"
+          },
+          {
+            "name": "cancelLabel",
+            "type": "text",
+            "label": "Cancel button label",
+            "default": "Keep trying"
+          }
+        ]
+      },
+      {
         "name": "singlePoint",
         "type": "boolean",
         "label": "Give one point for the whole task",

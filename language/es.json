@@ -624,42 +624,6 @@
           "label": "Habilitar el botón \"Comprobar\""
         },
         {
-          "label": "Habilitar botón \"Mostrar respuesta\""
-        },
-        {
-          "label": "Ofrecer \"Mostrar respuesta\" después de intentos",
-          "description": "0 deshabilita esto. Si se establece en N > 0, se puede ofrecer ver la respuesta después de N comprobaciones."
-        },
-        {
-          "label": "Preguntar antes de mostrar la respuesta",
-          "description": "Cuando está habilitado y se alcanza el límite de intentos, se preguntará antes de mostrar las respuestas."
-        },
-        {
-          "label": "Preguntar solo una vez",
-          "description": "Mostrar el diálogo solo una vez cuando se alcance el límite de intentos."
-        },
-        {
-          "label": "Diálogo de \"Mostrar respuesta\"",
-          "fields": [
-            {
-              "label": "Título del diálogo",
-              "default": "¿Mostrar respuesta?"
-            },
-            {
-              "label": "Mensaje del diálogo",
-              "default": "Ya realizaste @attempts intentos. ¿Deseas ver la respuesta?"
-            },
-            {
-              "label": "Texto del botón de confirmación",
-              "default": "Mostrar respuesta"
-            },
-            {
-              "label": "Texto del botón de cancelar",
-              "default": "Seguir intentando"
-            }
-          ]
-        },
-        {
           "label": "Da un punto para toda la tarea",
           "description": "Deshabilitar dar un punto por cada elemento colocado correctamente."
         },

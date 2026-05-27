@@ -58,7 +58,11 @@ function getInstructionsOptions(instance) {
     introButtonLabel: instructions.introButtonLabel || 'Start',
     tabButtonLabel: instructions.tabButtonLabel || 'Instructions',
     appearance: $.extend(true, {}, instructions.appearance || {}),
-    animation: $.extend(true, {}, instructions.animation || {}),
+    animation: $.extend(
+      true,
+      {},
+      (instructions.animation || instructions.appearance && instructions.appearance.animation) || {}
+    ),
     startCollapsed: instructions.startCollapsed === undefined ?
       true :
       isTruthy(instructions.startCollapsed)

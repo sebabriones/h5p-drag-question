@@ -35,6 +35,19 @@
           "label": "Mostrar la pestaña contraída al cargar"
         },
         {
+          "label": "Animación",
+          "fields": [
+            {
+              "label": "Duración de la cortina de introducción",
+              "description": "Velocidad de apertura/cierre de la cortina de introducción en milisegundos."
+            },
+            {
+              "label": "Duración de apertura/cierre de la pestaña",
+              "description": "Velocidad de apertura/cierre de la pestaña de instrucciones en milisegundos."
+            }
+          ]
+        },
+        {
           "label": "Apariencia de las instrucciones",
           "fields": [
             {
@@ -143,19 +156,6 @@
                       "description": "Redondeo de las esquinas en unidades rem."
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "label": "Animación",
-              "fields": [
-                {
-                  "label": "Duración de la cortina de introducción",
-                  "description": "Velocidad de apertura/cierre de la cortina de introducción en milisegundos."
-                },
-                {
-                  "label": "Duración de apertura/cierre de la pestaña",
-                  "description": "Velocidad de apertura/cierre de la pestaña de instrucciones en milisegundos."
                 }
               ]
             }

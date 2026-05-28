@@ -476,7 +476,7 @@ export default class Draggable extends H5P.EventDispatcher {
    *
    * @param {boolean} skipVisuals
    * @param {Array} solutions
-   * @param {H5P.Question.ScorePoints} scorePoints
+   * @param {H5P.QuestionCFRD.ScorePoints} scorePoints
    * @returns {number}
    */
   results(skipVisuals, solutions, scorePoints) {
@@ -538,7 +538,7 @@ export default class Draggable extends H5P.EventDispatcher {
    *
    * @param {Object} element
    * @param {string} status 'correct' or 'wrong'
-   * @param {H5P.Question.ScorePoints} scorePoints
+   * @param {H5P.QuestionCFRD.ScorePoints} scorePoints
    */
   markElement(element, status, scorePoints) {
     var $elementResult = $('<span/>', {

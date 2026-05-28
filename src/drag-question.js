@@ -100,7 +100,7 @@ function scheduleInstructionsAttach(instance, $fallbackContainer) {
  * Constructor
  *
  * @class
- * @extends H5P.Question
+ * @extends H5P.QuestionCFRD
  * @param {Object} options Run parameters
  * @param {number} id Content identification
  * @param {Object} contentData
@@ -112,7 +112,7 @@ function C(options, contentId, contentData) {
   this.id = this.contentId = contentId;
   this.contentData = contentData;
 
-  H5P.Question.call(self, 'dragquestion');
+  H5P.QuestionCFRD.call(self, 'dragquestion');
   this.options = $.extend(true, {}, {
     scoreShow: 'Check',
     tryAgain: 'Retry',
@@ -391,7 +391,7 @@ function C(options, contentId, contentData) {
   });
 }
 
-C.prototype = Object.create(H5P.Question.prototype);
+C.prototype = Object.create(H5P.QuestionCFRD.prototype);
 C.prototype.constructor = C;
 
 /**
@@ -403,7 +403,7 @@ C.prototype.constructor = C;
 C.prototype.attach = function ($container) {
   var self = this;
   var appearance = self.options.question.settings && self.options.question.settings.appearance;
-  var result = H5P.Question.prototype.attach.call(self, $container);
+  var result = H5P.QuestionCFRD.prototype.attach.call(self, $container);
 
   applyAppearanceVars($container, appearance);
   applyCanvasAppearance($container, appearance);
@@ -418,7 +418,7 @@ C.prototype.attach = function ($container) {
 
 /**
  * Registers this question type's DOM elements before they are attached.
- * Called from H5P.Question.
+ * Called from H5P.QuestionCFRD.
  */
 C.prototype.registerDomElements = function () {
   var self = this;
@@ -950,7 +950,7 @@ C.prototype.showAllSolutions = function (skipVisuals) {
 
   var scorePoints;
   if (!skipVisuals && this.options.behaviour.showScorePoints && !this.options.behaviour.singlePoint && this.options.behaviour.applyPenalties) {
-    scorePoints = new H5P.Question.ScorePoints();
+    scorePoints = new H5P.QuestionCFRD.ScorePoints();
   }
 
   for (var i = 0; i < this.draggables.length; i++) {
@@ -1125,7 +1125,7 @@ C.prototype.showScore = function () {
     maxScore = 1;
   }
   var actualPoints = (this.options.behaviour.applyPenalties || this.options.behaviour.singlePoint) ? this.points : this.rawPoints;
-  var scoreText = H5P.Question.determineOverallFeedback(this.options.overallFeedback, actualPoints / maxScore).replace('@score', actualPoints).replace('@total', maxScore);
+  var scoreText = H5P.QuestionCFRD.determineOverallFeedback(this.options.overallFeedback, actualPoints / maxScore).replace('@score', actualPoints).replace('@total', maxScore);
   var helpText = (this.options.behaviour.enableScoreExplanation && this.options.behaviour.applyPenalties) ? this.options.scoreExplanation : false;
   this.setFeedback(scoreText, actualPoints, maxScore, this.options.scoreBarLabel, helpText, undefined, this.options.scoreExplanationButtonLabel);
 };

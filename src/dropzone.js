@@ -216,7 +216,7 @@ export default class DropZone {
       });
 
     // Add tip after setOpacity(), so this does not get background opacity:
-    var $tip = H5P.JoubelUI.createTip(self.tip, {
+    var $tip = H5P.JoubelUICFRD.createTip(self.tip, {
       tipLabel: self.l10n.tipLabel,
       tabcontrol: true
     });

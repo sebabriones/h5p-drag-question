@@ -24,7 +24,7 @@
   ],
   "preloadedCss": [
     {
-      "path": "css/dragquestion.css"
+      "path": "css/dragquestion-cfrd.css"
     }
   ],
   "preloadedDependencies": [
@@ -39,14 +39,14 @@
       "minorVersion": 10
     },
     {
-      "machineName": "H5P.JoubelUI",
+      "machineName": "H5P.JoubelUICFRD",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 0
     },
     {
-      "machineName": "H5P.Question",
+      "machineName": "H5P.QuestionCFRD",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 0
     },
     {
       "machineName": "H5P.Instructions",

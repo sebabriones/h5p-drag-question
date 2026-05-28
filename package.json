@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV='development' webpack",
     "build": "cross-env NODE_ENV='production' webpack",
-    "sync:lumi": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-lumi.ps1",
-    "deploy:lumi": "npm run build && npm run sync:lumi",
+    "sync:lumi:player": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-drag-question-player-lumi.ps1",
+    "sync:lumi:editor": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-drag-question-editor-lumi.ps1",
+    "sync:lumi:all": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-lumi.ps1",
+    "deploy:lumi": "npm run build && npm run sync:lumi:player",
+    "deploy:lumi:editor": "npm run sync:lumi:editor",
     "watch": "webpack --watch"
   },
   "keywords": [],

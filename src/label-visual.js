@@ -79,6 +79,26 @@ export function getLabelVisualFromDropZone(dropZone) {
 }
 
 /**
+ * @param {string} [mode]
+ * @returns {string}
+ */
+export function normalizeLabelDisplayMode(mode) {
+  if (mode === 'label-with-icon' || mode === 'icon-only') {
+    return mode;
+  }
+
+  return 'label-only';
+}
+
+/**
+ * @param {string} [mode]
+ * @returns {boolean}
+ */
+export function usesLabelVisualStack(mode) {
+  return mode === 'label-with-icon' || mode === 'icon-only';
+}
+
+/**
  * @param {string} [iconSource]
  * @param {Object} [zoneImage]
  * @param {string} [zoneIcon]

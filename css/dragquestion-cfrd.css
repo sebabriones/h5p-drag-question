@@ -277,6 +277,17 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   background: transparent;
 }
 
+.h5p-dragquestion .h5p-dropzone.h5p-has-icon-only .h5p-dz-visual-stack {
+  justify-content: center;
+}
+
+.h5p-dragquestion .h5p-dropzone.h5p-has-icon-only .h5p-dz-icon {
+  flex: 0 1 auto;
+  max-width: calc(90% * var(--dq-visual-scale, 1));
+  max-height: calc(90% * var(--dq-visual-scale, 1));
+  margin-top: 0;
+}
+
 .h5p-dragquestion .h5p-dropzone .h5p-label > div {
   text-overflow: ellipsis;
   overflow: hidden;

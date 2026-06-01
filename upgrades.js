@@ -377,7 +377,7 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
             dropZones.forEach(function (dropZone) {
               var visual = dropZone.labelVisual;
 
-              if (visual && visual.labelDisplayMode === 'label-with-icon' && !visual.iconSource) {
+              if (visual && (visual.labelDisplayMode === 'label-with-icon' || visual.labelDisplayMode === 'icon-only') && !visual.iconSource) {
                 visual.iconSource = 'image';
               }
             });
@@ -877,6 +877,229 @@ H5PUpgrades['H5P.DragQuestionCFRD'] = (function () {
 
           delete dropZoneColors.borderRadius;
           delete draggableColors.borderRadius;
+
+          finished(null, parameters);
+        },
+        53: function (parameters, finished) {
+          var normalizeRange = function (range) {
+            range = range || {};
+
+            if (range.feedbackLeadBold === undefined) {
+              range.feedbackLeadBold = true;
+            }
+            if (!range.feedbackTextColor) {
+              range.feedbackTextColor = '#1a73d9';
+            }
+            if (!range.feedbackTextAlign) {
+              range.feedbackTextAlign = 'left';
+            }
+            if (!range.feedbackImagePosition) {
+              range.feedbackImagePosition = 'left';
+            }
+            if (!range.scorebarAlign) {
+              range.scorebarAlign = 'left';
+            }
+
+            return range;
+          };
+          var overallFeedback = parameters.overallFeedback;
+          var i;
+
+          if (Array.isArray(overallFeedback)) {
+            parameters.overallFeedback = {
+              popupBackgroundColor: '#ffffff',
+              overallFeedback: overallFeedback.map(normalizeRange)
+            };
+          }
+          else if (overallFeedback && typeof overallFeedback === 'object') {
+            if (!overallFeedback.popupBackgroundColor) {
+              overallFeedback.popupBackgroundColor = '#ffffff';
+            }
+
+            if (Array.isArray(overallFeedback.overallFeedback)) {
+              for (i = 0; i < overallFeedback.overallFeedback.length; i++) {
+                overallFeedback.overallFeedback[i] = normalizeRange(overallFeedback.overallFeedback[i]);
+              }
+            }
+          }
+          else {
+            parameters.overallFeedback = {
+              popupBackgroundColor: '#ffffff',
+              overallFeedback: []
+            };
+          }
+
+          finished(null, parameters);
+        },
+        54: function (parameters, finished) {
+          var appearanceKeys = [
+            'feedbackLeadText',
+            'feedbackLeadBold',
+            'feedbackTextColor',
+            'feedbackTextAlign',
+            'feedbackImage',
+            'feedbackImagePosition',
+            'scorebarAlign'
+          ];
+          var normalizeAppearance = function (appearance) {
+            appearance = appearance || {};
+
+            if (appearance.feedbackLeadBold === undefined) {
+              appearance.feedbackLeadBold = true;
+            }
+            if (!appearance.feedbackTextColor) {
+              appearance.feedbackTextColor = '#1a73d9';
+            }
+            if (!appearance.feedbackTextAlign) {
+              appearance.feedbackTextAlign = 'left';
+            }
+            if (!appearance.feedbackImagePosition) {
+              appearance.feedbackImagePosition = 'left';
+            }
+            if (!appearance.scorebarAlign) {
+              appearance.scorebarAlign = 'left';
+            }
+
+            return appearance;
+          };
+          var migrateRange = function (range) {
+            var appearance;
+            var i;
+            var key;
+
+            range = range || {};
+
+            if (!range.appearance) {
+              range.appearance = {};
+            }
+
+            appearance = range.appearance;
+
+            for (i = 0; i < appearanceKeys.length; i++) {
+              key = appearanceKeys[i];
+              if (range[key] !== undefined) {
+                appearance[key] = range[key];
+                delete range[key];
+              }
+            }
+
+            range.appearance = normalizeAppearance(appearance);
+            return range;
+          };
+          var overallFeedback = parameters.overallFeedback;
+          var j;
+
+          if (Array.isArray(overallFeedback)) {
+            parameters.overallFeedback = {
+              popupBackgroundColor: '#ffffff',
+              overallFeedback: overallFeedback.map(migrateRange)
+            };
+          }
+          else if (overallFeedback && typeof overallFeedback === 'object') {
+            if (!overallFeedback.popupBackgroundColor) {
+              overallFeedback.popupBackgroundColor = '#ffffff';
+            }
+
+            if (Array.isArray(overallFeedback.overallFeedback)) {
+              for (j = 0; j < overallFeedback.overallFeedback.length; j++) {
+                overallFeedback.overallFeedback[j] = migrateRange(overallFeedback.overallFeedback[j]);
+              }
+            }
+          }
+
+          finished(null, parameters);
+        },
+        55: function (parameters, finished) {
+          var migrateRange = function (range) {
+            var appearance;
+
+            range = range || {};
+
+            if (!range.appearance) {
+              range.appearance = {};
+            }
+
+            appearance = range.appearance;
+
+            if (!appearance.feedbackLeadTextColor) {
+              if (appearance.feedbackTextColor) {
+                appearance.feedbackLeadTextColor = appearance.feedbackTextColor;
+              }
+              else if (range.feedbackTextColor) {
+                appearance.feedbackLeadTextColor = range.feedbackTextColor;
+              }
+            }
+
+            delete appearance.feedbackTextColor;
+            delete range.feedbackTextColor;
+
+            if (!appearance.feedbackLeadTextColor) {
+              appearance.feedbackLeadTextColor = '#1a73d9';
+            }
+
+            range.appearance = appearance;
+            return range;
+          };
+          var overallFeedback = parameters.overallFeedback;
+          var i;
+
+          if (Array.isArray(overallFeedback)) {
+            parameters.overallFeedback = {
+              popupBackgroundColor: '#ffffff',
+              feedbackTextColor: '#333333',
+              overallFeedback: overallFeedback.map(migrateRange)
+            };
+          }
+          else if (overallFeedback && typeof overallFeedback === 'object') {
+            if (!overallFeedback.feedbackTextColor) {
+              overallFeedback.feedbackTextColor = '#333333';
+            }
+
+            if (Array.isArray(overallFeedback.overallFeedback)) {
+              for (i = 0; i < overallFeedback.overallFeedback.length; i++) {
+                overallFeedback.overallFeedback[i] = migrateRange(overallFeedback.overallFeedback[i]);
+              }
+            }
+          }
+
+          finished(null, parameters);
+        },
+        56: function (parameters, finished) {
+          var cleanupRange = function (range) {
+            var appearance;
+
+            range = range || {};
+
+            if (range.scorebarAlign !== undefined) {
+              delete range.scorebarAlign;
+            }
+
+            if (range.appearance) {
+              appearance = range.appearance;
+              if (appearance.scorebarAlign !== undefined) {
+                delete appearance.scorebarAlign;
+              }
+            }
+
+            return range;
+          };
+          var overallFeedback = parameters.overallFeedback;
+          var i;
+
+          if (Array.isArray(overallFeedback)) {
+            parameters.overallFeedback = {
+              popupBackgroundColor: '#ffffff',
+              feedbackTextColor: '#333333',
+              overallFeedback: overallFeedback.map(cleanupRange)
+            };
+          }
+          else if (overallFeedback && typeof overallFeedback === 'object') {
+            if (Array.isArray(overallFeedback.overallFeedback)) {
+              for (i = 0; i < overallFeedback.overallFeedback.length; i++) {
+                overallFeedback.overallFeedback[i] = cleanupRange(overallFeedback.overallFeedback[i]);
+              }
+            }
+          }
 
           finished(null, parameters);
         }

@@ -1341,6 +1341,10 @@
                         {
                           "value": "label-with-icon",
                           "label": "Label with icon or image"
+                        },
+                        {
+                          "value": "icon-only",
+                          "label": "Icon or image only"
                         }
                       ]
                     },
@@ -1406,14 +1410,17 @@
                     {
                       "name": "labelWithIcon",
                       "type": "group",
-                      "label": "Label with icon or image",
+                      "label": "Icon or image",
                       "importance": "low",
                       "widget": "showWhen",
                       "showWhen": {
                         "rules": [
                           {
                             "field": "labelDisplayMode",
-                            "equals": "label-with-icon"
+                            "equals": [
+                              "label-with-icon",
+                              "icon-only"
+                            ]
                           }
                         ]
                       },
@@ -1607,6 +1614,30 @@
     "expanded": true,
     "fields": [
       {
+        "name": "popupBackgroundColor",
+        "type": "text",
+        "widget": "colorSelector",
+        "label": "Popup background color",
+        "default": "#ffffff",
+        "importance": "low",
+        "optional": true,
+        "spectrum": {
+          "showInput": true
+        }
+      },
+      {
+        "name": "feedbackTextColor",
+        "type": "text",
+        "widget": "colorSelector",
+        "label": "Feedback text color",
+        "default": "#333333",
+        "importance": "low",
+        "optional": true,
+        "spectrum": {
+          "showInput": true
+        }
+      },
+      {
         "name": "overallFeedback",
         "type": "list",
         "widgets": [
@@ -1651,6 +1682,93 @@
               "importance": "low",
               "placeholder": "Fill in the feedback",
               "optional": true
+            },
+            {
+              "name": "appearance",
+              "type": "group",
+              "label": "Appearance settings",
+              "importance": "low",
+              "expanded": false,
+              "optional": true,
+              "fields": [
+                {
+                  "name": "feedbackLeadText",
+                  "type": "text",
+                  "label": "Highlighted lead text",
+                  "importance": "low",
+                  "placeholder": "e.g. Correct! or Incorrect",
+                  "optional": true
+                },
+                {
+                  "name": "feedbackLeadBold",
+                  "type": "boolean",
+                  "label": "Bold lead text",
+                  "importance": "low",
+                  "default": true
+                },
+                {
+                  "name": "feedbackLeadTextColor",
+                  "type": "text",
+                  "widget": "colorSelector",
+                  "label": "Highlighted lead text color",
+                  "default": "#1a73d9",
+                  "importance": "low",
+                  "optional": true,
+                  "spectrum": {
+                    "showInput": true
+                  }
+                },
+                {
+                  "name": "feedbackTextAlign",
+                  "type": "select",
+                  "label": "Text alignment",
+                  "description": "Only used when no feedback image is set. With an image, text alignment follows image position (left/right: left aligned, above: centered).",
+                  "importance": "low",
+                  "default": "left",
+                  "options": [
+                    {
+                      "value": "left",
+                      "label": "Left"
+                    },
+                    {
+                      "value": "center",
+                      "label": "Center"
+                    },
+                    {
+                      "value": "right",
+                      "label": "Right"
+                    }
+                  ]
+                },
+                {
+                  "name": "feedbackImage",
+                  "type": "image",
+                  "label": "Feedback image",
+                  "importance": "low",
+                  "optional": true
+                },
+                {
+                  "name": "feedbackImagePosition",
+                  "type": "select",
+                  "label": "Image position",
+                  "importance": "low",
+                  "default": "left",
+                  "options": [
+                    {
+                      "value": "above",
+                      "label": "Above text"
+                    },
+                    {
+                      "value": "left",
+                      "label": "Left of text"
+                    },
+                    {
+                      "value": "right",
+                      "label": "Right of text"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -1901,6 +2019,22 @@
     "type": "text",
     "label": "Textual representation of the score explanation button",
     "default": "Show score explanation",
+    "importance": "low",
+    "common": true
+  },
+  {
+    "name": "feedbackPopupCloseLabel",
+    "type": "text",
+    "label": "Text for the feedback popup close button",
+    "default": "Close",
+    "importance": "low",
+    "common": true
+  },
+  {
+    "name": "showFeedbackButtonLabel",
+    "type": "text",
+    "label": "Text for the button that reopens the feedback popup",
+    "default": "Show feedback",
     "importance": "low",
     "common": true
   },

@@ -3,8 +3,10 @@ import {
   getFaIconClassAttr,
   getLabelVisualFromDropZone,
   getVisualStackScaleStyle,
+  normalizeLabelDisplayMode,
   normalizeVisualScale,
-  resolveIconSource
+  resolveIconSource,
+  usesLabelVisualStack
 } from './label-visual';
 
 const $ = H5P.jQuery;
@@ -33,14 +35,6 @@ function normalizeLabelPosition(position) {
   }
 
   return LABEL_POSITION_DEFAULT;
-}
-
-/**
- * @param {string} [mode]
- * @returns {string}
- */
-function normalizeLabelDisplayMode(mode) {
-  return mode === 'label-with-icon' ? 'label-with-icon' : 'label-only';
 }
 
 export default class DropZone {
@@ -85,28 +79,50 @@ export default class DropZone {
    * @param {number} contentId
    * @returns {string}
    */
-  getLabelVisualHtml(contentId) {
+  getIconHtml(contentId) {
     var self = this;
-    var iconHtml = '';
     var faClasses;
     var alt = DragUtils.strip(self.label);
-
-    if (self.labelDisplayMode !== 'label-with-icon') {
-      return '<div class="h5p-label h5p-label-pos-' + self.labelPosition + '">' + self.label + '<span class="h5p-hidden-read"></span></div>';
-    }
 
     if (self.iconSource === 'fontawesome') {
       faClasses = getFaIconClassAttr(self.zoneIcon);
 
       if (faClasses) {
-        iconHtml = '<span class="h5p-dz-icon h5p-dz-fa ' + faClasses + '" aria-hidden="true"></span>';
+        return '<span class="h5p-dz-icon h5p-dz-fa ' + faClasses + '" aria-hidden="true"></span>';
       }
     }
     else if (self.zoneImage && self.zoneImage.path) {
-      iconHtml = '<img class="h5p-dz-icon" src="' + H5P.getPath(self.zoneImage.path, contentId) + '" alt="' + alt + '"/>';
+      return '<img class="h5p-dz-icon" src="' + H5P.getPath(self.zoneImage.path, contentId) + '" alt="' + alt + '"/>';
     }
 
-    return '<div class="h5p-dz-visual-stack"' + getVisualStackScaleStyle(self.visualScale) + '>' + iconHtml + '<div class="h5p-label h5p-label-pos-stack-bottom">' + self.label + '<span class="h5p-hidden-read"></span></div></div>';
+    return '';
+  }
+
+  /**
+   * @param {number} contentId
+   * @returns {string}
+   */
+  getLabelVisualHtml(contentId) {
+    var self = this;
+    var iconHtml;
+    var stackOpen = '<div class="h5p-dz-visual-stack"' + getVisualStackScaleStyle(self.visualScale) + '>';
+    var stackClose = '</div>';
+
+    if (self.labelDisplayMode === 'label-only') {
+      return '<div class="h5p-label h5p-label-pos-' + self.labelPosition + '">' + self.label + '<span class="h5p-hidden-read"></span></div>';
+    }
+
+    iconHtml = self.getIconHtml(contentId);
+
+    if (self.labelDisplayMode === 'icon-only') {
+      if (!iconHtml) {
+        return '';
+      }
+
+      return stackOpen + iconHtml + stackClose;
+    }
+
+    return stackOpen + iconHtml + '<div class="h5p-label h5p-label-pos-stack-bottom">' + self.label + '<span class="h5p-hidden-read"></span></div>' + stackClose;
   }
 
   /**
@@ -128,8 +144,12 @@ export default class DropZone {
       html = self.getLabelVisualHtml(contentId) + html;
       extraClass = ' h5p-has-label';
 
-      if (self.labelDisplayMode === 'label-with-icon') {
+      if (usesLabelVisualStack(self.labelDisplayMode)) {
         extraClass += ' h5p-has-visual-stack h5p-has-label-inside';
+
+        if (self.labelDisplayMode === 'icon-only') {
+          extraClass += ' h5p-has-icon-only';
+        }
       }
       else if (self.labelPosition === 'outside-top') {
         extraClass += ' h5p-has-label-outside';

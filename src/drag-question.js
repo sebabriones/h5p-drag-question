@@ -127,6 +127,8 @@ function C(options, contentId, contentData) {
     feedbackHeader: 'Feedback',
     scoreBarLabel: 'You got :num out of :total points',
     scoreExplanationButtonLabel: 'Show score explanation',
+    feedbackPopupCloseLabel: 'Close',
+    showFeedbackButtonLabel: 'Show feedback',
     question: {
       settings: {
         questionTitle: (this.contentData && this.contentData.metadata && this.contentData.metadata.title) ? this.contentData.metadata.title : 'Drag and drop',
@@ -142,7 +144,11 @@ function C(options, contentId, contentData) {
         dropZones: []
       }
     },
-    overallFeedback: [],
+    overallFeedback: {
+      popupBackgroundColor: '#ffffff',
+      feedbackTextColor: '#333333',
+      overallFeedback: []
+    },
     behaviour: {
       enableRetry: true,
       enableCheckButton: true,
@@ -720,6 +726,7 @@ C.prototype.registerButtons = function () {
   }
 
   this.addRetryButton();
+  this.addShowFeedbackButton();
 };
 
 /**
@@ -829,6 +836,18 @@ C.prototype.addRetryButton = function () {
   }, false, {
     'aria-label': this.options.a11yRetry,
   });
+};
+
+/**
+ * Add button to reopen the feedback popup after it has been dismissed.
+ */
+C.prototype.addShowFeedbackButton = function () {
+  var that = this;
+
+  this.addButton('show-feedback', this.options.showFeedbackButtonLabel, function () {
+    that.showFeedbackPopup();
+    that.hideButton('show-feedback');
+  }, false);
 };
 
 /**
@@ -1049,6 +1068,7 @@ C.prototype.resetTask = function () {
   //Show solution button
   this.showButton('check-answer');
   this.hideButton('try-again');
+  this.hideButton('show-feedback');
   this.removeFeedback();
   this.setExplanation();
 };
@@ -1120,14 +1140,44 @@ C.prototype.getAnswerGiven = function () {
  * Shows the score to the user when the score button is pressed.
  */
 C.prototype.showScore = function () {
+  var that = this;
   var maxScore = this.calculateMaxScore();
   if (this.options.behaviour.singlePoint) {
     maxScore = 1;
   }
   var actualPoints = (this.options.behaviour.applyPenalties || this.options.behaviour.singlePoint) ? this.points : this.rawPoints;
-  var scoreText = H5P.QuestionCFRD.determineOverallFeedback(this.options.overallFeedback, actualPoints / maxScore).replace('@score', actualPoints).replace('@total', maxScore);
+  var resolved = H5P.QuestionCFRD.resolveOverallFeedback(
+    this.options.overallFeedback,
+    actualPoints / maxScore,
+    this.id,
+    actualPoints,
+    maxScore
+  );
   var helpText = (this.options.behaviour.enableScoreExplanation && this.options.behaviour.applyPenalties) ? this.options.scoreExplanation : false;
-  this.setFeedback(scoreText, actualPoints, maxScore, this.options.scoreBarLabel, helpText, undefined, this.options.scoreExplanationButtonLabel);
+  var popupSettings;
+  if (resolved && resolved.html && resolved.html.trim().length > 0) {
+    popupSettings = {
+      showAsPopup: true,
+      closeText: this.options.feedbackPopupCloseLabel,
+      alwaysShowClose: true,
+      dismissible: true,
+      popupBackgroundColor: resolved.popupBackgroundColor,
+      plainText: resolved.plainText,
+      onClose: function () {
+        that.showButton('show-feedback');
+      }
+    };
+    this.hideButton('show-feedback');
+  }
+  this.setFeedback(
+    resolved ? resolved.html : '',
+    actualPoints,
+    maxScore,
+    this.options.scoreBarLabel,
+    helpText,
+    popupSettings,
+    this.options.scoreExplanationButtonLabel
+  );
 };
 
 /**

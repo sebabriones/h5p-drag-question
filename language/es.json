@@ -470,6 +470,9 @@
                           },
                           {
                             "label": "Etiqueta con icono o imagen"
+                          },
+                          {
+                            "label": "Solo icono o imagen"
                           }
                         ]
                       },
@@ -590,6 +593,14 @@
       "label": "Retroalimentación Global",
       "fields": [
         {
+          "label": "Color de fondo del popup",
+          "default": "#ffffff"
+        },
+        {
+          "label": "Color del texto del feedback",
+          "default": "#333333"
+        },
+        {
           "widgets": [
             {
               "label": "Por defecto"
@@ -607,6 +618,54 @@
               {
                 "label": "Realimentación para el rango de puntuación definido",
                 "placeholder": "Escribe tu retroalimentación"
+              },
+              {
+                "label": "Configuración de apariencia",
+                "fields": [
+                  {
+                    "label": "Texto destacado inicial",
+                    "placeholder": "p. ej. ¡Correcto! o Incorrecto"
+                  },
+                  {
+                    "label": "Texto destacado en negrita"
+                  },
+                  {
+                    "label": "Color del texto destacado",
+                    "default": "#1a73d9"
+                  },
+                  {
+                    "label": "Alineación del texto",
+                    "description": "Solo se usa cuando no hay imagen de retroalimentación. Con imagen, la alineación depende de su posición (izquierda/derecha: alineado a la izquierda; encima: centrado).",
+                    "options": [
+                      {
+                        "label": "Izquierda"
+                      },
+                      {
+                        "label": "Centro"
+                      },
+                      {
+                        "label": "Derecha"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Imagen de retroalimentación"
+                  },
+                  {
+                    "label": "Posición de la imagen",
+                    "options": [
+                      {
+                        "label": "Encima del texto"
+                      },
+                      {
+                        "label": "A la izquierda del texto"
+                      },
+                      {
+                        "label": "A la derecha del texto"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
@@ -734,6 +793,14 @@
     {
       "label": "Representación textual del botón para explicación de la puntuación",
       "default": "Mostrar explicación de la puntuación"
+    },
+    {
+      "label": "Texto del botón para cerrar el popup de retroalimentación",
+      "default": "Cerrar"
+    },
+    {
+      "label": "Texto del botón para volver a mostrar el popup de retroalimentación",
+      "default": "Ver retroalimentación"
     },
     {
       "label": "Etiqueta para las tecnologías de asistencia para el botón \"Comprobar\"",

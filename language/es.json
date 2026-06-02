@@ -58,7 +58,25 @@
               "label": "Ventana de introducción",
               "fields": [
                 {
+                  "label": "Usar fondo en degradado"
+                },
+                {
                   "label": "Color de fondo de la introducción"
+                },
+                {
+                  "label": "Fondo en degradado",
+                  "fields": [
+                    {
+                      "label": "Ángulo del degradado",
+                      "description": "Dirección en grados (0 = hacia arriba, 180 = hacia abajo)."
+                    },
+                    {
+                      "label": "Color inicial del degradado"
+                    },
+                    {
+                      "label": "Color final del degradado"
+                    }
+                  ]
                 },
                 {
                   "label": "Color del texto de la introducción"
@@ -67,7 +85,25 @@
                   "label": "Botón comenzar",
                   "fields": [
                     {
+                      "label": "Usar fondo en degradado"
+                    },
+                    {
                       "label": "Color de fondo del botón"
+                    },
+                    {
+                      "label": "Fondo en degradado",
+                      "fields": [
+                        {
+                          "label": "Ángulo del degradado",
+                          "description": "Dirección en grados (0 = hacia arriba, 180 = hacia abajo)."
+                        },
+                        {
+                          "label": "Color inicial del degradado"
+                        },
+                        {
+                          "label": "Color final del degradado"
+                        }
+                      ]
                     },
                     {
                       "label": "Color del texto del botón"
@@ -104,7 +140,25 @@
               "label": "Pestaña de instrucciones",
               "fields": [
                 {
+                  "label": "Usar fondo en degradado"
+                },
+                {
                   "label": "Color de fondo de la pestaña"
+                },
+                {
+                  "label": "Fondo en degradado",
+                  "fields": [
+                    {
+                      "label": "Ángulo del degradado",
+                      "description": "Dirección en grados (0 = hacia arriba, 180 = hacia abajo)."
+                    },
+                    {
+                      "label": "Color inicial del degradado"
+                    },
+                    {
+                      "label": "Color final del degradado"
+                    }
+                  ]
                 },
                 {
                   "label": "Color del texto de la pestaña"
@@ -130,7 +184,25 @@
                   "label": "Botón de la pestaña",
                   "fields": [
                     {
+                      "label": "Usar fondo en degradado"
+                    },
+                    {
                       "label": "Color de fondo del botón"
+                    },
+                    {
+                      "label": "Fondo en degradado",
+                      "fields": [
+                        {
+                          "label": "Ángulo del degradado",
+                          "description": "Dirección en grados (0 = hacia arriba, 180 = hacia abajo)."
+                        },
+                        {
+                          "label": "Color inicial del degradado"
+                        },
+                        {
+                          "label": "Color final del degradado"
+                        }
+                      ]
                     },
                     {
                       "label": "Color del texto del botón"

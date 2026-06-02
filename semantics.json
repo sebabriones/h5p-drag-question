@@ -124,15 +124,80 @@
             "label": "Intro window",
             "fields": [
               {
+                "name": "useGradientBackground",
+                "type": "boolean",
+                "label": "Use gradient background",
+                "default": false
+              },
+              {
                 "name": "backgroundColor",
                 "type": "text",
-                "widget": "colorSelector",
                 "label": "Intro background color",
                 "default": "#f5f5f5",
                 "optional": true,
+                "widget": "showWhen",
+                "showWhen": {
+                  "widget": "colorSelector",
+                  "rules": [
+                    {
+                      "field": "useGradientBackground",
+                      "equals": false
+                    }
+                  ]
+                },
                 "spectrum": {
                   "showInput": true
                 }
+              },
+              {
+                "name": "gradientBackground",
+                "type": "group",
+                "label": "Gradient background",
+                "importance": "low",
+                "widget": "showWhen",
+                "showWhen": {
+                  "rules": [
+                    {
+                      "field": "useGradientBackground",
+                      "equals": true
+                    }
+                  ]
+                },
+                "fields": [
+                  {
+                    "name": "angle",
+                    "type": "number",
+                    "label": "Gradient angle",
+                    "description": "Direction in degrees (0 = upward, 180 = downward).",
+                    "default": 180,
+                    "min": 0,
+                    "max": 360,
+                    "step": 1,
+                    "unit": "°"
+                  },
+                  {
+                    "name": "colorStart",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Gradient start color",
+                    "default": "#f5f5f5",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "colorEnd",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Gradient end color",
+                    "default": "#f5f5f5",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  }
+                ]
               },
               {
                 "name": "textColor",
@@ -151,15 +216,80 @@
                 "label": "Start button",
                 "fields": [
                   {
+                    "name": "useGradientBackground",
+                    "type": "boolean",
+                    "label": "Use gradient background",
+                    "default": false
+                  },
+                  {
                     "name": "backgroundColor",
                     "type": "text",
-                    "widget": "colorSelector",
                     "label": "Button background color",
                     "default": "#1a73d9",
                     "optional": true,
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "widget": "colorSelector",
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": false
+                        }
+                      ]
+                    },
                     "spectrum": {
                       "showInput": true
                     }
+                  },
+                  {
+                    "name": "gradientBackground",
+                    "type": "group",
+                    "label": "Gradient background",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "angle",
+                        "type": "number",
+                        "label": "Gradient angle",
+                        "description": "Direction in degrees (0 = upward, 180 = downward).",
+                        "default": 180,
+                        "min": 0,
+                        "max": 360,
+                        "step": 1,
+                        "unit": "°"
+                      },
+                      {
+                        "name": "colorStart",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient start color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "colorEnd",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient end color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      }
+                    ]
                   },
                   {
                     "name": "textColor",
@@ -260,15 +390,80 @@
             "label": "Instructions tab",
             "fields": [
               {
+                "name": "useGradientBackground",
+                "type": "boolean",
+                "label": "Use gradient background",
+                "default": false
+              },
+              {
                 "name": "backgroundColor",
                 "type": "text",
-                "widget": "colorSelector",
                 "label": "Tab background color",
                 "default": "#f5f5f5",
                 "optional": true,
+                "widget": "showWhen",
+                "showWhen": {
+                  "widget": "colorSelector",
+                  "rules": [
+                    {
+                      "field": "useGradientBackground",
+                      "equals": false
+                    }
+                  ]
+                },
                 "spectrum": {
                   "showInput": true
                 }
+              },
+              {
+                "name": "gradientBackground",
+                "type": "group",
+                "label": "Gradient background",
+                "importance": "low",
+                "widget": "showWhen",
+                "showWhen": {
+                  "rules": [
+                    {
+                      "field": "useGradientBackground",
+                      "equals": true
+                    }
+                  ]
+                },
+                "fields": [
+                  {
+                    "name": "angle",
+                    "type": "number",
+                    "label": "Gradient angle",
+                    "description": "Direction in degrees (0 = upward, 180 = downward).",
+                    "default": 180,
+                    "min": 0,
+                    "max": 360,
+                    "step": 1,
+                    "unit": "°"
+                  },
+                  {
+                    "name": "colorStart",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Gradient start color",
+                    "default": "#f5f5f5",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "colorEnd",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Gradient end color",
+                    "default": "#f5f5f5",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  }
+                ]
               },
               {
                 "name": "textColor",
@@ -318,15 +513,80 @@
                 "label": "Tab button",
                 "fields": [
                   {
+                    "name": "useGradientBackground",
+                    "type": "boolean",
+                    "label": "Use gradient background",
+                    "default": false
+                  },
+                  {
                     "name": "backgroundColor",
                     "type": "text",
-                    "widget": "colorSelector",
                     "label": "Button background color",
                     "default": "#1a73d9",
                     "optional": true,
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "widget": "colorSelector",
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": false
+                        }
+                      ]
+                    },
                     "spectrum": {
                       "showInput": true
                     }
+                  },
+                  {
+                    "name": "gradientBackground",
+                    "type": "group",
+                    "label": "Gradient background",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "angle",
+                        "type": "number",
+                        "label": "Gradient angle",
+                        "description": "Direction in degrees (0 = upward, 180 = downward).",
+                        "default": 180,
+                        "min": 0,
+                        "max": 360,
+                        "step": 1,
+                        "unit": "°"
+                      },
+                      {
+                        "name": "colorStart",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient start color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "colorEnd",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient end color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      }
+                    ]
                   },
                   {
                     "name": "textColor",

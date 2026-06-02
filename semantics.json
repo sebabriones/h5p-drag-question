@@ -491,7 +491,7 @@
                 "name": "buttonPosition",
                 "type": "select",
                 "label": "Tab button position",
-                "default": "center",
+                "default": "left",
                 "options": [
                   {
                     "value": "left",

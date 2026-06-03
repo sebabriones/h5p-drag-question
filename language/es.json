@@ -665,11 +665,11 @@
       "label": "Retroalimentación Global",
       "fields": [
         {
-          "label": "Color de fondo del popup",
+          "label": "Color de fondo de zona de retroalimentación",
           "default": "#ffffff"
         },
         {
-          "label": "Color del texto del feedback",
+          "label": "Color de texto de la zona de retroalimentación",
           "default": "#333333"
         },
         {
@@ -684,11 +684,11 @@
           "field": {
             "fields": [
               {
-                "label": "Rango del Puntuación"
+                "label": "Rango de puntuación"
               },
               {},
               {
-                "label": "Realimentación para el rango de puntuación definido",
+                "label": "Retroalimentación para el rango de puntuación definido",
                 "placeholder": "Escribe tu retroalimentación"
               },
               {
@@ -867,11 +867,11 @@
       "default": "Mostrar explicación de la puntuación"
     },
     {
-      "label": "Texto del botón para cerrar el popup de retroalimentación",
+      "label": "Texto del botón para cerrar la zona de retroalimentación",
       "default": "Cerrar"
     },
     {
-      "label": "Texto del botón para volver a mostrar el popup de retroalimentación",
+      "label": "Texto del botón para volver a mostrar la zona de retroalimentación",
       "default": "Ver retroalimentación"
     },
     {

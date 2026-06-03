@@ -419,6 +419,13 @@ C.prototype.attach = function ($container) {
     scheduleCanvasAppearance(self.$container, appearance);
   }
 
+  if (appearance &&
+      H5P.QuestionCFRD.hasActionButtonAppearance &&
+      H5P.QuestionCFRD.hasActionButtonAppearance(appearance.actionButtons) &&
+      typeof self.setActionButtonAppearance === 'function') {
+    self.setActionButtonAppearance(appearance.actionButtons);
+  }
+
   return result;
 };
 
@@ -505,6 +512,15 @@ C.prototype.registerDomElements = function () {
 
   // ... and buttons
   self.registerButtons();
+
+  if (self.options.question.settings &&
+      self.options.question.settings.appearance &&
+      H5P.QuestionCFRD.hasActionButtonAppearance &&
+      H5P.QuestionCFRD.hasActionButtonAppearance(self.options.question.settings.appearance.actionButtons) &&
+      typeof self.setActionButtonAppearance === 'function') {
+    self.setActionButtonAppearance(self.options.question.settings.appearance.actionButtons);
+  }
+
   scheduleInstructionsAttach(self, self.$container);
 
   setTimeout(function () {
@@ -1002,12 +1018,10 @@ C.prototype.showAllSolutions = function (skipVisuals) {
     this.hideButton('check-answer');
   }
 
-  if (this.options.behaviour.enableRetry && !skipVisuals) {
+  if (this.options.behaviour.enableRetry && !skipVisuals && this.points !== this.getMaxScore()) {
     this.showButton('try-again');
   }
-
-  if (this.hasButton('check-answer') && (this.options.behaviour.enableRetry === false || this.points === this.getMaxScore())) {
-    // Max score reached, or the user cannot try again.
+  else if (!skipVisuals) {
     this.hideButton('try-again');
   }
 };

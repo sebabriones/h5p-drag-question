@@ -1451,6 +1451,182 @@
                 "max": 2,
                 "decimals": 2,
                 "unit": "em"
+              },
+              {
+                "name": "actionButtons",
+                "type": "group",
+                "label": "Action buttons (Check, Retry and Show feedback)",
+                "importance": "low",
+                "optional": true,
+                "expanded": false,
+                "description": "Shared style for all footer action buttons. Border colors apply only when border is enabled.",
+                "fields": [
+                  {
+                    "name": "useGradientBackground",
+                    "type": "boolean",
+                    "label": "Use gradient background",
+                    "default": false
+                  },
+                  {
+                    "name": "backgroundColor",
+                    "type": "text",
+                    "label": "Button background color",
+                    "default": "#1a73d9",
+                    "optional": true,
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "widget": "colorSelector",
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": false
+                        }
+                      ]
+                    },
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "gradientBackground",
+                    "type": "group",
+                    "label": "Gradient background",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useGradientBackground",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "angle",
+                        "type": "number",
+                        "label": "Gradient angle",
+                        "description": "Direction in degrees (0 = upward, 180 = downward).",
+                        "default": 180,
+                        "min": 0,
+                        "max": 360,
+                        "step": 1,
+                        "unit": "°"
+                      },
+                      {
+                        "name": "colorStart",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient start color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "colorEnd",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Gradient end color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "textColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Button text color",
+                    "default": "#ffffff",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "hoverBackgroundColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Button hover background color",
+                    "default": "#1356a3",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "hoverTextColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Button hover text color",
+                    "default": "#ffffff",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "useBorder",
+                    "type": "boolean",
+                    "label": "Use button border",
+                    "default": false
+                  },
+                  {
+                    "name": "borderSettings",
+                    "type": "group",
+                    "label": "Border settings",
+                    "importance": "low",
+                    "widget": "showWhen",
+                    "showWhen": {
+                      "rules": [
+                        {
+                          "field": "useBorder",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "fields": [
+                      {
+                        "name": "borderColor",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Button border color",
+                        "default": "#1a73d9",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      },
+                      {
+                        "name": "hoverBorderColor",
+                        "type": "text",
+                        "widget": "colorSelector",
+                        "label": "Button hover border color",
+                        "default": "#1356a3",
+                        "optional": true,
+                        "spectrum": {
+                          "showInput": true
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "borderRadius",
+                    "type": "number",
+                    "label": "Button border radius",
+                    "description": "Default is 2em (Joubel UI). Lower values are sharper; higher values are more rounded.",
+                    "default": 2,
+                    "min": 0,
+                    "max": 4,
+                    "decimals": 2,
+                    "unit": "em"
+                  }
+                ]
               }
             ]
           }

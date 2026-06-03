@@ -482,6 +482,60 @@
                 {
                   "label": "Radio del borde del elemento arrastrable",
                   "description": "Redondeo de las esquinas en unidades em (escala con el tamaño del elemento)."
+                },
+                {
+                  "label": "Botones de acción (Comprobar, Intentar de nuevo y Ver retroalimentación)",
+                  "description": "Estilo compartido para Comprobar, Intentar de nuevo y Ver retroalimentación. Los colores de borde solo aplican si el borde está activado.",
+                  "fields": [
+                    {
+                      "label": "Usar fondo en degradado"
+                    },
+                    {
+                      "label": "Color de fondo del botón"
+                    },
+                    {
+                      "label": "Fondo en degradado",
+                      "fields": [
+                        {
+                          "label": "Ángulo del degradado",
+                          "description": "Dirección en grados (0 = hacia arriba, 180 = hacia abajo)."
+                        },
+                        {
+                          "label": "Color inicial del degradado"
+                        },
+                        {
+                          "label": "Color final del degradado"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Color del texto del botón"
+                    },
+                    {
+                      "label": "Color de fondo del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Color del texto del botón al pasar el cursor"
+                    },
+                    {
+                      "label": "Usar borde en el botón"
+                    },
+                    {
+                      "label": "Ajustes del borde",
+                      "fields": [
+                        {
+                          "label": "Color del borde del botón"
+                        },
+                        {
+                          "label": "Color del borde del botón al pasar el cursor"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "Radio del borde del botón",
+                      "description": "Por defecto 2em (Joubel UI). Valores menores = esquinas más rectas; mayores = más redondeadas."
+                    }
+                  ]
                 }
               ]
             }

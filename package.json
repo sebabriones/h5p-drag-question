@@ -1,12 +1,16 @@
 {
-  "name": "h5p-drag-question",
-  "version": "1.15.16",
-  "description": "Drag and drop the elements into the correct drop zones.",
-  "main": "h5p-drag-question.js",
+  "name": "h5p-drag-question-cfrd",
+  "version": "1.1.0",
+  "description": "Drag and drop (CFRD) — base upstream 1.15 sobre coreApi 1.28.",
+  "main": "h5p-drag-question-cfrd.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV='development' webpack",
     "build": "cross-env NODE_ENV='production' webpack",
+    "sync:lumi:player": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-drag-question-player-lumi-1.1.ps1",
+    "sync:lumi:editor": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-drag-question-editor-lumi-1.1.ps1",
+    "sync:lumi:all": "powershell -ExecutionPolicy Bypass -File ..\\scripts\\sync-lumi-1.1.ps1",
+    "deploy:lumi": "npm run build && npm run sync:lumi:player",
     "watch": "webpack --watch"
   },
   "repository": {

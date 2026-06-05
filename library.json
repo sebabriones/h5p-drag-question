@@ -1,30 +1,30 @@
 {
-  "title": "Drag and Drop",
-  "description": "Drag and drop the elements into the correct drop zones.",
+  "title": "Drag and Drop (CFRD)",
+  "description": "Drag and drop the elements into the correct drop zones. Supports shuffling initial positions.",
   "contentType": "Question",
   "majorVersion": 1,
-  "minorVersion": 15,
-  "patchVersion": 37,
+  "minorVersion": 1,
+  "patchVersion": 0,
   "embedTypes": [
     "iframe"
   ],
   "runnable": 1,
   "fullscreen": 0,
-  "author": "Joubel",
+  "author": "sbriones (CFRD-UDEC)",
   "coreApi": {
     "majorVersion": 1,
     "minorVersion": 28
   },
   "license": "MIT",
-  "machineName": "H5P.DragQuestion",
+  "machineName": "H5P.DragQuestionCFRD",
   "preloadedJs": [
     {
-      "path": "h5p-drag-question.js"
+      "path": "h5p-drag-question-cfrd.js"
     }
   ],
   "preloadedCss": [
     {
-      "path": "css/dragquestion.css"
+      "path": "css/dragquestion-cfrd.css"
     }
   ],
   "preloadedDependencies": [
@@ -39,14 +39,19 @@
       "minorVersion": 10
     },
     {
-      "machineName": "H5P.JoubelUI",
+      "machineName": "H5P.JoubelUICFRD",
       "majorVersion": 1,
-      "minorVersion": 3
+      "minorVersion": 1
     },
     {
-      "machineName": "H5P.Question",
+      "machineName": "H5P.QuestionCFRD",
       "majorVersion": 1,
-      "minorVersion": 5
+      "minorVersion": 1
+    },
+    {
+      "machineName": "H5P.Instructions",
+      "majorVersion": 1,
+      "minorVersion": 0
     },
     {
       "machineName": "H5P.Components",
@@ -56,9 +61,9 @@
   ],
   "editorDependencies": [
     {
-      "machineName": "H5PEditor.DragQuestion",
+      "machineName": "H5PEditor.DragQuestionCFRD",
       "majorVersion": 1,
-      "minorVersion": 10
+      "minorVersion": 1
     },
     {
       "machineName": "H5PEditor.RangeList",
@@ -67,6 +72,16 @@
     },
     {
       "machineName": "H5PEditor.ShowWhen",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5PEditor.ColorSelector",
+      "majorVersion": 1,
+      "minorVersion": 3
+    },
+    {
+      "machineName": "H5PEditor.IconSelector",
       "majorVersion": 1,
       "minorVersion": 0
     }

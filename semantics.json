@@ -34,6 +34,120 @@
     "optional": true
   },
   {
+    "name": "instructions",
+    "type": "group",
+    "label": "Instructions",
+    "importance": "high",
+    "optional": true,
+    "fields": [
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "label": "Show instructions",
+        "default": false
+      },
+      {
+        "name": "text",
+        "type": "text",
+        "widget": "html",
+        "label": "Instructions text",
+        "importance": "high",
+        "optional": true,
+        "tags": [
+          "p",
+          "br",
+          "strong",
+          "em",
+          "ul",
+          "ol",
+          "li"
+        ]
+      },
+      {
+        "name": "displayMode",
+        "type": "select",
+        "label": "Display mode",
+        "default": "both",
+        "options": [
+          {
+            "value": "intro",
+            "label": "Intro only"
+          },
+          {
+            "value": "tab",
+            "label": "Tab only"
+          },
+          {
+            "value": "both",
+            "label": "Intro and tab"
+          }
+        ]
+      },
+      {
+        "name": "introButtonLabel",
+        "type": "text",
+        "label": "Intro button label",
+        "default": "Start",
+        "optional": true
+      },
+      {
+        "name": "tabButtonLabel",
+        "type": "text",
+        "label": "Tab button label",
+        "default": "Instructions",
+        "optional": true
+      },
+      {
+        "name": "startCollapsed",
+        "type": "boolean",
+        "label": "Collapse tab on load",
+        "default": true
+      },
+      {
+        "name": "animation",
+        "type": "group",
+        "label": "Animation",
+        "importance": "low",
+        "optional": true,
+        "fields": [
+          {
+            "name": "introDuration",
+            "type": "number",
+            "label": "Intro curtain duration",
+            "description": "Opening/closing speed for the intro curtain in milliseconds.",
+            "default": 600,
+            "min": 0,
+            "max": 5000,
+            "step": 50,
+            "unit": "ms"
+          },
+          {
+            "name": "tabDuration",
+            "type": "number",
+            "label": "Tab open/close duration",
+            "description": "Opening/closing speed for the instructions tab in milliseconds.",
+            "default": 600,
+            "min": 0,
+            "max": 5000,
+            "step": 50,
+            "unit": "ms"
+          },
+          {
+            "name": "tabClosedOffset",
+            "type": "number",
+            "label": "Tab closed extra offset",
+            "description": "Extra offset (in px) applied when the tab is closed. 0 keeps it flush; higher values hide it more.",
+            "default": 0,
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "unit": "px"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "name": "question",
     "importance": "high",
     "type": "group",
@@ -52,6 +166,44 @@
             "importance": "low",
             "optional": true,
             "description": "Optional. Select an image to use as background for your drag and drop task."
+          },
+          {
+            "name": "useScaledTaskSize",
+            "type": "boolean",
+            "label": "Use proportional task size scale",
+            "importance": "low",
+            "description": "When enabled, width and height are set from the scale selector (2:1 ratio). When disabled, you can enter any width and height.",
+            "default": true
+          },
+          {
+            "name": "taskSizeScale",
+            "type": "select",
+            "label": "Task size scale",
+            "importance": "low",
+            "description": "Scales the task canvas proportionally. Base size is 620×310 px at ×1.0.",
+            "default": "1",
+            "options": [
+              {
+                "value": "1",
+                "label": "×1.0 (620 × 310 px)"
+              },
+              {
+                "value": "1.25",
+                "label": "×1.25 (775 × 388 px)"
+              },
+              {
+                "value": "1.5",
+                "label": "×1.5 (930 × 465 px)"
+              },
+              {
+                "value": "1.75",
+                "label": "×1.75 (1085 × 543 px)"
+              },
+              {
+                "value": "2",
+                "label": "×2.0 (1240 × 620 px)"
+              }
+            ]
           },
           {
             "name": "size",
@@ -189,6 +341,198 @@
                   "type": "boolean",
                   "label": "Show label",
                   "importance": "low"
+                },
+                {
+                  "name": "labelVisual",
+                  "type": "group",
+                  "label": "Label display",
+                  "importance": "low",
+                  "widget": "showWhen",
+                  "showWhen": {
+                    "rules": [
+                      {
+                        "field": "showLabel",
+                        "equals": true
+                      }
+                    ]
+                  },
+                  "fields": [
+                    {
+                      "name": "labelDisplayMode",
+                      "type": "select",
+                      "label": "Label display mode",
+                      "importance": "low",
+                      "default": "label-only",
+                      "options": [
+                        {
+                          "value": "label-only",
+                          "label": "Label only"
+                        },
+                        {
+                          "value": "label-with-icon",
+                          "label": "Label with icon or image"
+                        },
+                        {
+                          "value": "icon-only",
+                          "label": "Icon or image only"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "labelPosition",
+                      "type": "select",
+                      "label": "Label position",
+                      "importance": "low",
+                      "default": "outside-top",
+                      "description": "Where the visible label appears. Inside positions overlay the drop zone without changing its size.",
+                      "widget": "showWhen",
+                      "showWhen": {
+                        "rules": [
+                          {
+                            "field": "labelDisplayMode",
+                            "equals": "label-only"
+                          }
+                        ]
+                      },
+                      "options": [
+                        {
+                          "value": "outside-top",
+                          "label": "Outside top"
+                        },
+                        {
+                          "value": "top-left",
+                          "label": "Inside top left"
+                        },
+                        {
+                          "value": "top-center",
+                          "label": "Inside top center"
+                        },
+                        {
+                          "value": "top-right",
+                          "label": "Inside top right"
+                        },
+                        {
+                          "value": "center-left",
+                          "label": "Inside center left"
+                        },
+                        {
+                          "value": "center-center",
+                          "label": "Inside center"
+                        },
+                        {
+                          "value": "center-right",
+                          "label": "Inside center right"
+                        },
+                        {
+                          "value": "bottom-left",
+                          "label": "Inside bottom left"
+                        },
+                        {
+                          "value": "bottom-center",
+                          "label": "Inside bottom center"
+                        },
+                        {
+                          "value": "bottom-right",
+                          "label": "Inside bottom right"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "labelWithIcon",
+                      "type": "group",
+                      "label": "Icon or image",
+                      "importance": "low",
+                      "widget": "showWhen",
+                      "showWhen": {
+                        "rules": [
+                          {
+                            "field": "labelDisplayMode",
+                            "equals": [
+                              "label-with-icon",
+                              "icon-only"
+                            ]
+                          }
+                        ]
+                      },
+                      "fields": [
+                        {
+                          "name": "iconSource",
+                          "type": "select",
+                          "label": "Icon source",
+                          "importance": "low",
+                          "default": "image",
+                          "options": [
+                            {
+                              "value": "image",
+                              "label": "Uploaded image"
+                            },
+                            {
+                              "value": "fontawesome",
+                              "label": "Font Awesome icon"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "visualScale",
+                          "type": "number",
+                          "label": "Icon or image size",
+                          "importance": "low",
+                          "description": "100% is the default size. Lower values make it smaller; higher values make it larger.",
+                          "default": 100,
+                          "min": 50,
+                          "max": 150,
+                          "step": 5,
+                          "suffix": "%"
+                        },
+                        {
+                          "name": "zoneImage",
+                          "type": "image",
+                          "label": "Drop zone image",
+                          "importance": "medium",
+                          "optional": true,
+                          "description": "Image shown above the label.",
+                          "widget": "showWhen",
+                          "showWhen": {
+                            "rules": [
+                              {
+                                "field": "iconSource",
+                                "equals": "image"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "fontawesomeIcon",
+                          "type": "group",
+                          "label": "Font Awesome icon",
+                          "importance": "low",
+                          "widget": "showWhen",
+                          "showWhen": {
+                            "rules": [
+                              {
+                                "field": "iconSource",
+                                "equals": "fontawesome"
+                              }
+                            ]
+                          },
+                          "fields": [
+                            {
+                              "name": "zoneIcon",
+                              "type": "text",
+                              "label": "Drop zone icon",
+                              "importance": "medium",
+                              "optional": true,
+                              "description": "Font Awesome icon shown above the label.",
+                              "widget": "iconSelector",
+                              "fontIconPicker": {
+                                "emptyIcon": true
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "name": "x",
@@ -344,6 +688,81 @@
               "importance": "low",
               "placeholder": "Fill in the feedback",
               "optional": true
+            },
+            {
+              "name": "appearance",
+              "type": "group",
+              "label": "Appearance settings",
+              "importance": "low",
+              "expanded": false,
+              "optional": true,
+              "fields": [
+                {
+                  "name": "feedbackLeadText",
+                  "type": "text",
+                  "label": "Highlighted lead text",
+                  "importance": "low",
+                  "placeholder": "e.g. Correct! or Incorrect",
+                  "optional": true
+                },
+                {
+                  "name": "feedbackLeadBold",
+                  "type": "boolean",
+                  "label": "Bold lead text",
+                  "importance": "low",
+                  "default": true
+                },
+                {
+                  "name": "feedbackTextAlign",
+                  "type": "select",
+                  "label": "Text alignment",
+                  "description": "Only used when no feedback image is set. With an image, text alignment follows image position (left/right: left aligned, above: centered).",
+                  "importance": "low",
+                  "default": "left",
+                  "options": [
+                    {
+                      "value": "left",
+                      "label": "Left"
+                    },
+                    {
+                      "value": "center",
+                      "label": "Center"
+                    },
+                    {
+                      "value": "right",
+                      "label": "Right"
+                    }
+                  ]
+                },
+                {
+                  "name": "feedbackImage",
+                  "type": "image",
+                  "label": "Feedback image",
+                  "importance": "low",
+                  "optional": true
+                },
+                {
+                  "name": "feedbackImagePosition",
+                  "type": "select",
+                  "label": "Image position",
+                  "importance": "low",
+                  "default": "left",
+                  "options": [
+                    {
+                      "value": "above",
+                      "label": "Above text"
+                    },
+                    {
+                      "value": "left",
+                      "label": "Left of text"
+                    },
+                    {
+                      "value": "right",
+                      "label": "Right of text"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -438,9 +857,18 @@
         ]
       },
       {
-        "name": "autoAlignSpacing",
+        "name": "autoAlignSpacingX",
         "type": "number",
-        "label": "Spacing for Auto-Align (in px)",
+        "label": "Spacing for Auto-Align, horizontal (in px)",
+        "importance": "low",
+        "min": 0,
+        "default": 2,
+        "optional": true
+      },
+      {
+        "name": "autoAlignSpacingY",
+        "type": "number",
+        "label": "Spacing for Auto-Align, vertical (in px)",
         "importance": "low",
         "min": 0,
         "default": 2,
@@ -477,6 +905,14 @@
         "description": "Toggles the visibility of drag handles used to move elements on the canvas.",
         "importance": "low",
         "default": true
+      },
+      {
+        "name": "shuffleInitialPositions",
+        "type": "boolean",
+        "label": "Shuffle initial positions",
+        "importance": "low",
+        "description": "Randomize the starting positions of elements on the canvas. Correct answers and drop zones are not changed.",
+        "default": false
       }
     ]
   },

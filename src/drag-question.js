@@ -7,15 +7,92 @@ import Mouse from 'h5p-lib-controls/src/scripts/ui/mouse';
 import DragUtils from './drag-utils';
 import DropZone from './dropzone';
 import Draggable from './draggable';
+import { applyTaskSizeScaleToSettings } from './task-size-scale';
 
 const $ = H5P.jQuery;
 let numInstances = 0;
 
 /**
+ * @param {*} value
+ * @returns {boolean}
+ */
+function isTruthy(value) {
+  return value === true || value === 1 || value === '1' || value === 'true';
+}
+
+/**
+ * @param {H5P.DragQuestionCFRD} instance
+ * @returns {Object|null}
+ */
+function getInstructionsOptions(instance) {
+  var rootInstructions = instance && instance.options && instance.options.instructions;
+  var nestedInstructions = instance &&
+    instance.options &&
+    instance.options.question &&
+    instance.options.question.settings &&
+    instance.options.question.settings.instructions;
+  var instructions = $.extend(true, {}, nestedInstructions || {}, rootInstructions || {});
+  var text;
+
+  if ((!rootInstructions && !nestedInstructions) || !isTruthy(instructions.enabled)) {
+    return null;
+  }
+
+  text = (instructions.text === undefined || instructions.text === null) ?
+    '' :
+    String(instructions.text).trim();
+
+  if (!text) {
+    return null;
+  }
+
+  return {
+    id: instance.contentId || instance.id || numInstances,
+    text: text,
+    displayMode: instructions.displayMode || 'both',
+    introButtonLabel: instructions.introButtonLabel || 'Start',
+    tabButtonLabel: instructions.tabButtonLabel || 'Instructions',
+    animation: $.extend(
+      true,
+      {},
+      (instructions.animation || instructions.appearance && instructions.appearance.animation) || {}
+    ),
+    startCollapsed: instructions.startCollapsed === undefined ?
+      true :
+      isTruthy(instructions.startCollapsed)
+  };
+}
+
+/**
+ * @param {H5P.DragQuestionCFRD} instance
+ * @param {H5P.jQuery} $fallbackContainer
+ */
+function scheduleInstructionsAttach(instance, $fallbackContainer) {
+  var delays = [0, 200, 500];
+
+  delays.forEach(function (delay) {
+    setTimeout(function () {
+      var instructions = getInstructionsOptions(instance);
+      var $target = (instance && instance.$container && instance.$container.length) ?
+        instance.$container :
+        $fallbackContainer;
+
+      if (!instructions || !$target || !$target.length) {
+        return;
+      }
+
+      if (H5P.Instructions && typeof H5P.Instructions.attach === 'function') {
+        H5P.Instructions.attach($target, instructions);
+      }
+    }, delay);
+  });
+}
+
+/**
  * Constructor
  *
  * @class
- * @extends H5P.Question
+ * @extends H5P.QuestionCFRD
  * @param {Object} options Run parameters
  * @param {number} id Content identification
  * @param {Object} contentData
@@ -27,7 +104,7 @@ function C(options, contentId, contentData) {
   this.id = this.contentId = contentId;
   this.contentData = contentData;
 
-  H5P.Question.call(self, 'dragquestion', { theme: true });
+  H5P.QuestionCFRD.call(self, 'dragquestion', { theme: true });
   this.options = $.extend(true, {}, {
     scoreShow: 'Check',
     tryAgain: 'Retry',
@@ -42,9 +119,13 @@ function C(options, contentId, contentData) {
     feedbackHeader: 'Feedback',
     scoreBarLabel: 'You got :num out of :total points',
     scoreExplanationButtonLabel: 'Show score explanation',
+    feedbackPopupCloseLabel: 'Close',
+    showFeedbackButtonLabel: 'Show feedback',
     question: {
       settings: {
         questionTitle: (this.contentData && this.contentData.metadata && this.contentData.metadata.title) ? this.contentData.metadata.title : 'Drag and drop',
+        useScaledTaskSize: true,
+        taskSizeScale: 1,
         size: {
           width: 620,
           height: 310
@@ -55,7 +136,11 @@ function C(options, contentId, contentData) {
         dropZones: []
       }
     },
-    overallFeedback: [],
+    overallFeedback: {
+      popupBackgroundColor: '#ffffff',
+      feedbackTextColor: '#333333',
+      overallFeedback: []
+    },
     behaviour: {
       enableRetry: true,
       enableCheckButton: true,
@@ -64,15 +149,21 @@ function C(options, contentId, contentData) {
       applyPenalties: true,
       enableScoreExplanation: true,
       dropZoneHighlighting: 'dragging',
-      autoAlignSpacing: 2,
+      autoAlignSpacingX: 2,
+      autoAlignSpacingY: 2,
       showScorePoints: true,
       showTitle: false,
-      dragHandleVisibility: true
+      dragHandleVisibility: true,
+      shuffleInitialPositions: false
     },
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
     submit: 'Submit'
   }, options);
+
+  if (this.options.question && this.options.question.settings) {
+    applyTaskSizeScaleToSettings(this.options.question.settings);
+  }
 
   // If single point is enabled, it makes no sense displaying
   // the score explanation. Note: In the editor, the score explanation is hidden
@@ -112,6 +203,31 @@ function C(options, contentId, contentData) {
   // Create map over correct drop zones for elements
   var task = this.options.question.task;
   this.correctDZs = [];
+
+  if (this.options.behaviour.shuffleInitialPositions) {
+    var hasPreviousState = contentData &&
+      contentData.previousState &&
+      contentData.previousState.answers &&
+      contentData.previousState.answers.length;
+
+    if (!hasPreviousState && task.elements && task.elements.length > 1) {
+      var indices = [];
+      for (var p = 0; p < task.elements.length; p++) {
+        indices.push(p);
+      }
+      fisherYatesShuffle(indices);
+
+      var positions = indices.map(function (idx) {
+        return { x: task.elements[idx].x, y: task.elements[idx].y };
+      });
+
+      for (var s = 0; s < task.elements.length; s++) {
+        task.elements[s].x = positions[s].x;
+        task.elements[s].y = positions[s].y;
+      }
+    }
+  }
+
   for (i = 0; i < task.dropZones.length; i++) {
     dropZonesWithoutElements.push(true); // All true by default
 
@@ -232,7 +348,7 @@ function C(options, contentId, contentData) {
 
     dropZone.autoAlign = {
       enabled: dropZone.autoAlign,
-      spacing: self.options.behaviour.autoAlignSpacing,
+      spacing: getAutoAlignSpacing(self.options.behaviour),
       size: self.options.question.settings.size
     };
 
@@ -288,7 +404,7 @@ function C(options, contentId, contentData) {
   });
 }
 
-C.prototype = Object.create(H5P.Question.prototype);
+C.prototype = Object.create(H5P.QuestionCFRD.prototype);
 C.prototype.constructor = C;
 
 /**
@@ -370,8 +486,11 @@ C.prototype.registerDomElements = function () {
   // ... and buttons
   self.registerButtons();
 
+  scheduleInstructionsAttach(self, self.$container);
+
   setTimeout(function () {
     self.trigger('resize');
+    scheduleInstructionsAttach(self, self.$container);
   }, 200);
 };
 
@@ -578,7 +697,7 @@ C.prototype.createQuestionContent = function () {
 
   // Attach drop zones
   for (i = 0; i < this.dropZones.length; i++) {
-    this.dropZones[i].appendTo(this.$container, this.draggables);
+    this.dropZones[i].appendTo(this.$container, this.draggables, this.id);
   }
   return this.$container;
 };
@@ -590,6 +709,7 @@ C.prototype.registerButtons = function () {
   }
 
   this.addRetryButton();
+  this.addShowFeedbackButton();
 };
 
 /**
@@ -704,6 +824,18 @@ C.prototype.addRetryButton = function () {
     styleType: 'secondary',
     icon: 'retry',
   });
+};
+
+/**
+ * Add button to reopen the feedback popup after it has been dismissed.
+ */
+C.prototype.addShowFeedbackButton = function () {
+  var that = this;
+
+  this.addButton('show-feedback', this.options.showFeedbackButtonLabel, function () {
+    that.showFeedbackPopup();
+    that.hideButton('show-feedback');
+  }, false);
 };
 
 /**
@@ -825,7 +957,7 @@ C.prototype.showAllSolutions = function (skipVisuals) {
 
   var scorePoints;
   if (!skipVisuals && this.options.behaviour.showScorePoints && !this.options.behaviour.singlePoint && this.options.behaviour.applyPenalties) {
-    scorePoints = new H5P.Question.ScorePoints();
+    scorePoints = new H5P.QuestionCFRD.ScorePoints();
   }
 
   for (var i = 0; i < this.draggables.length; i++) {
@@ -927,6 +1059,7 @@ C.prototype.resetTask = function () {
   //Show solution button
   this.showButton('check-answer');
   this.hideButton('try-again');
+  this.hideButton('show-feedback');
   this.removeFeedback();
   this.setExplanation();
 };
@@ -998,14 +1131,44 @@ C.prototype.getAnswerGiven = function () {
  * Shows the score to the user when the score button is pressed.
  */
 C.prototype.showScore = function () {
+  var that = this;
   var maxScore = this.calculateMaxScore();
   if (this.options.behaviour.singlePoint) {
     maxScore = 1;
   }
   var actualPoints = (this.options.behaviour.applyPenalties || this.options.behaviour.singlePoint) ? this.points : this.rawPoints;
-  var scoreText = H5P.Question.determineOverallFeedback(this.options.overallFeedback, actualPoints / maxScore).replace('@score', actualPoints).replace('@total', maxScore);
+  var resolved = H5P.QuestionCFRD.resolveOverallFeedback(
+    this.options.overallFeedback,
+    actualPoints / maxScore,
+    this.id,
+    actualPoints,
+    maxScore
+  );
   var helpText = (this.options.behaviour.enableScoreExplanation && this.options.behaviour.applyPenalties) ? this.options.scoreExplanation : false;
-  this.setFeedback(scoreText, actualPoints, maxScore, this.options.scoreBarLabel, helpText, undefined, this.options.scoreExplanationButtonLabel);
+  var popupSettings;
+  if (resolved && resolved.html && resolved.html.trim().length > 0) {
+    popupSettings = {
+      showAsPopup: true,
+      closeText: this.options.feedbackPopupCloseLabel,
+      alwaysShowClose: true,
+      dismissible: true,
+      popupBackgroundColor: resolved.popupBackgroundColor,
+      plainText: resolved.plainText,
+      onClose: function () {
+        that.showButton('show-feedback');
+      }
+    };
+    this.hideButton('show-feedback');
+  }
+  this.setFeedback(
+    resolved ? resolved.html : '',
+    actualPoints,
+    maxScore,
+    this.options.scoreBarLabel,
+    helpText,
+    popupSettings,
+    this.options.scoreExplanationButtonLabel
+  );
 };
 
 /**
@@ -1234,4 +1397,41 @@ var getControls = function (draggables, dropZones, noDropzone) {
   return controls;
 };
 
-H5P.DragQuestion = C;
+/**
+ * @param {Object} [behaviour]
+ * @returns {{x: number, y: number}}
+ */
+function getAutoAlignSpacing(behaviour) {
+  var fallback = 2;
+
+  if (behaviour === undefined) {
+    return { x: fallback, y: fallback };
+  }
+
+  if (behaviour.autoAlignSpacing !== undefined) {
+    fallback = behaviour.autoAlignSpacing;
+  }
+
+  return {
+    x: behaviour.autoAlignSpacingX !== undefined ? behaviour.autoAlignSpacingX : fallback,
+    y: behaviour.autoAlignSpacingY !== undefined ? behaviour.autoAlignSpacingY : fallback
+  };
+}
+
+H5P.DragQuestionCFRD = C;
+
+/**
+ * Fisher-Yates shuffle (in-place).
+ *
+ * @param {number[]} array
+ * @returns {number[]}
+ */
+function fisherYatesShuffle(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+  return array;
+}

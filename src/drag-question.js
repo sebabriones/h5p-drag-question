@@ -913,11 +913,19 @@ C.prototype.resize = function (e) {
     height = size.height;
   }
 
+  var scaledFontSize = (16 * (width / size.width)) + 'px';
+
   this.$container.css({
     width: width + 'px',
     height: height + 'px',
-    fontSize: (16 * (width / size.width)) + 'px'
+    fontSize: scaledFontSize
   });
+
+  var $popup = this.$container.parent().find('.h5p-question-feedback.h5p-question-popup');
+
+  // Scale popup text and close button; keep popup shell and scorebar em base fixed.
+  $popup.find('.h5p-question-feedback-container').css('fontSize', scaledFontSize);
+  $popup.find('.h5p-question-feedback-close').css('fontSize', scaledFontSize);
 };
 
 /**

@@ -855,6 +855,12 @@ C.prototype.addElement = function (element, type, id) {
  */
 C.prototype.resize = function (e) {
   var self = this;
+
+  // Second pass: QuestionCFRD repositions the feedback popup after scale changes.
+  if (e && e.data && e.data.repositionOnly) {
+    return;
+  }
+
   // Make sure we use all the height we can get. Needed to scale up.
   if (this.$container === undefined || !this.$container.is(':visible')) {
     // Not yet attached or visible – not possible to resize correctly
@@ -923,9 +929,14 @@ C.prototype.resize = function (e) {
 
   var $popup = this.$container.parent().find('.h5p-question-feedback.h5p-question-popup');
 
-  // Scale popup text and close button; keep popup shell and scorebar em base fixed.
-  $popup.find('.h5p-question-feedback-container').css('fontSize', scaledFontSize);
-  $popup.find('.h5p-question-feedback-close').css('fontSize', scaledFontSize);
+  // Scale the whole popup so padding, scorebar and text stay proportional.
+  $popup.css('fontSize', scaledFontSize);
+
+  if ($popup.length && $popup.hasClass('h5p-question-visible')) {
+    setTimeout(function () {
+      self.trigger('resize', {repositionOnly: true});
+    }, 0);
+  }
 };
 
 /**

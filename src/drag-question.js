@@ -89,6 +89,14 @@ function scheduleInstructionsAttach(instance, $fallbackContainer) {
         return;
       }
 
+      if (
+        $target.children('.h5p-instructions-root').length ||
+        $target.find('.h5p-instructions-root').length ||
+        ($target.parent().length && $target.parent().children('.h5p-instructions-root').length)
+      ) {
+        return;
+      }
+
       if (H5P.Instructions && typeof H5P.Instructions.attach === 'function') {
         H5P.Instructions.attach($target, instructions);
       }

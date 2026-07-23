@@ -1223,6 +1223,17 @@
                     }
                   },
                   {
+                    "name": "dropZoneLabelFontSize",
+                    "type": "number",
+                    "label": "Drop zone label font size",
+                    "description": "Text size relative to the task canvas (em). Default is 1.",
+                    "default": 1,
+                    "min": 0.5,
+                    "max": 3,
+                    "decimals": 2,
+                    "unit": "em"
+                  },
+                  {
                     "name": "zoneIconColor",
                     "type": "text",
                     "widget": "colorSelector",

@@ -414,6 +414,11 @@
                       "label": "Color del texto de la etiqueta de la zona"
                     },
                     {
+                      "label": "Tamaño de letra de la etiqueta de la zona",
+                      "description": "Tamaño del texto relativo al lienzo de la tarea (em). El valor por defecto es 1.",
+                      "default": 1
+                    },
+                    {
                       "label": "Color del icono de la zona"
                     }
                   ]

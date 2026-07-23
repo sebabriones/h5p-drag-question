@@ -6,6 +6,7 @@ export const DROP_ZONE_BASE_KEYS = [
   'dropZoneBackground',
   'dropZoneHoverBackground',
   'dropZoneLabelColor',
+  'dropZoneLabelFontSize',
   'zoneIconColor'
 ];
 
@@ -262,6 +263,29 @@ export function formatBorderRadiusEm(radius, fallback) {
 }
 
 /**
+ * @param {number|string} size
+ * @param {number} fallback
+ * @returns {string}
+ */
+export function formatLabelFontSizeEm(size, fallback) {
+  var n = parseFloat(size);
+
+  if (isNaN(n)) {
+    n = fallback;
+  }
+
+  if (n < 0.5) {
+    n = 0.5;
+  }
+
+  if (n > 3) {
+    n = 3;
+  }
+
+  return n + 'em';
+}
+
+/**
  * @param {string} style
  * @returns {string}
  */
@@ -429,6 +453,17 @@ export function flattenAppearance(appearance) {
   dropZone = appearance.dropZoneColors || appearance;
   copyDefinedKeys(flat, dropZone, DROP_ZONE_BASE_KEYS);
   applyDropZoneBorderAppearance(dropZone, appearance, flat);
+
+  if (flat.dropZoneLabelFontSize !== undefined &&
+      flat.dropZoneLabelFontSize !== null &&
+      flat.dropZoneLabelFontSize !== '') {
+    flat.dropZoneLabelFontSize = formatLabelFontSizeEm(flat.dropZoneLabelFontSize, 1);
+  }
+  else if (appearance.dropZoneLabelFontSize !== undefined &&
+      appearance.dropZoneLabelFontSize !== null &&
+      appearance.dropZoneLabelFontSize !== '') {
+    flat.dropZoneLabelFontSize = formatLabelFontSizeEm(appearance.dropZoneLabelFontSize, 1);
+  }
 
   draggable = appearance.draggableColors || appearance;
   copyDefinedKeys(flat, draggable, DRAGGABLE_TEXT_COLOR_KEYS);

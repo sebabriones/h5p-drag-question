@@ -4,13 +4,13 @@
   "contentType": "Question",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 68,
+  "patchVersion": 69,
   "embedTypes": [
     "iframe"
   ],
   "runnable": 1,
   "fullscreen": 0,
-  "author": "sbriones (CFRD-UDEC)",
+  "author": "sbriones (CFRD-UDEC), pmasquiaran (CFRD-UDEC)",
   "coreApi": {
     "majorVersion": 1,
     "minorVersion": 23

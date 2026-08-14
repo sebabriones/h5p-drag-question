@@ -425,6 +425,16 @@ html.h5p-iframe .h5p-container.h5p-dragquestion.h5p-semi-fullscreen {
   margin-right: 1em;
 }
 
+/* Inline feedback is unused when overall feedback uses the popup */
+.h5p-dragquestion > .h5p-question-feedback:not(.h5p-question-popup) {
+  display: none !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: 0 !important;
+}
+
 .h5p-no-frame > .h5p-question.h5p-dragquestion > .h5p-question-buttons.h5p-question-visible {
   margin-left: 1em !important;
   margin-right: 1em !important;

@@ -1093,6 +1093,12 @@ C.prototype.resetTask = function () {
   this.hideButton('show-feedback');
   this.removeFeedback();
   this.setExplanation();
+
+  // Nuevo intento: sin delete, setActivityStarted es no-op.
+  delete this.activityStartTime;
+  if (typeof this.setActivityStarted === 'function') {
+    this.setActivityStarted();
+  }
 };
 
 /**

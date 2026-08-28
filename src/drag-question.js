@@ -78,6 +78,10 @@ function getInstructionsOptions(instance) {
 function scheduleInstructionsAttach(instance, $fallbackContainer) {
   var delays = [0, 200, 500];
 
+  if (instance && typeof instance.isRoot === 'function' && !instance.isRoot()) {
+    return;
+  }
+
   delays.forEach(function (delay) {
     setTimeout(function () {
       var instructions = getInstructionsOptions(instance);

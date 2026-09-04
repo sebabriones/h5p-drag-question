@@ -574,6 +574,37 @@
                   "description": "Redondeo de las esquinas en unidades em (escala con el tamaño del elemento)."
                 },
                 {
+                  "label": "Iconos de feedback correcto/incorrecto",
+                  "description": "Iconos de marca y cruz que se muestran en los elementos arrastrables al comprobar las respuestas.",
+                  "fields": [
+                    {
+                      "label": "Color del icono correcto"
+                    },
+                    {
+                      "label": "Color del icono incorrecto"
+                    },
+                    {
+                      "label": "Tamaño del icono de feedback",
+                      "description": "Tamaño relativo del icono correcto/incorrecto en unidades em."
+                    },
+                    {
+                      "label": "Alineación vertical del icono de feedback",
+                      "description": "Posición vertical del icono correcto/incorrecto en el elemento arrastrable.",
+                      "options": [
+                        {
+                          "label": "Arriba"
+                        },
+                        {
+                          "label": "Centro"
+                        },
+                        {
+                          "label": "Abajo"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "label": "Botones de acción (Comprobar, Intentar de nuevo y Ver retroalimentación)",
                   "description": "Estilo compartido para Comprobar, Intentar de nuevo y Ver retroalimentación. Los colores de borde solo aplican si el borde está activado.",
                   "fields": [

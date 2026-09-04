@@ -286,6 +286,45 @@ export function formatLabelFontSizeEm(size, fallback) {
 }
 
 /**
+ * @param {string} align
+ * @returns {string}
+ */
+export function normalizeFeedbackIconVerticalAlign(align) {
+  if (align === 'top' || align === 'center' || align === 'bottom') {
+    return align;
+  }
+
+  return 'bottom';
+}
+
+/**
+ * @param {Object} appearance
+ * @param {Object} flat
+ */
+function applyFeedbackIconAppearance(appearance, flat) {
+  var icons;
+
+  appearance = appearance || {};
+  icons = appearance.feedbackIcons || {};
+
+  if (icons.correctColor !== undefined && icons.correctColor !== null && icons.correctColor !== '') {
+    flat.feedbackIconCorrectColor = icons.correctColor;
+  }
+
+  if (icons.wrongColor !== undefined && icons.wrongColor !== null && icons.wrongColor !== '') {
+    flat.feedbackIconWrongColor = icons.wrongColor;
+  }
+
+  if (icons.size !== undefined && icons.size !== null && icons.size !== '') {
+    flat.feedbackIconSize = formatLabelFontSizeEm(icons.size, 0.75);
+  }
+
+  if (icons.verticalAlign !== undefined && icons.verticalAlign !== null && icons.verticalAlign !== '') {
+    flat.feedbackIconVerticalAlign = normalizeFeedbackIconVerticalAlign(icons.verticalAlign);
+  }
+}
+
+/**
  * @param {string} style
  * @returns {string}
  */
@@ -505,6 +544,8 @@ export function flattenAppearance(appearance) {
       }
     }
   }
+
+  applyFeedbackIconAppearance(appearance, flat);
 
   return flat;
 }

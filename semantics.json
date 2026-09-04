@@ -1703,6 +1703,71 @@
                 "unit": "em"
               },
               {
+                "name": "feedbackIcons",
+                "type": "group",
+                "label": "Correct/wrong feedback icons",
+                "importance": "low",
+                "optional": true,
+                "expanded": false,
+                "description": "Check and cross icons shown on draggables after checking answers.",
+                "fields": [
+                  {
+                    "name": "correctColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Correct icon color",
+                    "default": "#255c41",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "wrongColor",
+                    "type": "text",
+                    "widget": "colorSelector",
+                    "label": "Wrong icon color",
+                    "default": "#b71c1c",
+                    "optional": true,
+                    "spectrum": {
+                      "showInput": true
+                    }
+                  },
+                  {
+                    "name": "size",
+                    "type": "number",
+                    "label": "Feedback icon size",
+                    "description": "Relative size of the correct/wrong icon in em units.",
+                    "default": 0.75,
+                    "min": 0.5,
+                    "max": 3,
+                    "decimals": 2,
+                    "unit": "em"
+                  },
+                  {
+                    "name": "verticalAlign",
+                    "type": "select",
+                    "label": "Feedback icon vertical alignment",
+                    "description": "Vertical position of the correct/wrong icon on the draggable.",
+                    "default": "bottom",
+                    "options": [
+                      {
+                        "value": "top",
+                        "label": "Top"
+                      },
+                      {
+                        "value": "center",
+                        "label": "Center"
+                      },
+                      {
+                        "value": "bottom",
+                        "label": "Bottom"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
                 "name": "actionButtons",
                 "type": "group",
                 "label": "Action buttons (Check, Retry and Show feedback)",

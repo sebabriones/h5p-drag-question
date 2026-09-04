@@ -35,7 +35,11 @@ export const APPEARANCE_DEFAULTS = {
   draggableBorderRadius: '0.25em',
   draggableBorderWidth: '0',
   draggableBorderStyle: 'none',
-  draggableBordersEnabled: '0'
+  draggableBordersEnabled: '0',
+  feedbackIconCorrectColor: '#255c41',
+  feedbackIconWrongColor: '#b71c1c',
+  feedbackIconSize: '0.75em',
+  feedbackIconVerticalAlign: 'bottom'
 };
 
 const CSS_VAR_KEYS = {
@@ -70,8 +74,58 @@ const CSS_VAR_KEYS = {
   draggableBorderRadius: '--dq-draggable-border-radius',
   draggableBorderWidth: '--dq-draggable-border-width',
   draggableBorderStyle: '--dq-draggable-border-style',
-  draggableBordersEnabled: '--dq-draggable-borders-enabled'
+  draggableBordersEnabled: '--dq-draggable-borders-enabled',
+  feedbackIconCorrectColor: '--dq-feedback-icon-correct-color',
+  feedbackIconWrongColor: '--dq-feedback-icon-wrong-color',
+  feedbackIconSize: '--dq-feedback-icon-size'
 };
+
+var FEEDBACK_ICON_VALIGN_CLASSES = [
+  'h5p-dq-feedback-icon-valign-top',
+  'h5p-dq-feedback-icon-valign-center',
+  'h5p-dq-feedback-icon-valign-bottom'
+];
+
+/**
+ * @param {string} align
+ * @returns {string}
+ */
+function normalizeFeedbackIconVerticalAlign(align) {
+  if (align === 'top' || align === 'center' || align === 'bottom') {
+    return align;
+  }
+
+  return 'bottom';
+}
+
+/**
+ * @param {jQuery|Element[]} $container
+ * @param {string} align
+ */
+function applyFeedbackIconVerticalAlign($container, align) {
+  var normalized = normalizeFeedbackIconVerticalAlign(align);
+  var i;
+  var el;
+  var j;
+
+  if (!$container || !$container.length) {
+    return;
+  }
+
+  for (i = 0; i < $container.length; i++) {
+    el = $container[i];
+
+    if (!el || !el.classList) {
+      continue;
+    }
+
+    for (j = 0; j < FEEDBACK_ICON_VALIGN_CLASSES.length; j++) {
+      el.classList.remove(FEEDBACK_ICON_VALIGN_CLASSES[j]);
+    }
+
+    el.classList.add('h5p-dq-feedback-icon-valign-' + normalized);
+  }
+}
 
 /**
  * @param {Object} [appearance]
@@ -101,6 +155,9 @@ export function mergeAppearance(appearance) {
       merged[key] = flat[key];
     }
   }
+
+  merged.feedbackIconVerticalAlign =
+    normalizeFeedbackIconVerticalAlign(merged.feedbackIconVerticalAlign);
 
   return merged;
 }
@@ -141,6 +198,8 @@ export function applyAppearanceVars($container, appearance) {
       }
     }
   }
+
+  applyFeedbackIconVerticalAlign($container, merged.feedbackIconVerticalAlign);
 
   return merged;
 }
